@@ -1,0 +1,10 @@
+﻿@model TJS.VIMS.ViewModel.LocationViewModel
+
+@{
+    ViewBag.Title = "Location";
+}
+
+@Html.DropDownListFor(m=>m.LocationSelectedId, Model.LocationSelectListItem, new { @class = "form-control" })
+
+
+

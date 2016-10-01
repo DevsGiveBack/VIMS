@@ -47,3 +47,12 @@ textarea {
     width:60px;
     height:60px;
 }
+
+.center {
+    margin: auto;
+    width: 60%;
+   
+    padding: 10px;
+   text-align:center;
+   align-content:center;
+}

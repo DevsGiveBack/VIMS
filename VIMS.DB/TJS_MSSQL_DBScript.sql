@@ -21,6 +21,11 @@ CREATE TABLE Employee(
 	CONSTRAINT uc_UserName UNIQUE (UserName)
 )
 
+If not exists(SELECT 1 FROM EMPLOYEE WHERE UserName='Admin')
+ begin
+ INSERT INTO Employee VALUES('Admin','Admin','Admin','Test@123',1,1,'Admin',GETDATE(),null,null)
+ end
+
 PRINT 'Employee table has been created successfully'
 
 
@@ -84,7 +89,18 @@ CREATE TABLE Location(
 	CreatedDt DATETIME,
 	PRIMARY KEY(LocationId)
 	)
+	
+If not exists(SELECT 1 FROM LOCATION)
+BEGIN
+INSERT INTO Location VALUES('Bedford',null,null,null,null,'74432',null,1,1,GETDATE())
 
+INSERT INTO Location VALUES('Grand Prairie',null,null,null,null,'74432',null,1,1,GETDATE())
+
+INSERT INTO Location VALUES('Haltom City',null,null,null,null,'74432',null,1,1,GETDATE())
+END
+	
+
+	
 PRINT 'Location has been created successfully'
 
 

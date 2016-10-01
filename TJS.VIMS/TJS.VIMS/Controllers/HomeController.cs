@@ -3,19 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TJS.VIMS.ViewModel;
+using TJS.VIMS.Models;
+using TJS.VIMS.DAL;
 
 namespace TJS.VIMS.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private ILookUpRepository lookUpRepository;
+
+       public HomeController()
         {
-            return View("Login.cshtml");
+
         }
 
-        public ActionResult Login()
+        public HomeController(ILookUpRepository lookUpRepo)
         {
-            return View();
+            this.lookUpRepository = lookUpRepo;
+        }
+
+        public ActionResult Location()
+        {
+            List<Location> lsLocation= lookUpRepository.GetLocation();
+            return View(new LocationViewModel(lsLocation));
         }
 
         public ActionResult About()
