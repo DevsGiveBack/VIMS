@@ -1,0 +1,42 @@
+﻿@model TJS.VIMS.Models.VolunteerInfo
+
+@{
+    ViewBag.Title = "VolunteerClockIn";
+}
+
+<div class="center">
+    <div id="Camera">
+    </div>
+    <br>
+    <input type="button" value="Capture" onclick="webcam.capture();" />
+    <div>
+        <h3>Camera</h3>
+        <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/jquery.webcam.js")">
+    </script>
+    <script type="text/javascript">
+            $("#Camera").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: "@Url.Content("~/Scripts/jscam.swf")",
+                onTick: function () { },
+                onSave: function () {
+                    UploadPic();
+                },
+                onCapture: function () {
+                    webcam.save("@Url.Content("~/Photo/Capture")/");
+             },
+                debug: function () { },
+                onLoad: function () { }
+
+            });
+
+    </script>
+}
+

@@ -31,8 +31,8 @@ namespace TJS.VIMS.Models
         [StringLength(50)]
         public string Skill { get; set; }
 
-        [StringLength(200)]
-        public string MedicalInfo { get; set; }
+        [StringLength(400)]
+        public string WorkInfo { get; set; }
 
         public bool Felony_Cnvctn { get; set; }
 
