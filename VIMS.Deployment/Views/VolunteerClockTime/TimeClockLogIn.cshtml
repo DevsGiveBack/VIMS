@@ -4,6 +4,8 @@
     ViewBag.Title = "TimeClockLogIn";
 }
 
+@using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
 <div class="center">
     <table style="width:25%">
         <tr>
@@ -39,5 +41,6 @@
         </tr>
     </table>
 </div>
+}
 
 

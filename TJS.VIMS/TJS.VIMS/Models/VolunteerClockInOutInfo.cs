@@ -26,6 +26,10 @@ namespace TJS.VIMS.Models
 
         public DateTime? CreatedDt { get; set; }
 
+        public string ClockInProfilePhotoPath { get; set; }
+
+        public string ClockOutProfilePhotoPath { get; set; }
+
         public virtual Employee Employee { get; set; }
 
         public virtual Location Location { get; set; }
