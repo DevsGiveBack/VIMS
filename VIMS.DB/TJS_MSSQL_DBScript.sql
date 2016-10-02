@@ -1,4 +1,7 @@
 
+create database VIMS
+print 'Database VIMS successfully created'
+USE VIMS
 IF OBJECT_ID (N'Employee', N'U') IS NOT NULL 
 BEGIN
   DROP TABLE Employee
