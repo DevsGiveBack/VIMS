@@ -135,6 +135,10 @@ namespace TJS.VIMS.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerInfo>()
+               .Property(e => e.UserName)
+               .IsUnicode(false);
+
+            modelBuilder.Entity<VolunteerInfo>()
                 .Property(e => e.Address1)
                 .IsUnicode(false);
 
@@ -183,7 +187,7 @@ namespace TJS.VIMS.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerProfileInfo>()
-                .Property(e => e.MedicalInfo)
+                .Property(e => e.WorkInfo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerProfileInfo>()

@@ -17,6 +17,8 @@ namespace TJS.VIMS
             // e.g. container.RegisterType<ITestService, TestService>();
             container.RegisterType<IEmployeeRepository,EmployeeRepository>();
             container.RegisterType<ILookUpRepository, LookUpRepository>();
+
+            container.RegisterType<IVolunteerInfoRepository, VolunteerInfoRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

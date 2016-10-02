@@ -21,7 +21,7 @@ CREATE TABLE Employee(
 )
 
 PRINT 'Employee table has been created successfully'
-
+ 
 
 IF OBJECT_ID (N'Country', N'U') IS NOT NULL 
 BEGIN
