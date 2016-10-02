@@ -1,7 +1,3 @@
-
-create database VIMS
-print 'Database VIMS successfully created'
-USE VIMS
 IF OBJECT_ID (N'Employee', N'U') IS NOT NULL 
 BEGIN
   DROP TABLE Employee
@@ -23,11 +19,6 @@ CREATE TABLE Employee(
 	PRIMARY KEY(EmployeeId),
 	CONSTRAINT uc_UserName UNIQUE (UserName)
 )
-
-If not exists(SELECT 1 FROM EMPLOYEE WHERE UserName='Admin')
- begin
- INSERT INTO Employee VALUES('Admin','Admin','Admin','Test@123',1,1,'Admin',GETDATE(),null,null)
- end
 
 PRINT 'Employee table has been created successfully'
 
@@ -92,18 +83,7 @@ CREATE TABLE Location(
 	CreatedDt DATETIME,
 	PRIMARY KEY(LocationId)
 	)
-	
-If not exists(SELECT 1 FROM LOCATION)
-BEGIN
-INSERT INTO Location VALUES('Bedford',null,null,null,null,'74432',null,1,1,GETDATE())
 
-INSERT INTO Location VALUES('Grand Prairie',null,null,null,null,'74432',null,1,1,GETDATE())
-
-INSERT INTO Location VALUES('Haltom City',null,null,null,null,'74432',null,1,1,GETDATE())
-END
-	
-
-	
 PRINT 'Location has been created successfully'
 
 
@@ -140,6 +120,7 @@ CREATE TABLE VolunteerInfo(
 	VolunteerId BIGINT IDENTITY(1,1) NOT NULL, 
 	FirstName VARCHAR(50) NOT NULL,
 	LastName VARCHAR(50) NOT NULL,
+	UserName VARCHAR(50) NOT NULL,
 	Address1 VARCHAR(50),
 	Address2 VARCHAR(50),
 	City VARCHAR(50),
@@ -174,7 +155,7 @@ CREATE TABLE VolunteerProfileInfo(
 	CaseNumber VARCHAR(50) NOT NULL,	
 	Volunteer_Hours_Needed SMALLINT,
 	Skill VARCHAR(50) NULL,
-	MedicalInfo VARCHAR(200),
+	WorkInfo VARCHAR(400),
 	Felony_Cnvctn BIT NOT NULL,
 	Sexual_Abuse_Related BIT NOT NULL,
 	Recv_Email BIT NOT NULL,
@@ -197,7 +178,7 @@ END
 CREATE TABLE VolunteerProfilePhotoInfo(
 	VolunteerProfilePhotoId BIGINT IDENTITY(1,1) NOT NULL, 
 	VolunteerId BIGINT FOREIGN KEY REFERENCES VolunteerInfo(VolunteerId),
-	VolunteerProfilePhotoPath SMALLINT,  --FOREIGN KEY
+	VolunteerProfilePhotoPath VARCHAR(500), 
 	CreatedBy BIGINT FOREIGN KEY REFERENCES Employee(EMPLOYEEID),	
 	CreatedDt DATETIME
 	PRIMARY KEY(VolunteerProfilePhotoId)
@@ -213,11 +194,12 @@ BEGIN
 END
 
 CREATE TABLE VolunteerClockInOutInfo(
-	VolunteerClockInOutId BIGINT IDENTITY(1,1) NOT NULL, 
-	VolunteerId BIGINT FOREIGN KEY REFERENCES VolunteerInfo(VolunteerId),
+	VolunteerClockInOutId BIGINT IDENTITY(1,1) NOT NULL,
 	VolunteerProfileId BIGINT FOREIGN KEY REFERENCES VolunteerProfileInfo(VolunteerProfileId),  --FOREIGN KEY
 	ClockInDateTime DATETIME NULL,
 	ClockOutDateTime DATETIME NULL,
+	ClockInProfilePhotoPath VARCHAR(500),
+	ClockOutProfilePhotoPath VARCHAR(500),
 	ClockInOutLocationId INT FOREIGN KEY REFERENCES Location(LocationId),
 	CreatedBy BIGINT FOREIGN KEY REFERENCES Employee(EmployeeId),	
 	CreatedDt DATETIME
