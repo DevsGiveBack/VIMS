@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using TJS.VIMS.Models;
 using TJS.VIMS.DAL;
 using TJS.VIMS.ViewModel;
+using TJS.VIMS.Util;
 
 namespace TJS.VIMS.Controllers
 {
@@ -50,8 +51,13 @@ namespace TJS.VIMS.Controllers
             }
             var result = employeeRepository.GetEmployee(model.UserName, model.Password);
             if (result != null && result.ActiveInd)
-                return RedirectToAction("Location","Home");
-            return View();
+            {
+                model.InvalidLogin = String.Empty;   
+                return RedirectToAction("Location", "Home");
+            }
+            model.Password = string.Empty;
+            model.InvalidLogin = TJSConstants.LOGIN_ERROR_MESSAGE;
+            return View(model);
         }
 
 

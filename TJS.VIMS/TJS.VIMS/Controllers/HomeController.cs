@@ -29,10 +29,21 @@ namespace TJS.VIMS.Controllers
             return View(new LocationViewModel(lsLocation));
         }
 
+        [HttpPost]      
+        [ValidateAntiForgeryToken]
+        public ActionResult Location(LocationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            TempData["SelectedLocationId"] = model.SelectedLocationId;
+            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 

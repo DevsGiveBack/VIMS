@@ -8,6 +8,7 @@
 
 <div>
     <div class="subheader">Volunteer Information System Management</div>
+    <div class="center error-message">@Html.DisplayFor(m=>m.InvalidLogin)</div>
     <div class="center">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

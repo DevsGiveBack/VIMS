@@ -18,7 +18,13 @@ namespace TJS.VIMS.DAL
         public List<Location> GetLocation()
         {
             return vimsDBContext.Locations.ToList<Location>();
-        }       
+        }
+        
+        public Location GetLocationById(int locationId)
+        {
+            return vimsDBContext.Locations.Where(x => x.LocationId
+                                                   == locationId).SingleOrDefault();
+        }
 
         public List<Country> GetCountry()
         {

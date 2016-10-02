@@ -11,12 +11,14 @@ namespace TJS.VIMS.ViewModel
     {
         private List<Location> lsLocation { get; set; }
 
-       public int LocationSelectedId { get; set; }
+       public int SelectedLocationId { get; set; }      
 
        public LocationViewModel(List<Location> lsLocation)
         {
             this.lsLocation = lsLocation;
-        }       
+        }
+
+        public LocationViewModel() { }
 
         public IEnumerable<SelectListItem> LocationSelectListItem
         {

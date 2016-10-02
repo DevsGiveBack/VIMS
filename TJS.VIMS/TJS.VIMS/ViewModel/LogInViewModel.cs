@@ -15,7 +15,8 @@ namespace TJS.VIMS.ViewModel
         [Display(Name = "Pass Phrase")]
         public string Password { get; set; }
 
-        public string ErrorMessage { get; set; }
+        [DataType(DataType.Text)]
+        public string InvalidLogin { get; set; }
       
     }
 }

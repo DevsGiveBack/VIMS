@@ -56,3 +56,13 @@ textarea {
    text-align:center;
    align-content:center;
 }
+
+.error-message {
+  color: red;  
+  font-size: 16px;
+}
+
+.tjs-table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
