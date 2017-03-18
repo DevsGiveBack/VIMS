@@ -14,6 +14,7 @@ namespace TJS.VIMS.Models
 
         public long? VolunteerId { get; set; }
 
+        [StringLength(500)]
         public string VolunteerProfilePhotoPath { get; set; }
 
         public long? CreatedBy { get; set; }

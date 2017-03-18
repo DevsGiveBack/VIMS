@@ -25,7 +25,7 @@ namespace TJS.VIMS.ViewModel
         {
             if (locId != null)
             {
-                this.LocationId = Convert.ToInt32(locId);
+                 this.LocationId = Convert.ToInt32(locId);
             }
             this.LocationName = locationName;
         }

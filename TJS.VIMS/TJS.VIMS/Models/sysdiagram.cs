@@ -1,4 +1,4 @@
-namespace TJS.VIMS.DAL2
+namespace TJS.VIMS.DAL
 {
     using System;
     using System.Collections.Generic;

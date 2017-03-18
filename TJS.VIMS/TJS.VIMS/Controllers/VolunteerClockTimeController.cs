@@ -45,7 +45,7 @@ namespace TJS.VIMS.Controllers
         public ActionResult TimeClockLogIn(TimeClockInViewModel model)
         {
             if (!ModelState.IsValid)
-            {
+            { 
                 return View(model);
             }
             VolunteerInfo objVolunteerInfo = volunteerInfoRepository.GetVolunteer(model.UserName);

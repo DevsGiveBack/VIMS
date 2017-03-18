@@ -201,6 +201,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Util\TJSConstants.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
@@ -285,7 +286,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Location.cshtml" />
     <Content Include="Views\VolunteerClockTime\TimeClockLogIn.cshtml" />
-	<Content Include="Views\Volunteer\CreateProfile.cshtml" />  </ItemGroup>
+    <Content Include="Views\Volunteer\CreateProfile.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
