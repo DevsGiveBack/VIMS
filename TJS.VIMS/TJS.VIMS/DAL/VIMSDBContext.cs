@@ -9,7 +9,7 @@ namespace TJS.VIMS.DAL
     public partial class VIMSDBContext : DbContext
     {
         public VIMSDBContext()
-            : base("name=vimsDBContext")
+            : base("name=VIMSDBContext")
         {
         }
 

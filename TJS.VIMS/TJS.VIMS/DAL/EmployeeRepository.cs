@@ -19,9 +19,18 @@ namespace TJS.VIMS.DAL
 
         public Employee GetEmployee(String userName,String password)
         {
-            return vimsDBContext.Employees.Where(x => x.UserName.ToLower()
+            var e1 = vimsDBContext.Employees.Where(x => x.UserName.ToLower()
                                                     == userName.ToLower() && 
-                                                 x.Password==password).SingleOrDefault();            
+                                                 x.Password==password).SingleOrDefault();
+
+            // test linq style
+            var q = from e in vimsDBContext.Employees
+                    where e.UserName == userName && e.Password == password
+                    select e;
+
+            var e2 = q.FirstOrDefault();
+
+            return e1;
         }
        
 
