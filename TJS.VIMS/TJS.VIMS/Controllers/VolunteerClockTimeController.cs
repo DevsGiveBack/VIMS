@@ -129,8 +129,10 @@ namespace TJS.VIMS.Controllers
             using (var reader = new StreamReader(stream))
                 dump = reader.ReadToEnd();
 
-            //BKP todo: create a unique name save to ViewData
-            var path = Server.MapPath("~/test2.jpg");
+            //create a unique name save to ViewData
+            string name = Guid.NewGuid().ToString("N") + ".jpg";
+           
+            var path = Server.MapPath("~/capture/" + name);
             System.IO.File.WriteAllBytes(path, StringToBytes(dump));
         }
 

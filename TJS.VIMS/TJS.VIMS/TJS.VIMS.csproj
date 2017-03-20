@@ -195,12 +195,8 @@
     <Compile Include="DAL\EmployeeRepository.cs" />
     <Compile Include="DAL\IEmployeeRepository.cs" />
     <Compile Include="DAL\ILookUpRepository.cs" />
-    <Compile Include="DAL\IRepository.cs" />
-    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\IVolunteerInfoRepository.cs" />
     <Compile Include="DAL\LookUpRepository.cs" />
-    <Compile Include="DAL\Repository.cs" />
-    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\VolunteerInfoRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -289,7 +285,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Location.cshtml" />
-    <Content Include="Views\VolunteerClockTime\_TimeClockLogIn.cshtml" />
     <Content Include="Views\Volunteer\CreateProfile.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedIn.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedOut.cshtml" />
@@ -298,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="capture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
