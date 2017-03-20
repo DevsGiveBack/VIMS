@@ -4,6 +4,7 @@
     ViewBag.Title = "VolunteerClockedInOut";
 }
 
+
 <h2>VolunteerClockedInOut</h2>
 
 <div>
@@ -156,6 +157,17 @@
 
     </dl>
 </div>
+<div id="counter">5</div>
+<script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                location.href = "/VolunteerClockTime/TimeClockLogIn";
+            }
+        }, 1000);
+</script>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.VolunteerId }) |
     @Html.ActionLink("Back to List", "Index")

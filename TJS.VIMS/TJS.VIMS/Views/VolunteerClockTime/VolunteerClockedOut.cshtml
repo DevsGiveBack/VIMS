@@ -4,4 +4,15 @@
 }
 
 <h2>VolunteerClockedOut</h2>
+<div id="counter">5</div>
+<script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                location.href ="/VolunteerClockTime/TimeClockLogIn";
+            }
+        }, 1000);
+</script>
 

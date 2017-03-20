@@ -13,7 +13,7 @@ namespace TJS.VIMS.Controllers
     {
         private ILookUpRepository lookUpRepository;
 
-       public HomeController()
+        public HomeController()
         {
 
         }

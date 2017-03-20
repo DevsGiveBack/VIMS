@@ -301,6 +301,6 @@ C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\bin\Microsoft.Owin.Security
 C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\bin\Microsoft.Owin.Security.Google.xml
 C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\bin\Microsoft.Owin.Security.Twitter.xml
 C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\obj\Debug\TJS.VIMS.csprojResolveAssemblyReference.cache
 C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\obj\Debug\TJS.VIMS.dll
 C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\obj\Debug\TJS.VIMS.pdb
+C:\src\git_projects\DFW_Geeks\VIMS\TJS.VIMS\TJS.VIMS\obj\Debug\TJS.VIMS.csprojResolveAssemblyReference.cache

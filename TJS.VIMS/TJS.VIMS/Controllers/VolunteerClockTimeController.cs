@@ -6,29 +6,38 @@ using System.Web.Mvc;
 using TJS.VIMS.ViewModel;
 using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
+using System.IO;
 
 namespace TJS.VIMS.Controllers
 {
     public class VolunteerClockTimeController : Controller
     {
+        #region BKP DEBUG: will remove before merge
+        private static int count = 0;
+        private int instance = 0;
+        #endregion
+
         private ILookUpRepository lookUpRepository;
         private IVolunteerInfoRepository volunteerInfoRepository;
 
         public VolunteerClockTimeController(ILookUpRepository lookUpRepo, IVolunteerInfoRepository volunteerInfoRepository)
         {
+            instance = ++count;
+
             this.lookUpRepository = lookUpRepo;
             this.volunteerInfoRepository = volunteerInfoRepository;
         }
+
         public VolunteerClockTimeController()
         {
-
         }
 
         // GET: VolunteerClockTime
         public ActionResult TimeClockLogIn()
         {
-            String locationId = string.Empty;
-            String locationName = string.Empty;
+            string locationId = string.Empty;
+            string locationName = string.Empty;
+
             if (TempData["SelectedLocationId"] != null)
             {
                 locationId = TempData["SelectedLocationId"].ToString();
@@ -38,80 +47,54 @@ namespace TJS.VIMS.Controllers
                     locationName = objLocation.LocationName;
                 }
             }
+            else
+            {
+                //BKP hummm, good for now 
+                return RedirectToAction("Location", "Home");
+            }
+
             return View("VolunteerLookUp", new TimeClockInViewModel(locationId, locationName));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //BKP should be named VolunteerClockIn or VolunteerLookUp etc... ? since the time clock is already logged into
         public ActionResult VolunteerLookUpNext(TimeClockInViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("VolunteerLookUp", model);
             }
 
             VolunteerInfo objVolunteerInfo = volunteerInfoRepository.GetVolunteer(model.UserName);
-
-            //var clock_infos = objVolunteerInfo.VolunteerClockInOutInfoes.
-            //   Where(ci => ci.ClockInDateTime.Value.Date == DateTime.Today && ci.ClockOutDateTime == null)
-            //   .SingleOrDefault();
-
             if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
             {
                 TempData["VolunteerInfo"] = objVolunteerInfo;
-                return RedirectToAction("VolunteerClockIn", "VolunteerClockTime");
+                return View("VolunteerClockIn", objVolunteerInfo);
             }
-            return View("VolunteerLookUp", objVolunteerInfo);
+
+            return View("VolunteerLookUp", model);
         }
 
-        public ActionResult VolunteerClockIn()
-        {
-            VolunteerInfo objVolunteerInfo = null;
-            if (TempData["VolunteerInfo"] != null)
-            {
-               objVolunteerInfo = (VolunteerInfo)TempData["VolunteerInfo"];
-            }
-            //if (objVolunteerInfo == null)
-            //{
-            //    return RedirectToAction("TimeClockLogIn", "VolunteerClockTime");
-            //}
-
-            TempData.Keep();
-            return View(objVolunteerInfo);
-        }
-        
         /// <summary>
-        /// POST: VolunteerClockTime/VolunteerClockedInOut
+        /// VolunteerClockedInOut: volunteer punched clock
         /// </summary>
-        /// <param name="model">the model</param>
-        /// <returns>an ActionResult</returns>
+        /// <returns>a clocked in or out view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public ActionResult VolunteerClockedInOut(VolunteerInfo volunteer)
         public ActionResult VolunteerClockedInOut()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(info);
-            //}
+            //BKP HACK TODO: implement correct pattern here
+            VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
+            // volunteer context is expired (between request) so recreate
+            VolunteerInfo volunteer = volunteerInfoRepository
+                .GetVolunteer(((VolunteerInfo)TempData["VolunteerInfo"]).UserName);
 
-            //BKP HACK
-            //VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
-            var tmp = (VolunteerInfo)TempData["VolunteerInfo"];
-
-            VIMSDBContext context = new VIMSDBContext();
-            var volunteer = context.VolunteerInfoes
-                .Where(n => n.UserName == tmp.UserName)
-                .FirstOrDefault();
-
-            var clock_info = volunteer.VolunteerClockInOutInfoes.
+            VolunteerClockInOutInfo clock_info = volunteer.VolunteerClockInOutInfoes.
                 Where(ci => ci.ClockInDateTime.Value.Date == DateTime.Today && ci.ClockOutDateTime == null)
                 .SingleOrDefault();
  
             if (clock_info != null)
             {
-
                 // clock out
                 clock_info.ClockOutDateTime = DateTime.Now;
                 context.SaveChanges();
@@ -126,13 +109,47 @@ namespace TJS.VIMS.Controllers
             vi.ClockInProfilePhotoPath = string.Empty;
             vi.CreatedBy = 1;
             vi.CreatedDt = DateTime.Now;
-            //FK constraint?
-            vi.VolunteerId = volunteer.VolunteerId;
-
+            //BKP todo: photo/capture data
+           
             volunteer.VolunteerClockInOutInfoes.Add(vi);
             context.SaveChanges();
 
             return View("VolunteerClockedIn", volunteer);
+        }
+
+        /// <summary>
+        /// Capture: capture action for webcam 
+        /// </summary>
+        [HttpPost]
+        public void Capture()
+        {
+            var stream = Request.InputStream;
+            string dump = string.Empty;
+
+            using (var reader = new StreamReader(stream))
+                dump = reader.ReadToEnd();
+
+            //BKP todo: create a unique name save to ViewData
+            var path = Server.MapPath("~/test2.jpg");
+            System.IO.File.WriteAllBytes(path, StringToBytes(dump));
+        }
+
+        /// <summary>
+        /// convert hex string to bytes
+        /// </summary>
+        /// <param name="str">string of hex</param>
+        /// <returns>byte array</returns>
+        private byte[] StringToBytes(string str)
+        {
+            int len = (str.Length) / 2;
+            byte[] bytes = new byte[len];
+
+            for (int i = 0; i < len; ++i)
+            {
+                bytes[i] = Convert.ToByte(str.Substring(i * 2, 2), 16);
+            }
+
+            return bytes;
         }
     }
 }
