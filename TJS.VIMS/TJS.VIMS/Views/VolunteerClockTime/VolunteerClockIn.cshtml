@@ -45,7 +45,7 @@
                     UploadPic();
                 },
                 onCapture: function () {
-                    webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/");
+                    webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.UserName");
              },
                 debug: function () { },
                 onLoad: function () { }

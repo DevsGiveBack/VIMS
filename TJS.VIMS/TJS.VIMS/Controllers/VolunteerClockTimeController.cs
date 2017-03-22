@@ -107,10 +107,9 @@ namespace TJS.VIMS.Controllers
             vi.ClockInDateTime = DateTime.Now;
             vi.ClockInOutLocationId = 0;
             vi.ClockInProfilePhotoPath = string.Empty;
-            vi.CreatedBy = 1;
+            vi.CreatedBy = 1; //BKP todo, not sure how to set this
             vi.CreatedDt = DateTime.Now;
-            //BKP todo: photo/capture data
-           
+                       
             volunteer.VolunteerClockInOutInfoes.Add(vi);
             context.SaveChanges();
 
@@ -121,7 +120,7 @@ namespace TJS.VIMS.Controllers
         /// Capture: capture action for webcam 
         /// </summary>
         [HttpPost]
-        public void Capture()
+        public void Capture(string user)
         {
             var stream = Request.InputStream;
             string dump = string.Empty;
@@ -133,15 +132,25 @@ namespace TJS.VIMS.Controllers
             string name = Guid.NewGuid().ToString("N") + ".jpg";
            
             var path = Server.MapPath("~/capture/" + name);
-            System.IO.File.WriteAllBytes(path, StringToBytes(dump));
-        }
+            System.IO.File.WriteAllBytes(path, HexToBytes(dump));
+
+            //BKP HACK TODO: implement correct pattern here
+            VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
+            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(user);
+            VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
+            photo.VolunteerProfilePhotoPath = name;
+            photo.CreatedDt = DateTime.Now;
+            
+            volunteer.VolunteerProfilePhotoInfoes.Add(photo);
+            context.SaveChanges();
+    }
 
         /// <summary>
         /// convert hex string to bytes
         /// </summary>
         /// <param name="str">string of hex</param>
         /// <returns>byte array</returns>
-        private byte[] StringToBytes(string str)
+        private byte[] HexToBytes(string str)
         {
             int len = (str.Length) / 2;
             byte[] bytes = new byte[len];
@@ -150,7 +159,6 @@ namespace TJS.VIMS.Controllers
             {
                 bytes[i] = Convert.ToByte(str.Substring(i * 2, 2), 16);
             }
-
             return bytes;
         }
     }
