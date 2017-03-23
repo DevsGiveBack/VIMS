@@ -89,28 +89,33 @@ namespace TJS.VIMS.Controllers
             VolunteerInfo volunteer = volunteerInfoRepository
                 .GetVolunteer(((VolunteerInfo)TempData["VolunteerInfo"]).UserName);
 
-            VolunteerClockInOutInfo clock_info = volunteer.VolunteerClockInOutInfoes.
-                Where(ci => ci.ClockInDateTime.Value.Date == DateTime.Today && ci.ClockOutDateTime == null)
+            VolunteerClockInOutInfo vco = volunteer.VolunteerClockInOutInfoes.
+                Where(m => m.ClockInDateTime.Value.Date == DateTime.Today && m.ClockOutDateTime == null)
                 .SingleOrDefault();
- 
-            if (clock_info != null)
+
+            // get last photo path
+            VolunteerProfilePhotoInfo vpi = volunteer.VolunteerProfilePhotoInfoes
+                .Where(m => m.CreatedDt.Value.Date == DateTime.Today)
+                .OrderByDescending(m => m.CreatedDt).FirstOrDefault();
+
+            if (vco != null)
             {
                 // clock out
-                clock_info.ClockOutDateTime = DateTime.Now;
+                vco.ClockOutDateTime = DateTime.Now;
+                vco.ClockOutProfilePhotoPath = vpi.VolunteerProfilePhotoPath;
                 context.SaveChanges();
 
                 return View("VolunteerClockedOut");
             }
 
             // clock in 
-            VolunteerClockInOutInfo vi = new VolunteerClockInOutInfo();
-            vi.ClockInDateTime = DateTime.Now;
-            vi.ClockInOutLocationId = 0;
-            vi.ClockInProfilePhotoPath = string.Empty;
-            vi.CreatedBy = 1; //BKP todo, not sure how to set this
-            vi.CreatedDt = DateTime.Now;
-                       
-            volunteer.VolunteerClockInOutInfoes.Add(vi);
+            VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
+            vci.ClockInDateTime = DateTime.Now;
+            vci.ClockInOutLocationId = 0;
+            vci.ClockInProfilePhotoPath = vpi.VolunteerProfilePhotoPath;
+            vci.CreatedBy = 1; //BKP todo
+            vci.CreatedDt = DateTime.Now;
+            volunteer.VolunteerClockInOutInfoes.Add(vci);
             context.SaveChanges();
 
             return View("VolunteerClockedIn", volunteer);
@@ -129,7 +134,7 @@ namespace TJS.VIMS.Controllers
                 dump = reader.ReadToEnd();
 
             //create a unique name save to ViewData
-            string name = Guid.NewGuid().ToString("N") + ".jpg";
+            string name = Guid.NewGuid().ToString("N") + ".jpg"; //BKP can I be sure is always a jpeg?
            
             var path = Server.MapPath("~/capture/" + name);
             System.IO.File.WriteAllBytes(path, HexToBytes(dump));

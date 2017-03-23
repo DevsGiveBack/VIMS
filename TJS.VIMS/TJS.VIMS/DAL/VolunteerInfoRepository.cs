@@ -23,11 +23,8 @@ namespace TJS.VIMS.DAL
 
         public VolunteerInfo GetVolunteer(string userName)
         {
-            //return vimsDBContext.VolunteerInfoes.Where(x => x.UserName.ToLower()
-            //                                        == userName.ToLower()).SingleOrDefault();
-
-            // BKP DEBUG: should be single
-            return vimsDBContext.VolunteerInfoes.Where(x => x.UserName.ToLower() == userName.ToLower()).FirstOrDefault();
+            return vimsDBContext.VolunteerInfoes
+                .Where(x => x.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
         }
 
         protected virtual void Dispose(bool disposing)
