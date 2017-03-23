@@ -198,6 +198,7 @@
     <Compile Include="DAL\IVolunteerInfoRepository.cs" />
     <Compile Include="DAL\LookUpRepository.cs" />
     <Compile Include="DAL\VolunteerInfoRepository.cs" />
+    <Compile Include="DAL\VolunteerInfoRepository_.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

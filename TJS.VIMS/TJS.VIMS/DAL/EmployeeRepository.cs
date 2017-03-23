@@ -6,7 +6,7 @@ using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
-    public class EmployeeRepository : IEmployeeRepository,IDisposable
+    public class EmployeeRepository : IEmployeeRepository, IDisposable
     {
         private VIMSDBContext vimsDBContext;
 
@@ -23,12 +23,12 @@ namespace TJS.VIMS.DAL
                                                     == userName.ToLower() && 
                                                  x.Password==password).SingleOrDefault();
 
-            // test linq style
-            var q = from e in vimsDBContext.Employees
-                    where e.UserName == userName && e.Password == password
-                    select e;
+            //BKP test linq style
+            //var q = from e in vimsDBContext.Employees
+            //        where e.UserName == userName && e.Password == password
+            //        select e;
 
-            var e2 = q.FirstOrDefault();
+            //var e2 = q.FirstOrDefault();
 
             return e1;
         }

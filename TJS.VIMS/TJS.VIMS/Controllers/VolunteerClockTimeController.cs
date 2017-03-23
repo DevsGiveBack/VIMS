@@ -12,18 +12,11 @@ namespace TJS.VIMS.Controllers
 {
     public class VolunteerClockTimeController : Controller
     {
-        #region BKP DEBUG: will remove before merge
-        private static int count = 0;
-        private int instance = 0;
-        #endregion
-
         private ILookUpRepository lookUpRepository;
         private IVolunteerInfoRepository volunteerInfoRepository;
 
         public VolunteerClockTimeController(ILookUpRepository lookUpRepo, IVolunteerInfoRepository volunteerInfoRepository)
         {
-            instance = ++count;
-
             this.lookUpRepository = lookUpRepo;
             this.volunteerInfoRepository = volunteerInfoRepository;
         }
@@ -66,6 +59,9 @@ namespace TJS.VIMS.Controllers
             }
 
             VolunteerInfo objVolunteerInfo = volunteerInfoRepository.GetVolunteer(model.UserName);
+            //uuuhg
+            volunteerInfoRepository.Dispose();
+
             if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
             {
                 TempData["VolunteerInfo"] = objVolunteerInfo;
@@ -83,26 +79,19 @@ namespace TJS.VIMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult VolunteerClockedInOut()
         {
-            //BKP HACK TODO: implement correct pattern here
+            //BKP TODO: implement correct pattern here
             VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
-            // volunteer context is expired (between request) so recreate
-            VolunteerInfo volunteer = volunteerInfoRepository
-                .GetVolunteer(((VolunteerInfo)TempData["VolunteerInfo"]).UserName);
+            VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
+            context.Entry(volunteer).State = System.Data.Entity.EntityState.Modified;
 
-            VolunteerClockInOutInfo vco = volunteer.VolunteerClockInOutInfoes.
-                Where(m => m.ClockInDateTime.Value.Date == DateTime.Today && m.ClockOutDateTime == null)
-                .SingleOrDefault();
+            VolunteerClockInOutInfo volunteerClockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
+            VolunteerProfilePhotoInfo volunteerPhotoInfo = volunteerInfoRepository.GetPhotoInfo(volunteer);
 
-            // get last photo path
-            VolunteerProfilePhotoInfo vpi = volunteer.VolunteerProfilePhotoInfoes
-                .Where(m => m.CreatedDt.Value.Date == DateTime.Today)
-                .OrderByDescending(m => m.CreatedDt).FirstOrDefault();
-
-            if (vco != null)
+            if (volunteerClockInfo != null)
             {
                 // clock out
-                vco.ClockOutDateTime = DateTime.Now;
-                vco.ClockOutProfilePhotoPath = vpi.VolunteerProfilePhotoPath;
+                volunteerClockInfo.ClockOutDateTime = DateTime.Now;
+                volunteerClockInfo.ClockOutProfilePhotoPath = volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
                 context.SaveChanges();
 
                 return View("VolunteerClockedOut");
@@ -112,7 +101,7 @@ namespace TJS.VIMS.Controllers
             VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
             vci.ClockInDateTime = DateTime.Now;
             vci.ClockInOutLocationId = 0;
-            vci.ClockInProfilePhotoPath = vpi.VolunteerProfilePhotoPath;
+            vci.ClockInProfilePhotoPath = volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
             vci.CreatedBy = 1; //BKP todo
             vci.CreatedDt = DateTime.Now;
             volunteer.VolunteerClockInOutInfoes.Add(vci);
@@ -139,7 +128,7 @@ namespace TJS.VIMS.Controllers
             var path = Server.MapPath("~/capture/" + name);
             System.IO.File.WriteAllBytes(path, HexToBytes(dump));
 
-            //BKP HACK TODO: implement correct pattern here
+            //BKP TODO: implement correct pattern here
             VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(user);
             VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
