@@ -196,9 +196,11 @@
     <Compile Include="DAL\IEmployeeRepository.cs" />
     <Compile Include="DAL\ILookUpRepository.cs" />
     <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\IVolunteerInfoRepository.cs" />
     <Compile Include="DAL\LookUpRepository.cs" />
     <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\VolunteerInfoRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

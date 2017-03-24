@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data.Entity;
+using System.IO;
 using System.Web.Mvc;
-using TJS.VIMS.ViewModel;
 using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
-using System.IO;
-using System.Data.Entity;
+using TJS.VIMS.ViewModel;
 
 namespace TJS.VIMS.Controllers
 {
@@ -60,7 +57,7 @@ namespace TJS.VIMS.Controllers
             }
 
             VolunteerInfo objVolunteerInfo = volunteerInfoRepository.GetVolunteer(model.UserName);
-            
+
             if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
             {
                 TempData["VolunteerInfo"] = objVolunteerInfo;
@@ -92,7 +89,8 @@ namespace TJS.VIMS.Controllers
             {
                 // clock out
                 volunteerClockInfo.ClockOutDateTime = DateTime.Now;
-                volunteerClockInfo.ClockOutProfilePhotoPath = volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
+                volunteerClockInfo.ClockOutProfilePhotoPath =
+                    volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
                 context.SaveChanges();
 
                 return View("VolunteerClockedOut");
@@ -102,7 +100,8 @@ namespace TJS.VIMS.Controllers
             VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
             vci.ClockInDateTime = DateTime.Now;
             vci.ClockInOutLocationId = 0;
-            vci.ClockInProfilePhotoPath = volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
+            vci.ClockInProfilePhotoPath =
+                volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
             vci.CreatedBy = 1; //BKP todo
             vci.CreatedDt = DateTime.Now;
             volunteer.VolunteerClockInOutInfoes.Add(vci);
@@ -125,7 +124,7 @@ namespace TJS.VIMS.Controllers
 
             //create a unique name save to ViewData
             string name = Guid.NewGuid().ToString("N") + ".jpg"; //BKP can I be sure is always a jpeg?
-           
+
             var path = Server.MapPath("~/capture/" + name);
             System.IO.File.WriteAllBytes(path, HexToBytes(dump));
 
@@ -134,10 +133,10 @@ namespace TJS.VIMS.Controllers
             VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
             photo.VolunteerProfilePhotoPath = name;
             photo.CreatedDt = DateTime.Now;
-            
+
             volunteer.VolunteerProfilePhotoInfoes.Add(photo);
             context.SaveChanges();
-    }
+        }
 
         /// <summary>
         /// convert hex string to bytes

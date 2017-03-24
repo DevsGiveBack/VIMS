@@ -4,7 +4,7 @@ using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
-    public class VolunteerInfoRepository : Repository<VolunteerInfo>, IVolunteerInfoRepository, IDisposable
+    public class VolunteerInfoRepository : Repository<VolunteerInfo>, IVolunteerInfoRepository
     {
         public VolunteerInfoRepository(VIMSDBContext context) : base(context)
         {
@@ -12,7 +12,7 @@ namespace TJS.VIMS.DAL
 
         public VolunteerInfo GetVolunteer(string userName)
         {
-               return ((VIMSDBContext)context).VolunteerInfoes
+               return context.VolunteerInfoes
                 .Where(x => x.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
         }
 
