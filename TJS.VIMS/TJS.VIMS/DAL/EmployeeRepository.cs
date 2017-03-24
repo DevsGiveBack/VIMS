@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
@@ -9,30 +7,24 @@ namespace TJS.VIMS.DAL
     public class EmployeeRepository : IEmployeeRepository, IDisposable
     {
         private VIMSDBContext vimsDBContext;
+        private bool disposed = false;
+
+        public VIMSDBContext Context
+        {
+            get { return vimsDBContext; }
+        }
 
         public EmployeeRepository(VIMSDBContext vimsDBContext)
         {
             this.vimsDBContext = vimsDBContext;
         }
 
-        private bool disposed = false;
-
-        public Employee GetEmployee(String userName,String password)
+        public Employee GetEmployee(String userName, String password)
         {
-            var e1 = vimsDBContext.Employees.Where(x => x.UserName.ToLower()
-                                                    == userName.ToLower() && 
-                                                 x.Password==password).SingleOrDefault();
-
-            //BKP test linq style
-            //var q = from e in vimsDBContext.Employees
-            //        where e.UserName == userName && e.Password == password
-            //        select e;
-
-            //var e2 = q.FirstOrDefault();
-
-            return e1;
+            return vimsDBContext.Employees
+                .Where(m => m.UserName.ToLower() == userName.ToLower() && m.Password == password)
+                .SingleOrDefault();
         }
-       
 
         protected virtual void Dispose(bool disposing)
         {
@@ -45,6 +37,7 @@ namespace TJS.VIMS.DAL
             }
             this.disposed = true;
         }
+
         public void Dispose()
         {
             Dispose(true);

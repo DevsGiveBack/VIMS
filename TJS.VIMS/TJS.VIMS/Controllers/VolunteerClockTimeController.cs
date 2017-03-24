@@ -7,6 +7,7 @@ using TJS.VIMS.ViewModel;
 using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
 using System.IO;
+using System.Data.Entity;
 
 namespace TJS.VIMS.Controllers
 {
@@ -59,12 +60,13 @@ namespace TJS.VIMS.Controllers
             }
 
             VolunteerInfo objVolunteerInfo = volunteerInfoRepository.GetVolunteer(model.UserName);
-            //uuuhg
-            volunteerInfoRepository.Dispose();
-
+            
             if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
             {
                 TempData["VolunteerInfo"] = objVolunteerInfo;
+
+                //BKP dispose now, new context will be created in next request 
+                volunteerInfoRepository.Dispose();
                 return View("VolunteerClockIn", objVolunteerInfo);
             }
 
@@ -79,8 +81,7 @@ namespace TJS.VIMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult VolunteerClockedInOut()
         {
-            //BKP TODO: implement correct pattern here
-            VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
+            DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
             context.Entry(volunteer).State = System.Data.Entity.EntityState.Modified;
 
@@ -128,8 +129,7 @@ namespace TJS.VIMS.Controllers
             var path = Server.MapPath("~/capture/" + name);
             System.IO.File.WriteAllBytes(path, HexToBytes(dump));
 
-            //BKP TODO: implement correct pattern here
-            VIMSDBContext context = ((VolunteerInfoRepository)volunteerInfoRepository).Context;
+            DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(user);
             VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
             photo.VolunteerProfilePhotoPath = name;

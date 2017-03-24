@@ -36,7 +36,6 @@ namespace TJS.VIMS.DAL
             return vimsDBContext.States.ToList<State>();
         }
 
-
         #region Disposable method
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
@@ -56,8 +55,6 @@ namespace TJS.VIMS.DAL
             GC.SuppressFinalize(this);
         }
         #endregion
-
-
 
     }
 }

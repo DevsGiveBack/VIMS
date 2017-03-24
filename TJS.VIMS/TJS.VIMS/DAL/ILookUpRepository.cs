@@ -10,10 +10,8 @@ namespace TJS.VIMS.DAL
     public interface ILookUpRepository : IDisposable
     {
         List<Location> GetLocation();
-
         Location GetLocationById(int locationId);
         List<Country> GetCountry();
         List<State> GetState();
-
     }
 }

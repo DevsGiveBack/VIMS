@@ -2,24 +2,17 @@
 using System.Linq;
 using TJS.VIMS.Models;
 
-
 namespace TJS.VIMS.DAL
 {
-    public class VolunteerInfoRepository : IVolunteerInfoRepository, IDisposable
+    public class VolunteerInfoRepository : Repository<VolunteerInfo>, IVolunteerInfoRepository, IDisposable
     {
-        private VIMSDBContext vimsDBContext = null;
-        private bool disposed = false;
-
-        public VIMSDBContext Context { get { return vimsDBContext; } }
-
-        public VolunteerInfoRepository(VIMSDBContext vimsDBContext)
+        public VolunteerInfoRepository(VIMSDBContext context) : base(context)
         {
-            this.vimsDBContext = vimsDBContext;
         }
 
         public VolunteerInfo GetVolunteer(string userName)
         {
-            return vimsDBContext.VolunteerInfoes
+               return ((VIMSDBContext)context).VolunteerInfoes
                 .Where(x => x.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
         }
 
@@ -45,24 +38,6 @@ namespace TJS.VIMS.DAL
             return volunteer.VolunteerProfilePhotoInfoes
                 .Where(m => m.CreatedDt.Value.Date == DateTime.Today)
                 .OrderByDescending(m => m.CreatedDt).FirstOrDefault();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    vimsDBContext.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
