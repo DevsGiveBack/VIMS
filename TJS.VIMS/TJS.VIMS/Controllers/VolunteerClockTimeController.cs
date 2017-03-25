@@ -86,7 +86,7 @@ namespace TJS.VIMS.Controllers
             // clock in 
             VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
             vci.ClockInDateTime = DateTime.Now;
-            vci.ClockInOutLocationId = 0;
+            vci.ClockInOutLocationId = ViewBag.LocationId;
             vci.ClockInProfilePhotoPath =
                 volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
             vci.CreatedBy = 1; //BKP todo

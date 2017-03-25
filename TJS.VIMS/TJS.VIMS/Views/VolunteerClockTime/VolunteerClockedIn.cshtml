@@ -4,7 +4,7 @@
     ViewBag.Title = "VolunteerClockedInOut";
 }
 
-@using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = 3 }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="center">
