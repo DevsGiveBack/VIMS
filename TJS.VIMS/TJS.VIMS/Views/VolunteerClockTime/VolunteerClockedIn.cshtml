@@ -178,7 +178,7 @@
         var count = div.textContent * 1 - 1;
         div.textContent = count;
         if (count <= 0) {
-                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = 3 })"; // todo fix hardcoded 3
+                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId })"; 
             }
         }, 1000);
 </script>

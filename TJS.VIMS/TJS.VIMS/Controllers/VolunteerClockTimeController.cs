@@ -23,13 +23,23 @@ namespace TJS.VIMS.Controllers
         {
         }
 
-        // GET: VolunteerClockTime
+        /// <summary>
+        /// TimeClockLogIn: opens the volunteer lookup view
+        /// </summary>
+        /// <param name="id">a location id</param>
+        /// <returns>an ActionResult</returns>
         public ActionResult TimeClockLogIn(int id)
         {
             Location location = lookUpRepository.GetLocationById(id);
             return View("VolunteerLookUp", new TimeClockInViewModel(location.LocationId.ToString(), location.LocationName));
         }
 
+
+        /// <summary>
+        /// VolunteerLookUpNext: volunteer pressed next 
+        /// </summary>
+        /// <param name="model">TimeClockInViewModel</param>
+        /// <returns>ActionResult</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult VolunteerLookUpNext(TimeClockInViewModel model)
