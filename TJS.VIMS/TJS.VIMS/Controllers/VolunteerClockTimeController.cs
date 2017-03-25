@@ -24,27 +24,11 @@ namespace TJS.VIMS.Controllers
         }
 
         // GET: VolunteerClockTime
-        public ActionResult TimeClockLogIn()
+        public ActionResult TimeClockLogIn(int id)
         {
-            string locationId = string.Empty;
-            string locationName = string.Empty;
-
-            if (TempData["SelectedLocationId"] != null)
-            {
-                locationId = TempData["SelectedLocationId"].ToString();
-                if (!string.IsNullOrEmpty(locationId))
-                {
-                    Location objLocation = lookUpRepository.GetLocationById(Convert.ToInt32(locationId));
-                    locationName = objLocation.LocationName;
-                }
-            }
-            else
-            {
-                //BKP hummm, good for now 
-                return RedirectToAction("Location", "Home");
-            }
-
-            return View("VolunteerLookUp", new TimeClockInViewModel(locationId, locationName));
+            //BKP todo remove add to loc action
+            Location location = lookUpRepository.GetLocationById(id);
+            return View("VolunteerLookUp", new TimeClockInViewModel(location.LocationId.ToString(), location.LocationName));
         }
 
         [HttpPost]
@@ -61,6 +45,7 @@ namespace TJS.VIMS.Controllers
             if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
             {
                 TempData["VolunteerInfo"] = objVolunteerInfo;
+                TempData["TimeClockInViewModel"] = model;
 
                 //BKP dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
@@ -80,10 +65,13 @@ namespace TJS.VIMS.Controllers
         {
             DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
-            context.Entry(volunteer).State = System.Data.Entity.EntityState.Modified;
+            context.Entry(volunteer).State = EntityState.Modified;
 
             VolunteerClockInOutInfo volunteerClockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
             VolunteerProfilePhotoInfo volunteerPhotoInfo = volunteerInfoRepository.GetPhotoInfo(volunteer);
+
+            //todo 
+            ViewBag.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
 
             if (volunteerClockInfo != null)
             {

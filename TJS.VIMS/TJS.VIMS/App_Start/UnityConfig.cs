@@ -15,7 +15,7 @@ namespace TJS.VIMS
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<IEmployeeRepository,EmployeeRepository>();
+            container.RegisterType<IEmployeeRepository, EmployeeRepository>();
             container.RegisterType<ILookUpRepository, LookUpRepository>();
 
             container.RegisterType<IVolunteerInfoRepository, VolunteerInfoRepository>();

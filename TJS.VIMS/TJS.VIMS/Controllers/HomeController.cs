@@ -37,8 +37,8 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            TempData["SelectedLocationId"] = model.SelectedLocationId;
-            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime");
+            //TempData["SelectedLocationId"] = model.SelectedLocationId;
+            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime", new { id = model.SelectedLocationId });
         }
 
         public ActionResult About()
@@ -50,7 +50,6 @@ namespace TJS.VIMS.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
