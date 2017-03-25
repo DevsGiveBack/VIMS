@@ -1,13 +1,26 @@
-﻿
+﻿@model TJS.VIMS.Models.VolunteerInfo
+
 @{
     ViewBag.Title = "VolunteerClockedOut";
 }
 
-@DateTime.Now.ToShortTimeString()
+<div>
+    <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
+    <b>@DateTime.Now.ToLongDateString()</b>
+</div>
+
 <br />
-@DateTime.Now.ToLongDateString();
 <br />
-<br />
+
+<div>
+    <b>Most Recent Hours Worked</b>
+    <br />
+    @foreach (var v in ViewBag.RecentClockInfo)
+    {
+        @v.ClockInDateTime.ToString();
+        <br />
+    }
+</div>
 
 @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

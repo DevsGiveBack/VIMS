@@ -37,7 +37,6 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            //TempData["SelectedLocationId"] = model.SelectedLocationId;
             return RedirectToAction("TimeClockLogIn", "VolunteerClockTime", new { id = model.SelectedLocationId });
         }
 

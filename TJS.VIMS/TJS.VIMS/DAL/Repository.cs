@@ -12,7 +12,7 @@ namespace TJS.VIMS.DAL
         private readonly DbSet<TEntity> entities = null;
         private bool disposed = false;
 
-        public DbContext Context
+        public VIMSDBContext Context
         {
             get { return context; }
         }

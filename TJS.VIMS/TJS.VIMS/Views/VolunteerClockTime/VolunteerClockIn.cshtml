@@ -4,15 +4,15 @@
     ViewBag.Title = "VolunteerClockIn";
 }
 
+<div>
+    <b>Case # @ViewBag.Case</b>
+    <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
+    <b>@DateTime.Now.ToLongDateString()</b>
+</div>
+
 <div class="center">
     <div id="Camera">
     </div>
-        <br />
-        @DateTime.Now.ToShortTimeString()
-        <br />
-        @DateTime.Now.ToLongDateString();
-        <br />
-        <br />    
         <input type="button" value="Capture" onclick="webcam.capture();" />
     <div>
         <h3>Camera</h3>

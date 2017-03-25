@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Web.Mvc;
@@ -53,6 +54,10 @@ namespace TJS.VIMS.Controllers
 
             if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
             {
+                VolunteerProfileInfo profile = 
+                    volunteerInfoRepository.GetLastProfileInfo(objVolunteerInfo.VolunteerId);
+            
+                ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
                 TempData["VolunteerInfo"] = objVolunteerInfo;
                 TempData["TimeClockInViewModel"] = model;
 
@@ -72,15 +77,20 @@ namespace TJS.VIMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult VolunteerClockedInOut()
         {
-            DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
+            VIMSDBContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
             context.Entry(volunteer).State = EntityState.Modified;
 
             VolunteerClockInOutInfo volunteerClockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
             VolunteerProfilePhotoInfo volunteerPhotoInfo = volunteerInfoRepository.GetPhotoInfo(volunteer);
+            VolunteerProfileInfo profile = volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
+            List<VolunteerClockInOutInfo> recentClockInfo =
+                volunteerInfoRepository.GetVolunteersLastClockInOutInfos(volunteer, 4); //BKP: harcoded "4"
 
-            //todo 
+
             ViewBag.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
+            ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
+            ViewBag.RecentClockInfo = recentClockInfo;
 
             if (volunteerClockInfo != null)
             {
@@ -102,7 +112,7 @@ namespace TJS.VIMS.Controllers
             vci.CreatedBy = 1; //BKP todo
             vci.CreatedDt = DateTime.Now;
             volunteer.VolunteerClockInOutInfoes.Add(vci);
-            context.SaveChanges();
+            context.SaveChanges(); //BKP todo, merge with repo code
 
             return View("VolunteerClockedIn", volunteer);
         }
@@ -133,7 +143,7 @@ namespace TJS.VIMS.Controllers
             photo.CreatedDt = DateTime.Now;
 
             volunteer.VolunteerProfilePhotoInfoes.Add(photo);
-            context.SaveChanges();
+            context.SaveChanges(); //BKP todo, merge with repo code
         }
 
         /// <summary>

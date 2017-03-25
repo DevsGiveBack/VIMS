@@ -9,11 +9,10 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.LocationId)
 
-    @DateTime.Now.ToShortTimeString()
-    <br />
-    @DateTime.Now.ToLongDateString();
-    <br />
-    <br />
+    <div>
+        <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
+        <b>@DateTime.Now.ToLongDateString()</b>
+    </div>
 
     <div class="center">
         <table style="width:25%">

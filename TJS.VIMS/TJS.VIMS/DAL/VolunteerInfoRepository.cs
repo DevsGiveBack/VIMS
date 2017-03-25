@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TJS.VIMS.Models;
 
@@ -37,7 +38,36 @@ namespace TJS.VIMS.DAL
         {
             return volunteer.VolunteerProfilePhotoInfoes
                 .Where(m => m.CreatedDt.Value.Date == DateTime.Today)
-                .OrderByDescending(m => m.CreatedDt).FirstOrDefault();
+                .OrderByDescending(m => m.CreatedDt)
+                .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// gets the last profile for a volunteer
+        /// </summary>
+        /// <param name="id">the volunterr id</param>
+        /// <returns>a VolunteerProfileInfo</returns>
+        public VolunteerProfileInfo GetLastProfileInfo(long id) 
+        {
+            return context.VolunteerProfileInfoes
+                .Where(m => m.VolunteerId == id)
+                .OrderByDescending(m => m.CreatedDt)
+                .FirstOrDefault(); 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public List<VolunteerClockInOutInfo> GetVolunteersLastClockInOutInfos(VolunteerInfo volunteer, int n)
+        {
+            return context.VolunteerClockInOutInfoes
+                .Where(m => m.VolunteerId == volunteer.VolunteerId)
+                .OrderByDescending(m => m.CreatedDt)
+                .Take(n)
+                .ToList();
         }
     }
 }
