@@ -4,6 +4,20 @@
     ViewBag.Title = "VolunteerClockedInOut";
 }
 
+@using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = 3 }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="center">
+        <table style="width:25%">
+            <tr>
+                <td align="right" style="width:40%"></td>
+                <td style="width:50%">
+                    <input type="submit" value="Finished, return to home page ..." class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}
 
 <h2>VolunteerClockedInOut</h2>
 

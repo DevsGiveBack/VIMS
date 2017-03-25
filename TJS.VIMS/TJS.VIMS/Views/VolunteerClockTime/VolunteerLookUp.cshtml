@@ -7,7 +7,7 @@
 @using (Html.BeginForm("VolunteerLookUpNext", "VolunteerClockTime", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(model => model.LocationId)
     <div class="center">
         <table style="width:25%">
             <tr>

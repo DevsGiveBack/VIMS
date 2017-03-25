@@ -26,7 +26,6 @@ namespace TJS.VIMS.Controllers
         // GET: VolunteerClockTime
         public ActionResult TimeClockLogIn(int id)
         {
-            //BKP todo remove add to loc action
             Location location = lookUpRepository.GetLocationById(id);
             return View("VolunteerLookUp", new TimeClockInViewModel(location.LocationId.ToString(), location.LocationName));
         }
