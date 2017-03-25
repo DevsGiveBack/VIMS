@@ -4,6 +4,12 @@
     ViewBag.Title = "VolunteerClockedInOut";
 }
 
+@DateTime.Now.ToShortTimeString()
+<br />
+@DateTime.Now.ToLongDateString();
+<br />
+<br />
+
 @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

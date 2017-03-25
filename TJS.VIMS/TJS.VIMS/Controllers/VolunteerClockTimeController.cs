@@ -110,6 +110,7 @@ namespace TJS.VIMS.Controllers
         /// <summary>
         /// Capture: capture action for webcam 
         /// </summary>
+        /// <param name="user">user name</param>
         [HttpPost]
         public void Capture(string user)
         {

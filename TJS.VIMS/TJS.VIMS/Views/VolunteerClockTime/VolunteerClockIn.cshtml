@@ -7,13 +7,20 @@
 <div class="center">
     <div id="Camera">
     </div>
-    <br>
-    <input type="button" value="Capture" onclick="webcam.capture();" />
+        <br />
+        @DateTime.Now.ToShortTimeString()
+        <br />
+        @DateTime.Now.ToLongDateString();
+        <br />
+        <br />    
+        <input type="button" value="Capture" onclick="webcam.capture();" />
     <div>
         <h3>Camera</h3>
         <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
     </div>
 </div>
+
+
 
 <h1>@Model.UserName</h1>
 @using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))

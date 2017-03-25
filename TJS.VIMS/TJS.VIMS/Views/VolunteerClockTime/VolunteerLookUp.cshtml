@@ -8,6 +8,13 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.LocationId)
+
+    @DateTime.Now.ToShortTimeString()
+    <br />
+    @DateTime.Now.ToLongDateString();
+    <br />
+    <br />
+
     <div class="center">
         <table style="width:25%">
             <tr>
