@@ -1,15 +1,12 @@
-﻿@model TJS.VIMS.Models.VolunteerInfo
+﻿@model TJS.VIMS.ViewModel.VolunteerClockedInOutViewModel
 
 @{
     ViewBag.Title = "VolunteerClockedInOut";
 }
 
 <!-- BKP create partial view -->
-<div>
-    <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
-    <b>@DateTime.Now.ToLongDateString()</b>
-</div>
-
+@Html.Partial("_ClockView")
+ 
 <br />
 <br />
 
@@ -21,12 +18,13 @@
         @foreach (var v in ViewBag.RecentClockInfo)
         {
             <tr>
-                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetFormatedTimeSpan(v))</td>
+                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetClockedInTime(v))</td>
             </tr>
         }
     </table>
 </div>
 <!-- BKP create partial view -->
+
 
 @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -50,157 +48,40 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Volunteer.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Volunteer.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Volunteer.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Volunteer.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayNameFor(model => model.Volunteer.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserName)
+            @Html.DisplayFor(model => model.Volunteer.UserName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address1)
+            @Html.DisplayNameFor(model => model.Volunteer.Address1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Address1)
+            @Html.DisplayFor(model => model.Volunteer.Address1)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StateId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StateId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ZipCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DOB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DOB)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Emrgncy_Cntct_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Emrgncy_Cntct_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Emrgncy_Cntct_Phn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Emrgncy_Cntct_Phn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedDt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedDt)
-        </dd>
-
     </dl>
 </div>
-<div>
-    <b>You have completed...</b>
-    <progress value="22" max="100"></progress>
-    <b>You need ...</b>
-</div>
-<div id="counter">10</div>
+@Html.Partial("_HoursStatusView")
+<div id="counter">30</div>
 <script>
     setInterval(function () {
         var div = document.querySelector("#counter");
@@ -211,8 +92,3 @@
             }
         }, 1000);
 </script>
-<p>
-    @Html.ActionLink("I need to clock out instead", "Index", new { id = Model.VolunteerId }) |
-    @Html.ActionLink("Never Mind, I just want to out out and return to the Home Screen", "Index")
-</p>
-

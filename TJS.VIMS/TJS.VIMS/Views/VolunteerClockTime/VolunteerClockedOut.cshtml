@@ -1,14 +1,11 @@
-﻿@model TJS.VIMS.Models.VolunteerInfo
+﻿@model TJS.VIMS.ViewModel.VolunteerClockedInOutViewModel
 
 @{
     ViewBag.Title = "VolunteerClockedOut";
 }
 
 <!-- BKP create partial view -->
-<div>
-    <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
-    <b>@DateTime.Now.ToLongDateString()</b>
-</div>
+@Html.Partial("_ClockView")
 
 <br />
 <br />
@@ -21,7 +18,7 @@
         @foreach (var v in ViewBag.RecentClockInfo)
         {
             <tr>
-                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetFormatedTimeSpan(v))</td>
+                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetClockedInTime(v))</td>
             </tr>
         }
     </table>
@@ -44,12 +41,10 @@
 }
 
 <h2>VolunteerClockedOut</h2>
-<div>
-    <b>You have completed...</b>
-    <progress value="22" max="100"></progress>
-    <b>You need ...</b>
-</div>
-<div id="counter">10</div>
+
+@Html.Partial("_HoursStatusView")
+
+<div id="counter">30</div>
 <script>
     setInterval(function () {
         var div = document.querySelector("#counter");

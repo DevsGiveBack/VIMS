@@ -79,24 +79,29 @@ namespace TJS.VIMS.Controllers
         {
             VIMSDBContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
-            context.Entry(volunteer).State = EntityState.Modified;
+            context.Entry(volunteer).State = EntityState.Modified; // reload after request
 
-            VolunteerClockInOutInfo volunteerClockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
-            VolunteerProfilePhotoInfo volunteerPhotoInfo = volunteerInfoRepository.GetPhotoInfo(volunteer);
+            VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
+            VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetPhotoInfo(volunteer);
             VolunteerProfileInfo profile = volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
             List<VolunteerClockInOutInfo> recentClockInfo =
-                volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, 4); //BKP: harcoded "4"
-            
+                volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, Util.TJSConstants.RECENT_LIST_LEN);
+                       
             ViewBag.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
             ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
             ViewBag.RecentClockInfo = recentClockInfo;
 
-            if (volunteerClockInfo != null)
+            //BKP todo, finish good view model, instead of using ViewBag
+            VolunteerClockedInOutViewModel model = new VolunteerClockedInOutViewModel();
+            model.Volunteer = volunteer;
+            model.CaseNumber = profile != null ? profile.CaseNumber : "NA";
+
+            if (clockInfo != null)
             {
                 // clock out
-                volunteerClockInfo.ClockOutDateTime = DateTime.Now;
-                volunteerClockInfo.ClockOutProfilePhotoPath =
-                    volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
+                clockInfo.ClockOutDateTime = DateTime.Now;
+                clockInfo.ClockOutProfilePhotoPath =
+                    photo != null ? photo.VolunteerProfilePhotoPath : null;
                 context.SaveChanges();
 
                 return View("VolunteerClockedOut");
@@ -107,13 +112,13 @@ namespace TJS.VIMS.Controllers
             vci.ClockInDateTime = DateTime.Now;
             vci.ClockInOutLocationId = ViewBag.LocationId;
             vci.ClockInProfilePhotoPath =
-                volunteerPhotoInfo != null ? volunteerPhotoInfo.VolunteerProfilePhotoPath : null;
+                photo != null ? photo.VolunteerProfilePhotoPath : null;
             vci.CreatedBy = 1; //BKP todo
             vci.CreatedDt = DateTime.Now;
             volunteer.VolunteerClockInOutInfoes.Add(vci);
             context.SaveChanges(); //BKP todo, merge with repo code
 
-            return View("VolunteerClockedIn", volunteer);
+            return View("VolunteerClockedIn", model);
         }
 
         /// <summary>
@@ -132,8 +137,8 @@ namespace TJS.VIMS.Controllers
             //create a unique name save to ViewData
             string name = Guid.NewGuid().ToString("N") + ".jpg"; //BKP can I be sure is always a jpeg?
 
-            var path = Server.MapPath("~/capture/" + name);
-            System.IO.File.WriteAllBytes(path, HexToBytes(dump));
+            var path = Server.MapPath("~/Capture/" + name);
+            System.IO.File.WriteAllBytes(path, Util.Utility.HexToBytes(dump));
 
             DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(user);
@@ -143,23 +148,6 @@ namespace TJS.VIMS.Controllers
 
             volunteer.VolunteerProfilePhotoInfoes.Add(photo);
             context.SaveChanges(); //BKP todo, merge with repo code
-        }
-
-        /// <summary>
-        /// convert hex string to bytes
-        /// </summary>
-        /// <param name="str">string of hex</param>
-        /// <returns>byte array</returns>
-        private byte[] HexToBytes(string str)
-        {
-            int len = (str.Length) / 2;
-            byte[] bytes = new byte[len];
-
-            for (int i = 0; i < len; ++i)
-            {
-                bytes[i] = Convert.ToByte(str.Substring(i * 2, 2), 16);
-            }
-            return bytes;
         }
     }
 }

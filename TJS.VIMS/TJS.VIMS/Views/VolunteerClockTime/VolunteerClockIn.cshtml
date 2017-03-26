@@ -21,7 +21,6 @@
 </div>
 
 
-
 <h1>@Model.UserName</h1>
 @using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))
 {
@@ -36,6 +35,11 @@
         </div>
     </div>
 }
+
+<p>
+    @Html.ActionLink("I need to clock out instead", "Index", new { id = Model.Volunteer.VolunteerId }) |
+    @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "Index")
+</p>
 
 @section scripts
 {
