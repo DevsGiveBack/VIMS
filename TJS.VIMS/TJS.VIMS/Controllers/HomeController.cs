@@ -13,7 +13,7 @@ namespace TJS.VIMS.Controllers
     {
         private ILookUpRepository lookUpRepository;
 
-       public HomeController()
+        public HomeController()
         {
 
         }
@@ -37,8 +37,7 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            TempData["SelectedLocationId"] = model.SelectedLocationId;
-            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime");
+            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime", new { id = model.SelectedLocationId });
         }
 
         public ActionResult About()
@@ -50,7 +49,6 @@ namespace TJS.VIMS.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

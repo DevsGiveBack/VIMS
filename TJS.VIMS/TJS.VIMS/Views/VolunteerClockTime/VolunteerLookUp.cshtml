@@ -1,0 +1,54 @@
+﻿@model TJS.VIMS.ViewModel.TimeClockInViewModel
+
+@{
+    ViewBag.Title = "TimeClockLogIn";
+}
+
+@using (Html.BeginForm("VolunteerLookUpNext", "VolunteerClockTime", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.LocationId)
+
+    <div>
+        <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
+        <b>@DateTime.Now.ToLongDateString()</b>
+    </div>
+
+    <div class="center">
+        <table style="width:25%">
+            <tr>
+                <td></td>
+                <td align="left" style="width:40%" class="text-info tex">@Html.DisplayFor(m => m.LocationName)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span>&nbsp;</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="width:40%">
+                    Login to Clock In or Out
+                </td>
+                <td style="width:20%"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="width:40%">
+                    @Html.TextBoxFor(m => m.UserName)
+                </td>
+                <td style="width:20%"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right" style="width:40%">
+               
+                </td>
+                <td style="width:20%">
+                    <input type="submit" value="Next" class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+

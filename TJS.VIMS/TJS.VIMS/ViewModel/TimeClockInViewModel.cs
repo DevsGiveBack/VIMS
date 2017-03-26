@@ -19,13 +19,18 @@ namespace TJS.VIMS.ViewModel
         [DataType(DataType.Text)]
         public string UserName { get; set;}
 
-        public TimeClockInViewModel() { }     
+        public TimeClockInViewModel() { }
 
-        public TimeClockInViewModel(String locId, String locationName)
+        public TimeClockInViewModel(Location location)
+        {
+            //BKP todo
+        }
+
+        public TimeClockInViewModel(string locId, string locationName)
         {
             if (locId != null)
             {
-                this.LocationId = Convert.ToInt32(locId);
+                 this.LocationId = Convert.ToInt32(locId);
             }
             this.LocationName = locationName;
         }

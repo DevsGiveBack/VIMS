@@ -18,6 +18,7 @@ namespace TJS.VIMS.DAL
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
         public virtual DbSet<VolunteerInfo> VolunteerInfoes { get; set; }
         public virtual DbSet<VolunteerProfileInfo> VolunteerProfileInfoes { get; set; }
@@ -88,11 +89,6 @@ namespace TJS.VIMS.DAL
                 .WithOptional(e => e.Employee)
                 .HasForeignKey(e => e.CreatedBy);
 
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.VolunteerClockInOutInfoes)
-                .WithOptional(e => e.Employee)
-                .HasForeignKey(e => e.CreatedBy);
-
             modelBuilder.Entity<Location>()
                 .Property(e => e.LocationName)
                 .IsUnicode(false);
@@ -113,17 +109,20 @@ namespace TJS.VIMS.DAL
                 .Property(e => e.Notes)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Location>()
-                .HasMany(e => e.VolunteerClockInOutInfoes)
-                .WithOptional(e => e.Location)
-                .HasForeignKey(e => e.ClockInOutLocationId);
-
             modelBuilder.Entity<Organization>()
                 .Property(e => e.OrganizationName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<State>()
                 .Property(e => e.StateName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VolunteerClockInOutInfo>()
+                .Property(e => e.ClockInProfilePhotoPath)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VolunteerClockInOutInfo>()
+                .Property(e => e.ClockOutProfilePhotoPath)
                 .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerInfo>()
@@ -135,8 +134,8 @@ namespace TJS.VIMS.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerInfo>()
-               .Property(e => e.UserName)
-               .IsUnicode(false);
+                .Property(e => e.UserName)
+                .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerInfo>()
                 .Property(e => e.Address1)
@@ -192,6 +191,10 @@ namespace TJS.VIMS.DAL
 
             modelBuilder.Entity<VolunteerProfileInfo>()
                 .Property(e => e.UpdatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VolunteerProfilePhotoInfo>()
+                .Property(e => e.VolunteerProfilePhotoPath)
                 .IsUnicode(false);
         }
     }

@@ -1,45 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
-    public class EmployeeRepository : IEmployeeRepository,IDisposable
+    public class EmployeeRepository : Repository<VolunteerInfo>, IEmployeeRepository
     {
-        private VIMSDBContext vimsDBContext;
-
-        public EmployeeRepository(VIMSDBContext vimsDBContext)
+        public EmployeeRepository(VIMSDBContext context) : base(context)
         {
-            this.vimsDBContext = vimsDBContext;
         }
 
-        private bool disposed = false;
-
-        public Employee GetEmployee(String userName,String password)
+        public Employee GetEmployee(String userName, String password)
         {
-            return vimsDBContext.Employees.Where(x => x.UserName.ToLower()
-                                                    == userName.ToLower() && 
-                                                 x.Password==password).SingleOrDefault();            
-        }
-       
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    vimsDBContext.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            return context.Employees
+                .Where(m => m.UserName.ToLower() == userName.ToLower() && m.Password == password)
+                .SingleOrDefault();
         }
     }
 }

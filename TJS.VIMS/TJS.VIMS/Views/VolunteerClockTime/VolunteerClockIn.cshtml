@@ -4,16 +4,38 @@
     ViewBag.Title = "VolunteerClockIn";
 }
 
+<div>
+    <b>Case # @ViewBag.Case</b>
+    <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
+    <b>@DateTime.Now.ToLongDateString()</b>
+</div>
+
 <div class="center">
     <div id="Camera">
     </div>
-    <br>
-    <input type="button" value="Capture" onclick="webcam.capture();" />
+        <input type="button" value="Capture" onclick="webcam.capture();" />
     <div>
         <h3>Camera</h3>
         <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
     </div>
 </div>
+
+
+
+<h1>@Model.UserName</h1>
+@using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="form-group">
+    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Punch Clock" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
 
 @section scripts
 {
@@ -30,7 +52,7 @@
                     UploadPic();
                 },
                 onCapture: function () {
-                    webcam.save("@Url.Content("~/Photo/Capture")/");
+                    webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.UserName");
              },
                 debug: function () { },
                 onLoad: function () { }

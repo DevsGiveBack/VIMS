@@ -11,8 +11,7 @@ namespace TJS.VIMS.Controllers
 {
     public class VolunteerController : Controller
     {
-        private ILookUpRepository lookUpRepository;
-
+        private ILookUpRepository lookUpRepository = null;
 
         // GET: Volunteer
         public ActionResult CreateProfile()
@@ -33,8 +32,5 @@ namespace TJS.VIMS.Controllers
 
             return View(new VolunteerViewModel(lsLocation));
         }
-
-
-
     }
 }

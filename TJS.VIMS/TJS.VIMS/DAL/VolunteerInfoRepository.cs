@@ -1,46 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TJS.VIMS.Models;
-
 
 namespace TJS.VIMS.DAL
 {
-    public class VolunteerInfoRepository : IVolunteerInfoRepository,IDisposable
+    public class VolunteerInfoRepository : Repository<VolunteerInfo>, IVolunteerInfoRepository
     {
-        private VIMSDBContext vimsDBContext;
-
-        public VolunteerInfoRepository(VIMSDBContext vimsDBContext)
+        public VolunteerInfoRepository(VIMSDBContext context) : base(context)
         {
-            this.vimsDBContext = vimsDBContext;
         }
 
-        private bool disposed = false;
-
-        public VolunteerInfo GetVolunteer(String userName)
+        public VolunteerInfo GetVolunteer(string userName)
         {
-            return vimsDBContext.VolunteerInfoes.Where(x => x.UserName.ToLower()
-                                                    == userName.ToLower()).SingleOrDefault();
+               return context.VolunteerInfoes
+                .Where(x => x.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
         }
 
-
-        protected virtual void Dispose(bool disposing)
+        /// <summary>
+        /// gets volunteers clockin info
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <returns>if clocked in returns VolunteerClockInOutInfo otherwise null</returns>
+        public VolunteerClockInOutInfo GetClockedInInfo(VolunteerInfo volunteer)
         {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    vimsDBContext.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+           return volunteer.VolunteerClockInOutInfoes
+                .Where(m => m.ClockInDateTime.Value.Date == DateTime.Today && m.ClockOutDateTime == null)
+                .SingleOrDefault();
         }
 
+        /// <summary>
+        /// gets volunteers photo info
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <returns>if exsit in returns VolunteerProfilePhotoInfo otherwise null</returns>
+        public VolunteerProfilePhotoInfo GetPhotoInfo(VolunteerInfo volunteer)
+        {
+            return volunteer.VolunteerProfilePhotoInfoes
+                .Where(m => m.CreatedDt.Value.Date == DateTime.Today)
+                .OrderByDescending(m => m.CreatedDt)
+                .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// gets the last profile for a volunteer
+        /// </summary>
+        /// <param name="id">the volunterr id</param>
+        /// <returns>a VolunteerProfileInfo</returns>
+        public VolunteerProfileInfo GetLastProfileInfo(long id) 
+        {
+            return context.VolunteerProfileInfoes
+                .Where(m => m.VolunteerId == id)
+                .OrderByDescending(m => m.CreatedDt)
+                .FirstOrDefault(); 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public List<VolunteerClockInOutInfo> GetVolunteersLastClockInOutInfos(VolunteerInfo volunteer, int n)
+        {
+            return context.VolunteerClockInOutInfoes
+                .Where(m => m.VolunteerId == volunteer.VolunteerId)
+                .OrderByDescending(m => m.CreatedDt)
+                .Take(n)
+                .ToList();
+        }
     }
 }

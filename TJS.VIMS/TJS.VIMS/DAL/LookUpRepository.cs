@@ -6,7 +6,7 @@ using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
-    public class LookUpRepository :ILookUpRepository,IDisposable
+    public class LookUpRepository : ILookUpRepository, IDisposable
     {
         private VIMSDBContext vimsDBContext;
 
@@ -22,8 +22,8 @@ namespace TJS.VIMS.DAL
         
         public Location GetLocationById(int locationId)
         {
-            return vimsDBContext.Locations.Where(x => x.LocationId
-                                                   == locationId).SingleOrDefault();
+            return vimsDBContext.Locations
+                .Where(x => x.LocationId == locationId).SingleOrDefault();
         }
 
         public List<Country> GetCountry()
@@ -35,7 +35,6 @@ namespace TJS.VIMS.DAL
         {
             return vimsDBContext.States.ToList<State>();
         }
-
 
         #region Disposable method
         private bool disposed = false;
@@ -56,8 +55,5 @@ namespace TJS.VIMS.DAL
             GC.SuppressFinalize(this);
         }
         #endregion
-
-
-
     }
 }
