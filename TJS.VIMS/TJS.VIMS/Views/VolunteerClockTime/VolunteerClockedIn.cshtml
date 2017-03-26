@@ -4,6 +4,7 @@
     ViewBag.Title = "VolunteerClockedInOut";
 }
 
+<!-- BKP create partial view -->
 <div>
     <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
     <b>@DateTime.Now.ToLongDateString()</b>
@@ -15,15 +16,17 @@
 <div>
     <b>Most Recent Hours Worked</b>
     <br />
+    <br>
     <table>
         @foreach (var v in ViewBag.RecentClockInfo)
         {
             <tr>
-                <td>@v.ClockInDateTime.ToString();</td>
+                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetFormatedTimeSpan(v))</td>
             </tr>
         }
     </table>
 </div>
+<!-- BKP create partial view -->
 
 @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -192,6 +195,11 @@
 
     </dl>
 </div>
+<div>
+    <b>You have completed...</b>
+    <progress value="22" max="100"></progress>
+    <b>You need ...</b>
+</div>
 <div id="counter">10</div>
 <script>
     setInterval(function () {
@@ -204,7 +212,7 @@
         }, 1000);
 </script>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.VolunteerId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("I need to clock out instead", "Index", new { id = Model.VolunteerId }) |
+    @Html.ActionLink("Never Mind, I just want to out out and return to the Home Screen", "Index")
 </p>
 

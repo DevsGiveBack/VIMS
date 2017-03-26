@@ -4,6 +4,7 @@
     ViewBag.Title = "VolunteerClockedOut";
 }
 
+<!-- BKP create partial view -->
 <div>
     <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
     <b>@DateTime.Now.ToLongDateString()</b>
@@ -15,12 +16,17 @@
 <div>
     <b>Most Recent Hours Worked</b>
     <br />
-    @foreach (var v in ViewBag.RecentClockInfo)
-    {
-        @v.ClockInDateTime.ToString();
-        <br />
-    }
+    <br>
+    <table>
+        @foreach (var v in ViewBag.RecentClockInfo)
+        {
+            <tr>
+                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetFormatedTimeSpan(v))</td>
+            </tr>
+        }
+    </table>
 </div>
+<!-- BKP create partial view -->
 
 @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -38,6 +44,11 @@
 }
 
 <h2>VolunteerClockedOut</h2>
+<div>
+    <b>You have completed...</b>
+    <progress value="22" max="100"></progress>
+    <b>You need ...</b>
+</div>
 <div id="counter">10</div>
 <script>
     setInterval(function () {

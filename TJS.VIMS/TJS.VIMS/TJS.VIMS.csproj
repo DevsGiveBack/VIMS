@@ -207,6 +207,7 @@
     </Compile>
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Util\TJSConstants.cs" />
+    <Compile Include="Util\Utility.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Employee.cs" />

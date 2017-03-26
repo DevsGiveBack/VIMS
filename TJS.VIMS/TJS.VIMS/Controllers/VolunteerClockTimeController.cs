@@ -85,9 +85,8 @@ namespace TJS.VIMS.Controllers
             VolunteerProfilePhotoInfo volunteerPhotoInfo = volunteerInfoRepository.GetPhotoInfo(volunteer);
             VolunteerProfileInfo profile = volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
             List<VolunteerClockInOutInfo> recentClockInfo =
-                volunteerInfoRepository.GetVolunteersLastClockInOutInfos(volunteer, 4); //BKP: harcoded "4"
-
-
+                volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, 4); //BKP: harcoded "4"
+            
             ViewBag.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
             ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
             ViewBag.RecentClockInfo = recentClockInfo;

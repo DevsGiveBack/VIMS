@@ -61,10 +61,10 @@ namespace TJS.VIMS.DAL
         /// <param name="volunteer"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public List<VolunteerClockInOutInfo> GetVolunteersLastClockInOutInfos(VolunteerInfo volunteer, int n)
+        public List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n)
         {
             return context.VolunteerClockInOutInfoes
-                .Where(m => m.VolunteerId == volunteer.VolunteerId)
+                .Where(m => m.VolunteerId == volunteer.VolunteerId && m.ClockOutDateTime != null)
                 .OrderByDescending(m => m.CreatedDt)
                 .Take(n)
                 .ToList();
