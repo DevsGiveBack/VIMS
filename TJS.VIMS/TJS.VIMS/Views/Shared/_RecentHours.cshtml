@@ -1,0 +1,13 @@
+﻿<div>
+    <b>Most Recent Hours Worked</b>
+    <br />
+    <br>
+    <table>
+        @foreach (var v in ViewBag.RecentClockInfo)
+        {
+            <tr>
+                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetClockedInTime(v))</td>
+            </tr>
+        }
+    </table>
+</div>

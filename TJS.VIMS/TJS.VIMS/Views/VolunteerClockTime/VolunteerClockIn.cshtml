@@ -5,7 +5,6 @@
 }
 
 <div>
-    <b>Case # @ViewBag.Case</b>
     <p style="color:blue;font-size:36px;">@DateTime.Now.ToShortTimeString()</p>
     <b>@DateTime.Now.ToLongDateString()</b>
 </div>
@@ -21,7 +20,6 @@
 </div>
 
 
-<h1>@Model.UserName</h1>
 @using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -37,7 +35,7 @@
 }
 
 <p>
-    @Html.ActionLink("I need to clock out instead", "Index", new { id = Model.Volunteer.VolunteerId }) |
+    @Html.ActionLink("I need to clock out instead", "Index", new { id = Model.VolunteerId }) |
     @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "Index")
 </p>
 
@@ -62,7 +60,6 @@
                 onLoad: function () { }
 
             });
-
     </script>
 }
 

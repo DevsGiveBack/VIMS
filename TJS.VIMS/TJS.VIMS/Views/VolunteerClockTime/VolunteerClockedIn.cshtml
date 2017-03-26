@@ -2,93 +2,82 @@
 
 @{
     ViewBag.Title = "VolunteerClockedInOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- BKP create partial view -->
-@Html.Partial("_ClockView")
- 
-<br />
-<br />
+<div class="center">
 
-<div>
-    <b>Most Recent Hours Worked</b>
+    @Html.Partial("_Clock")
     <br />
-    <br>
-    <table>
-        @foreach (var v in ViewBag.RecentClockInfo)
-        {
-            <tr>
-                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetClockedInTime(v))</td>
-            </tr>
-        }
-    </table>
-</div>
-<!-- BKP create partial view -->
+    <br />
+    @Html.Partial("_RecentHours")
 
+    @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="center">
+            <table style="width:25%">
+                <tr>
+                    <td align="right" style="width:40%"></td>
+                    <td style="width:50%">
+                        <input type="submit" value="Finished, return to home page ..." class="btn btn-default" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
 
-@using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="center">
-        <table style="width:25%">
-            <tr>
-                <td align="right" style="width:40%"></td>
-                <td style="width:50%">
-                    <input type="submit" value="Finished, return to home page ..." class="btn btn-default" />
-                </td>
-            </tr>
-        </table>
+    <div>
+        <h4>VolunteerInfo</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.UserName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Volunteer.Address1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Volunteer.Address1)
+            </dd>
+        </dl>
     </div>
-}
 
-<h2>VolunteerClockedInOut</h2>
+    @Html.Partial("_HoursStatus")
 
-<div>
-    <h4>VolunteerInfo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Volunteer.FirstName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Volunteer.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Volunteer.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Volunteer.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Volunteer.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Volunteer.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Volunteer.Address1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Volunteer.Address1)
-        </dd>
-    </dl>
-</div>
-@Html.Partial("_HoursStatusView")
-<div id="counter">30</div>
-<script>
+    <div id="counter">30</div>
+    <script>
     setInterval(function () {
         var div = document.querySelector("#counter");
         var count = div.textContent * 1 - 1;
         div.textContent = count;
         if (count <= 0) {
-                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId })"; 
+                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId })";
             }
         }, 1000);
-</script>
+    </script>
+
+</div>

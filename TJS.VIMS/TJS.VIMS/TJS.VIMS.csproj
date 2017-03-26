@@ -297,8 +297,11 @@
     <Content Include="Views\VolunteerClockTime\VolunteerClockIn.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerLookUp.cshtml" />
     <Content Include="Views\Shared\_VolunteerClockedView.cshtml" />
-    <Content Include="Views\Shared\_ClockView.cshtml" />
-    <Content Include="Views\Shared\_HoursStatusView.cshtml" />
+    <Content Include="Views\Shared\_Clock.cshtml" />
+    <Content Include="Views\Shared\_HoursStatus.cshtml" />
+    <Content Include="Views\Shared\_RecentHours.cshtml" />
+    <Content Include="Views\Shared\_TmpView.cshtml" />
+    <Content Include="Views\Home\Body.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

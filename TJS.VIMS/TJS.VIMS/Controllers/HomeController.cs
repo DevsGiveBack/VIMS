@@ -40,6 +40,13 @@ namespace TJS.VIMS.Controllers
             return RedirectToAction("TimeClockLogIn", "VolunteerClockTime", new { id = model.SelectedLocationId });
         }
 
+        //BKP testing partial view, todo remove when done
+        public ActionResult Body()
+        {
+            ViewBag.Message = "Body";
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
