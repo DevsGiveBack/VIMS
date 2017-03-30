@@ -7,16 +7,19 @@
 
 <div class="center">
 
-    @if (Model.isClockingIn)
-    {
-        <strong>You are now clocked in and may begin working.</strong>
-    }
-    else
-    {
-        <strong>You are now clocked out. Thank you for your service.</strong>
-    }
-
     <br />
+
+    <h3>
+        @if (Model.isClockingIn)
+        {
+            <div>You are now clocked in and may begin working.</div>
+        }
+        else
+        {
+            <div>You are now clocked out. Thank you for your service.</div>
+        }
+    </h3>
+
     <br />
     <br />
     <br />
@@ -27,11 +30,9 @@
     <br />
     <br />
     <br />
-    <br />
 
     @Html.Partial("_RecentHours", Model)
 
-    <br />
     <br />
     <br />
     <br />
@@ -57,9 +58,12 @@
     @Html.Partial("_HoursStatus", Model)
 
     <br />
-    <br />
 
-    <div id="counter">30</div>
+    <div id="counter">120</div>
+</div>
+
+@section scripts
+{
     <script>
     setInterval(function () {
         var div = document.querySelector("#counter");
@@ -70,4 +74,4 @@
             }
         }, 1000);
     </script>
-</div>
+}
