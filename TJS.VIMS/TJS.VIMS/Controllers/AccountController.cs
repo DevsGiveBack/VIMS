@@ -59,7 +59,5 @@ namespace TJS.VIMS.Controllers
             model.InvalidLogin = TJSConstants.LOGIN_ERROR_MESSAGE;
             return View(model);
         }
-
-
     }
 }

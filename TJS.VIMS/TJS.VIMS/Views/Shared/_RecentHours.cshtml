@@ -1,12 +1,17 @@
-﻿<div>
-    <b>Most Recent Hours Worked</b>
+﻿@model TJS.VIMS.ViewModel.VolunteerClockedInOutViewModel
+@using View = TJS.VIMS.ViewModel.VolunteerClockedInOutViewModel;
+
+<div>
+    <strong>Most Recent Hours Worked</strong>
     <br />
     <br>
-    <table>
-        @foreach (var v in ViewBag.RecentClockInfo)
+    <table align="center">
+        @foreach (var time in Model.RecentClockInformation)
         {
             <tr>
-                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetClockedInTime(v))</td>
+                <td style='text-align:center; vertical-align:middle'>
+                    @time.ClockInDateTime.Value.ToLongDateString() (@View.GetFormatedTimeSpan(time.ClockInDateTime.Value, time.ClockOutDateTime.Value))
+                </td>
             </tr>
         }
     </table>

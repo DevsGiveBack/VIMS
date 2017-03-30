@@ -23,7 +23,7 @@
         @foreach (var v in ViewBag.RecentClockInfo)
         {
             <tr>
-                <td>@v.ClockInDateTime.ToLongDateString() (@TJS.VIMS.Util.Utility.GetClockedInTime(v))</td>
+                <td>@v.ClockInDateTime.ToLongDateString() (TODO)</td>
             </tr>
         }
     </table>
@@ -37,7 +37,7 @@
     
 
 <div>
-    <b>You have worked @TJS.VIMS.Util.Utility.GetTotalHours(ViewBag.RecentClockInfo) toward your goal of YYY hours.</b>
+    <b>You have worked TODO toward your goal of YYY hours.</b>
     <progress value="22" max="100"></progress>
     <b>You have XXX hours remaining.</b>
 </div>

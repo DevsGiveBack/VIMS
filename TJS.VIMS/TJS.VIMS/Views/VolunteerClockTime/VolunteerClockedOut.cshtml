@@ -6,21 +6,35 @@
 }
 
 <div class="center">
+
+    <strong>You are now clocked out. Thank you for your service.</strong><br />
+
+    <br />
+    <br />
+    <br />
+
+    <strong>Case # @Model.CaseNumber</strong><br />
     @Html.Partial("_Clock")
 
     <br />
     <br />
+    <br />
+    <br />
 
-    @Html.Partial("_RecentHours")
+    @Html.Partial("_RecentHours", Model)
 
-    @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    <br />
+    <br />
+    <br />
+    <br />
+    
+    @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = Model.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
         <div class="center">
-            <table style="width:25%">
+            <table align="center" style="width:25%">
                 <tr>
-                    <td align="right" style="width:40%"></td>
-                    <td style="width:50%">
+                    <td align="center" style="width:100%">
                         <input type="submit" value="Finished, return to home page ..." class="btn btn-default" />
                     </td>
                 </tr>
@@ -28,10 +42,15 @@
         </div>
     }
 
-    <h2>VolunteerClockedOut</h2>
+    <br />
+    <br />
+    <br />
 
-    @Html.Partial("_HoursStatus")
+    @Html.Partial("_HoursStatus", Model)
 
+    <br />
+    <br />
+    
     <div id="counter">30</div>
     <script>
     setInterval(function () {
@@ -39,9 +58,8 @@
         var count = div.textContent * 1 - 1;
         div.textContent = count;
         if (count <= 0) {
-                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = ViewBag.LocationId })";
+                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = Model.LocationId })";
             }
         }, 1000);
     </script>
 </div>
-

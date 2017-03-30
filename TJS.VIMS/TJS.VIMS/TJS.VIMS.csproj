@@ -206,12 +206,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Util\TJSConstants.cs" />
     <Compile Include="Util\Utility.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="ViewModel\AuthorizedViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Views\Shared\_RecentHours.cshtml" />
     <Content Include="Views\Shared\_TmpView.cshtml" />
     <Content Include="Views\Home\Body.cshtml" />
+    <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

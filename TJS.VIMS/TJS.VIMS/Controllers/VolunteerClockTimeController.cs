@@ -9,6 +9,7 @@ using TJS.VIMS.ViewModel;
 
 namespace TJS.VIMS.Controllers
 {
+    //[Authorize]
     public class VolunteerClockTimeController : Controller
     {
         private ILookUpRepository lookUpRepository;
@@ -29,13 +30,13 @@ namespace TJS.VIMS.Controllers
         /// </summary>
         /// <param name="id">a location id</param>
         /// <returns>an ActionResult</returns>
+        //[Authorize]
         public ActionResult TimeClockLogIn(int id)
         {
             Location location = lookUpRepository.GetLocationById(id);
             return View("VolunteerLookUp", new TimeClockInViewModel(location.LocationId.ToString(), location.LocationName));
         }
-
-
+        
         /// <summary>
         /// VolunteerLookUpNext: volunteer pressed next 
         /// </summary>
@@ -84,41 +85,41 @@ namespace TJS.VIMS.Controllers
             VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
             VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetPhotoInfo(volunteer);
             VolunteerProfileInfo profile = volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
-            List<VolunteerClockInOutInfo> recentClockInfo =
-                volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, Util.TJSConstants.RECENT_LIST_LEN);
-                       
-            ViewBag.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
-            ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
-            ViewBag.RecentClockInfo = recentClockInfo;
-
-            //BKP todo, finish good view model, instead of using ViewBag
-            VolunteerClockedInOutViewModel model = new VolunteerClockedInOutViewModel();
-            model.Volunteer = volunteer;
-            model.CaseNumber = profile != null ? profile.CaseNumber : "NA";
-
+            
             if (clockInfo != null)
             {
                 // clock out
                 clockInfo.ClockOutDateTime = DateTime.Now;
                 clockInfo.ClockOutProfilePhotoPath =
                     photo != null ? photo.VolunteerProfilePhotoPath : null;
-                context.SaveChanges();
-
-                return View("VolunteerClockedOut");
+                context.SaveChanges(); //BKP todo, merge with repo code
+            }
+            else
+            {
+                // clock in 
+                VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
+                vci.VolunteerProfileInfo = profile;
+                vci.ClockInDateTime = DateTime.Now;
+                vci.ClockInOutLocationId = ViewBag.LocationId;
+                vci.ClockInProfilePhotoPath =
+                    photo != null ? photo.VolunteerProfilePhotoPath : null;
+                vci.CreatedBy = 1; //BKP todo
+                vci.CreatedDt = DateTime.Now;
+                volunteer.VolunteerClockInOutInfoes.Add(vci);
+                context.SaveChanges(); //BKP todo, merge with repo code
             }
 
-            // clock in 
-            VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
-            vci.ClockInDateTime = DateTime.Now;
-            vci.ClockInOutLocationId = ViewBag.LocationId;
-            vci.ClockInProfilePhotoPath =
-                photo != null ? photo.VolunteerProfilePhotoPath : null;
-            vci.CreatedBy = 1; //BKP todo
-            vci.CreatedDt = DateTime.Now;
-            volunteer.VolunteerClockInOutInfoes.Add(vci);
-            context.SaveChanges(); //BKP todo, merge with repo code
-
-            return View("VolunteerClockedIn", model);
+            // build model for view
+            VolunteerClockedInOutViewModel model = new VolunteerClockedInOutViewModel();
+            model.isClockingIn = (clockInfo == null);
+            model.Volunteer = volunteer;
+            model.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
+            model.TimeLogged = VolunteerClockedInOutViewModel.GetHoursLogged(volunteerInfoRepository.GetVolunteersCompletedInOutInfos(volunteer));
+            model.RecentClockInformation = volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, Util.TJSConstants.RECENT_LIST_LEN);
+            model.CaseNumber = profile != null ? profile.CaseNumber : "NA";
+            model.TimeNeeded = profile != null ? new TimeSpan((short)profile.Volunteer_Hours_Needed, 0, 0) : new TimeSpan(0, 0, 0);
+            
+            return View(model);
         }
 
         /// <summary>
