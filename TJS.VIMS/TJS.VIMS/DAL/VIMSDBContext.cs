@@ -18,7 +18,6 @@ namespace TJS.VIMS.DAL
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
         public virtual DbSet<VolunteerInfo> VolunteerInfoes { get; set; }
         public virtual DbSet<VolunteerProfileInfo> VolunteerProfileInfoes { get; set; }

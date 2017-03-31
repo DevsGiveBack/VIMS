@@ -14,6 +14,8 @@ namespace TJS.VIMS.Models
         [StringLength(100)]
         public string LocationName { get; set; }
 
+        public int? OrganizationId { get; set; }
+
         [StringLength(50)]
         public string Address1 { get; set; }
 

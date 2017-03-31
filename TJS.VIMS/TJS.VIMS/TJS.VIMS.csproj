@@ -192,6 +192,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\VolunteerClockTimeController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="DAL\EmployeeRepository.cs" />
     <Compile Include="DAL\IEmployeeRepository.cs" />
     <Compile Include="DAL\ILookUpRepository.cs" />
@@ -202,32 +203,30 @@
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\VolunteerInfoRepository.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Organization.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Models\State.cs" />
     <Compile Include="Util\TJSConstants.cs" />
     <Compile Include="Util\Utility.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
-    <Compile Include="Models\Country.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Location.cs" />
     <Compile Include="ViewModel\AuthorizedViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
-    <Compile Include="Models\Organization.cs" />
-    <Compile Include="Models\State.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\TimeClockInViewModel.cs" />
+    <Compile Include="ViewModel\VolunteerClockedInOutViewModel.cs" />
+    <Compile Include="ViewModel\VolunteerViewModel.cs" />
     <Compile Include="DAL\VIMSDBContext.cs" />
     <Compile Include="Models\VolunteerClockInOutInfo.cs" />
     <Compile Include="Models\VolunteerInfo.cs" />
     <Compile Include="Models\VolunteerProfileInfo.cs" />
     <Compile Include="Models\VolunteerProfilePhotoInfo.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\TimeClockInViewModel.cs" />
-    <Compile Include="ViewModel\VolunteerClockedInOutViewModel.cs" />
-    <Compile Include="ViewModel\VolunteerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -306,7 +305,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Capture\" />
-    <Folder Include="DAL2\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

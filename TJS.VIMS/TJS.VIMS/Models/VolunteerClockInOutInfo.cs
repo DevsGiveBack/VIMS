@@ -16,6 +16,8 @@ namespace TJS.VIMS.Models
 
         public long? VolunteerProfileId { get; set; }
 
+        public int? LocationId { get; set; }
+
         public DateTime? ClockInDateTime { get; set; }
 
         public DateTime? ClockOutDateTime { get; set; }
