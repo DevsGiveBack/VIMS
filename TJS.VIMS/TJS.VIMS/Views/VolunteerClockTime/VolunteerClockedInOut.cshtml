@@ -9,17 +9,15 @@
 
     <br />
 
-    <h3>
-        @if (Model.isClockingIn)
-        {
-            <div>You are now clocked in and may begin working.</div>
-        }
-        else
-        {
-            <div>You are now clocked out. Thank you for your service.</div>
-        }
-    </h3>
-
+    @if (Model.isClockingIn)
+    {
+        <h3>You are now clocked in and may begin working.</h3>
+    }
+    else
+    {
+        <h3>You are now clocked out. Thank you for your service.</h3>
+    }
+    
     <br />
     <br />
     <br />

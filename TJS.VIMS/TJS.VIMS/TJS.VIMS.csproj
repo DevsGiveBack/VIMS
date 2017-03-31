@@ -294,15 +294,12 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Location.cshtml" />
     <Content Include="Views\Volunteer\CreateProfile.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerClockedIn.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerClockedOut.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockIn.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerLookUp.cshtml" />
     <Content Include="Views\Shared\_VolunteerClockedView.cshtml" />
     <Content Include="Views\Shared\_Clock.cshtml" />
     <Content Include="Views\Shared\_HoursStatus.cshtml" />
     <Content Include="Views\Shared\_RecentHours.cshtml" />
-    <Content Include="Views\Shared\_TmpView.cshtml" />
     <Content Include="Views\Home\Body.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
   </ItemGroup>
