@@ -56,6 +56,12 @@ namespace TJS.VIMS.DAL
                 .FirstOrDefault();
         }
 
+        public VolunteerProfileInfo GetDefaultProfileInfo(long vid)
+        {
+            //todo
+            return GetLastProfileInfo(vid);
+        }
+
         public List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n)
         {
             return context.VolunteerClockInOutInfoes

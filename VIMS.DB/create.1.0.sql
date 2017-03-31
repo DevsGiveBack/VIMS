@@ -54,6 +54,7 @@ GO
 CREATE TABLE [dbo].[Location](
 	[LocationId] [int] IDENTITY(1,1) NOT NULL,
 	[LocationName] [varchar](100) NULL,
+	[OrganizationId] [int] NULL,
 	[Address1] [varchar](50) NULL,
 	[Address2] [varchar](50) NULL,
 	[StateId] [smallint] NULL,
@@ -118,6 +119,7 @@ CREATE TABLE [dbo].[VolunteerClockInOutInfo](
 	[VolunteerClockInOutId] [bigint] IDENTITY(1,1) NOT NULL,
 	[VolunteerId] [bigint] NULL,
 	[VolunteerProfileId] [bigint] NULL,
+	[LocationId] [int] NULL,
 	[ClockInDateTime] [datetime] NULL,
 	[ClockOutDateTime] [datetime] NULL,
 	[ClockInProfilePhotoPath] [varchar](500) NULL,
@@ -139,6 +141,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VolunteerInfo](
 	[VolunteerId] [bigint] IDENTITY(1,1) NOT NULL,
+	[DefaultVolunteerProfileInfoId] [int] NULL,
 	[FirstName] [varchar](50) NOT NULL,
 	[LastName] [varchar](50) NOT NULL,
 	[UserName] [varchar](50) NOT NULL,
@@ -245,17 +248,8 @@ GO
 ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
 REFERENCES [dbo].[Employee] ([EmployeeId])
 GO
-ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
-REFERENCES [dbo].[Employee] ([EmployeeId])
-GO
 ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([OrganizationId])
 REFERENCES [dbo].[Organization] ([OrganizationId])
-GO
-ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([OrganizationId])
-REFERENCES [dbo].[Organization] ([OrganizationId])
-GO
-ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerId])
-REFERENCES [dbo].[VolunteerInfo] ([VolunteerId])
 GO
 ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerId])
 REFERENCES [dbo].[VolunteerInfo] ([VolunteerId])

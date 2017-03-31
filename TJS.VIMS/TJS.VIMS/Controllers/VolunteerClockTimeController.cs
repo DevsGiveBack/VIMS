@@ -84,7 +84,7 @@ namespace TJS.VIMS.Controllers
 
             VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
             VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetPhotoInfo(volunteer);
-            VolunteerProfileInfo profile = volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
+            VolunteerProfileInfo profile = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.VolunteerId);
             
             if (clockInfo != null)
             {
@@ -99,6 +99,7 @@ namespace TJS.VIMS.Controllers
                 // clock in 
                 VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
                 vci.VolunteerProfileInfo = profile;
+                //todo location id
                 vci.ClockInDateTime = DateTime.Now;
                 vci.ClockInOutLocationId = ViewBag.LocationId;
                 vci.ClockInProfilePhotoPath =

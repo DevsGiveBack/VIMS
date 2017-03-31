@@ -12,6 +12,7 @@ namespace TJS.VIMS.DAL
         VolunteerClockInOutInfo GetClockedInInfo(VolunteerInfo volunteer);
         VolunteerProfilePhotoInfo GetPhotoInfo(VolunteerInfo volunteer);
         VolunteerProfileInfo GetLastProfileInfo(long vid);
+        VolunteerProfileInfo GetDefaultProfileInfo(long vid);
         List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n);
         List<VolunteerClockInOutInfo> GetVolunteersCompletedInOutInfos(VolunteerInfo volunteer);
         //string GetFormatedClockedInTime(VolunteerClockInOutInfo info);
