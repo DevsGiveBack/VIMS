@@ -8,13 +8,24 @@
     
     @Html.Partial("_Clock")
 
+   
     <div id="Camera"></div>
         <input type="button" value="Capture" onclick="webcam.capture();" />
     <div>
         <h3>Camera</h3>
         <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
     </div>
-    
+    <br />
+    <strong>Case # TODO</strong><br />
+    @if (ViewBag.isClockedIn)
+    {
+        <strong>If you are finished working:</strong>
+    }
+    else
+    {
+        <strong>If you are ready to start working:</strong>
+    }
+    <br />
     @using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
@@ -22,17 +33,31 @@
             <div class="form-group">
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Punch Clock" class="btn btn-default" />
+                <div class="col-md-offset-2 col-md-10"> 
+                    @if (ViewBag.isClockedIn)
+                    {
+                        <input type="submit" value="Clock Out" class="btn btn-default" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Clock In" class="btn btn-default" />
+                    }
                 </div>
             </div>
         </div>
     }
 
     <p>
-        @Html.ActionLink("I need to clock out instead", "VolunteerClockIn", new { id = Model.VolunteerId }) 
-        @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "TimeClockLogIn", "VolunteerClockTime", new { id = 0 })
-    </p>
+        @if (ViewBag.isClockedIn)
+        {
+            @Html.ActionLink("Never mind, I want to keep on working", "TimeClockLogIn", "VolunteerClockTime", new { id = 0 })
+        }
+        else
+        {
+            @Html.ActionLink("I need to clock out instead", "VolunteerClockIn", new { id = Model.VolunteerId })<br />
+            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "TimeClockLogIn", "VolunteerClockTime", new { id = 0 })
+        }
+   </p>
 
 </div>
 

@@ -11,12 +11,10 @@ namespace TJS.VIMS.DAL
         VolunteerInfo GetVolunteer(string userName);
         VolunteerClockInOutInfo GetClockedInInfo(VolunteerInfo volunteer);
         VolunteerProfilePhotoInfo GetPhotoInfo(VolunteerInfo volunteer);
-        VolunteerProfileInfo GetLastProfileInfo(long vid);
-        VolunteerProfileInfo GetDefaultProfileInfo(long vid);
+        VolunteerProfileInfo GetLastProfileInfo(long volunteerId);
+        VolunteerProfileInfo GetDefaultProfileInfo(long volunteerId);
         List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n);
         List<VolunteerClockInOutInfo> GetVolunteersCompletedInOutInfos(VolunteerInfo volunteer);
-        //string GetFormatedClockedInTime(VolunteerClockInOutInfo info);
-        //string GetFormatedHoursLogged(VolunteerInfo volunteer);
         void Save();
     }
 }

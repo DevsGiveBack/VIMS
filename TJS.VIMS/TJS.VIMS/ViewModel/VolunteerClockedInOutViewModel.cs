@@ -13,7 +13,7 @@ namespace TJS.VIMS.ViewModel
         /// <summary>
         /// returns true if volunteer is clocked-in otherwise false
         /// </summary>
-        public bool isClockingIn { get; set; }
+        public bool isClockedIn { get; set; }
 
         /// <summary>
         /// the volunteer info

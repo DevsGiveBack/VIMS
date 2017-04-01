@@ -51,20 +51,22 @@ namespace TJS.VIMS.Controllers
                 return View("VolunteerLookUp", model);
             }
 
-            VolunteerInfo objVolunteerInfo = volunteerInfoRepository.GetVolunteer(model.UserName);
+            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(model.UserName);
 
-            if (objVolunteerInfo != null && objVolunteerInfo.VolunteerId > 0)
+            if (volunteer != null && volunteer.VolunteerId > 0)
             {
                 VolunteerProfileInfo profile = 
-                    volunteerInfoRepository.GetLastProfileInfo(objVolunteerInfo.VolunteerId);
-            
+                    volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
+                VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
+
+                ViewBag.isClockedIn = (clockInfo != null); // clocked in
                 ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
-                TempData["VolunteerInfo"] = objVolunteerInfo;
-                TempData["TimeClockInViewModel"] = model;
+                TempData["VolunteerInfo"] = volunteer;
+                TempData["TimeClockInViewModel"] = model; 
 
                 //BKP dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
-                return View("VolunteerClockIn", objVolunteerInfo);
+                return View("VolunteerClockIn", volunteer);
             }
 
             return View("VolunteerLookUp", model);
@@ -80,6 +82,7 @@ namespace TJS.VIMS.Controllers
         {
             VIMSDBContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
+            int locationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
             context.Entry(volunteer).State = EntityState.Modified; // reload after request
 
             VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
@@ -88,7 +91,7 @@ namespace TJS.VIMS.Controllers
             
             if (clockInfo != null)
             {
-                // clock out
+                // was clocked in so clock out
                 clockInfo.ClockOutDateTime = DateTime.Now;
                 clockInfo.ClockOutProfilePhotoPath =
                     photo != null ? photo.VolunteerProfilePhotoPath : null;
@@ -97,30 +100,35 @@ namespace TJS.VIMS.Controllers
             else
             {
                 // clock in 
-                VolunteerClockInOutInfo vci = new VolunteerClockInOutInfo();
-                vci.VolunteerProfileInfo = profile;
-                //todo location id
-                vci.ClockInDateTime = DateTime.Now;
-                vci.ClockInOutLocationId = ViewBag.LocationId;
-                vci.ClockInProfilePhotoPath =
+                VolunteerClockInOutInfo clockIn = new VolunteerClockInOutInfo();
+                clockIn.VolunteerProfileInfo = profile;
+                clockIn.LocationId = locationId;
+                clockIn.ClockInDateTime = DateTime.Now;
+                clockIn.ClockInOutLocationId = ViewBag.LocationId;
+                clockIn.ClockInProfilePhotoPath =
                     photo != null ? photo.VolunteerProfilePhotoPath : null;
-                vci.CreatedBy = 1; //BKP todo
-                vci.CreatedDt = DateTime.Now;
-                volunteer.VolunteerClockInOutInfoes.Add(vci);
+                clockIn.CreatedBy = 1; //BKP todo
+                clockIn.CreatedDt = DateTime.Now;
+                volunteer.VolunteerClockInOutInfoes.Add(clockIn);
                 context.SaveChanges(); //BKP todo, merge with repo code
             }
-
+                
             // build model for view
             VolunteerClockedInOutViewModel model = new VolunteerClockedInOutViewModel();
-            model.isClockingIn = (clockInfo == null);
+            model.isClockedIn = (clockInfo == null); // now!, clocked in
             model.Volunteer = volunteer;
-            model.LocationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
+            model.LocationId = locationId;
             model.TimeLogged = VolunteerClockedInOutViewModel.GetHoursLogged(volunteerInfoRepository.GetVolunteersCompletedInOutInfos(volunteer));
             model.RecentClockInformation = volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, Util.TJSConstants.RECENT_LIST_LEN);
             model.CaseNumber = profile != null ? profile.CaseNumber : "NA";
             model.TimeNeeded = profile != null ? new TimeSpan((short)profile.Volunteer_Hours_Needed, 0, 0) : new TimeSpan(0, 0, 0);
-            
+
             return View(model);
+        }
+
+        public ActionResult VolunteerCreateAccount()
+        {
+            return View();
         }
 
         /// <summary>
