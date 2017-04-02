@@ -58,5 +58,10 @@ namespace TJS.VIMS.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
+
+        public ActionResult Test(int locationId, int userId)
+        {
+            return View();
+        }
     }
 }

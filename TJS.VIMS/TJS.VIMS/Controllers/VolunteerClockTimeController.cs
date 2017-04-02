@@ -133,8 +133,10 @@ namespace TJS.VIMS.Controllers
             return View(model);
         }
 
-        public ActionResult VolunteerAllReadyClockedIn()
+        public ActionResult VolunteerAllReadyClockedIn(int locationId, int userId)
         {
+            ViewBag.locationId = locationId;
+            ViewBag.userId = userId;
             return View();
         }
 
