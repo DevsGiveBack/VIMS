@@ -53,7 +53,7 @@
         }
         else
         {
-            @Html.ActionLink("I need to clock out instead", "VolunteerClockIn", new { id = Model.Volunteer.VolunteerId })<br />
+            @Html.ActionLink("I need to clock out instead", "VolunteerAllReadyClockedIn")<br />
             @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "VolunteerLookUp", new { id = Model.LocationId })
         }
    </p>

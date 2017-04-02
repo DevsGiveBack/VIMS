@@ -302,6 +302,7 @@
     <Content Include="Views\Home\Body.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerCreateAccount.cshtml" />
+    <Content Include="Views\VolunteerClockTime\VolunteerAllReadyClockedIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -133,6 +133,11 @@ namespace TJS.VIMS.Controllers
             return View(model);
         }
 
+        public ActionResult VolunteerAllReadyClockedIn()
+        {
+            return View();
+        }
+
         public ActionResult VolunteerCreateAccount()
         {
             return View();
