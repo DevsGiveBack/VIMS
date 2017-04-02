@@ -35,7 +35,7 @@
     <br />
     <br />
 
-    @using (Html.BeginForm("TimeClockLogIn", "VolunteerClockTime", new { id = Model.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", new { id = Model.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
         <div class="center">
@@ -68,7 +68,7 @@
         var count = div.textContent * 1 - 1;
         div.textContent = count;
         if (count <= 0) {
-                location.href = "@Url.Action("TimeClockLogIn", "VolunteerClockTime", new { id = Model.LocationId })";
+                location.href = "@Url.Action("VolunteerLookUp", "VolunteerClockTime", new { id = Model.LocationId })";
             }
         }, 1000);
     </script>

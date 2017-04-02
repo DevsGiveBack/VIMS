@@ -219,8 +219,9 @@
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\TimeClockInViewModel.cs" />
+    <Compile Include="ViewModel\VolunteerLookUpViewModel.cs" />
     <Compile Include="ViewModel\VolunteerClockedInOutViewModel.cs" />
+    <Compile Include="ViewModel\VolunteerClockInViewModel.cs" />
     <Compile Include="ViewModel\VolunteerViewModel.cs" />
     <Compile Include="DAL\VIMSDBContext.cs" />
     <Compile Include="Models\VolunteerClockInOutInfo.cs" />
@@ -295,7 +296,6 @@
     <Content Include="Views\Volunteer\CreateProfile.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockIn.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerLookUp.cshtml" />
-    <Content Include="Views\Shared\_VolunteerClockedView.cshtml" />
     <Content Include="Views\Shared\_Clock.cshtml" />
     <Content Include="Views\Shared\_HoursStatus.cshtml" />
     <Content Include="Views\Shared\_RecentHours.cshtml" />

@@ -26,15 +26,15 @@ namespace TJS.VIMS.Controllers
         }
 
         /// <summary>
-        /// TimeClockLogIn: opens the volunteer lookup view
+        /// VolunteerLookUp: opens the volunteer lookup view
         /// </summary>
         /// <param name="id">a location id</param>
         /// <returns>an ActionResult</returns>
         //[Authorize]
-        public ActionResult TimeClockLogIn(int id)
+        public ActionResult VolunteerLookUp(int id)
         {
             Location location = lookUpRepository.GetLocationById(id);
-            return View("VolunteerLookUp", new TimeClockInViewModel(location.LocationId.ToString(), location.LocationName));
+            return View(new VolunteerLookUpViewModel(location.LocationId.ToString(), location.LocationName));
         }
         
         /// <summary>
@@ -44,7 +44,7 @@ namespace TJS.VIMS.Controllers
         /// <returns>ActionResult</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult VolunteerLookUpNext(TimeClockInViewModel model)
+        public ActionResult VolunteerLookUpNext(VolunteerLookUpViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -59,14 +59,21 @@ namespace TJS.VIMS.Controllers
                     volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
                 VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
 
+                // move to view model?
                 ViewBag.isClockedIn = (clockInfo != null); // clocked in
                 ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
+                
                 TempData["VolunteerInfo"] = volunteer;
-                TempData["TimeClockInViewModel"] = model; 
+                TempData["VolunteerLookUpViewModel"] = model; 
 
                 //BKP dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
-                return View("VolunteerClockIn", volunteer);
+
+                VolunteerClockInViewModel view_model = new VolunteerClockInViewModel();
+                view_model.Volunteer = volunteer;
+                view_model.LocationId = model.LocationId;
+
+                return View("VolunteerClockIn", view_model);
             }
 
             return View("VolunteerLookUp", model);
@@ -82,7 +89,7 @@ namespace TJS.VIMS.Controllers
         {
             VIMSDBContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
             VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
-            int locationId = ((TimeClockInViewModel)TempData["TimeClockInViewModel"]).LocationId;
+            int locationId = ((VolunteerLookUpViewModel)TempData["VolunteerLookUpViewModel"]).LocationId;
             context.Entry(volunteer).State = EntityState.Modified; // reload after request
 
             VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);

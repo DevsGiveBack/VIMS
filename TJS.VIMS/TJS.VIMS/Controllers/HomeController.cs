@@ -37,7 +37,7 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime", new { id = model.SelectedLocationId });
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { id = model.SelectedLocationId });
         }
 
         //BKP testing partial view, todo remove when done

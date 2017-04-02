@@ -1,4 +1,4 @@
-﻿@model TJS.VIMS.Models.VolunteerInfo
+﻿@model TJS.VIMS.ViewModel.VolunteerClockInViewModel
 
 @{
     ViewBag.Title = "VolunteerClockIn";
@@ -7,8 +7,7 @@
 <div class="center">
     
     @Html.Partial("_Clock")
-
-   
+     
     <div id="Camera"></div>
         <input type="button" value="Capture" onclick="webcam.capture();" />
     <div>
@@ -16,7 +15,7 @@
         <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
     </div>
     <br />
-    <strong>Case # TODO</strong><br />
+    <strong>Case # @ViewBag.Case</strong><br />
     @if (ViewBag.isClockedIn)
     {
         <strong>If you are finished working:</strong>
@@ -50,12 +49,12 @@
     <p>
         @if (ViewBag.isClockedIn)
         {
-            @Html.ActionLink("Never mind, I want to keep on working", "TimeClockLogIn", "VolunteerClockTime", new { id = 0 })
+            @Html.ActionLink("Never mind, I want to keep on working", "VolunteerLookUp", new { id = Model.LocationId })
         }
         else
         {
-            @Html.ActionLink("I need to clock out instead", "VolunteerClockIn", new { id = Model.VolunteerId })<br />
-            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "TimeClockLogIn", "VolunteerClockTime", new { id = 0 })
+            @Html.ActionLink("I need to clock out instead", "VolunteerClockIn", new { id = Model.Volunteer.VolunteerId })<br />
+            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "VolunteerLookUp", new { id = Model.LocationId })
         }
    </p>
 
@@ -76,7 +75,7 @@
                     UploadPic();
                 },
                 onCapture: function () {
-                    webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.UserName");
+                    webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.Volunteer.UserName");
              },
                 debug: function () { },
                 onLoad: function () { }

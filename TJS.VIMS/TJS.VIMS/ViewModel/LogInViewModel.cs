@@ -17,6 +17,5 @@ namespace TJS.VIMS.ViewModel
 
         [DataType(DataType.Text)]
         public string InvalidLogin { get; set; }
-      
     }
 }
