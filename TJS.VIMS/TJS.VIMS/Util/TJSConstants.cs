@@ -8,6 +8,6 @@ namespace TJS.VIMS.Util
     public static class TJSConstants
     {
         public static string LOGIN_ERROR_MESSAGE = "Invalid User Name or Pass Phrase";
-        public const int RECENT_LIST_LEN = 4;
+        public const int RECENT_LIST_LEN = 10;
     }
 }

@@ -12,12 +12,14 @@ namespace TJS.VIMS.Controllers
     //[Authorize]
     public class VolunteerClockTimeController : Controller
     {
+        private IEmployeeRepository employeeRepository;
         private ILookUpRepository lookUpRepository;
         private IVolunteerInfoRepository volunteerInfoRepository;
 
-        public VolunteerClockTimeController(ILookUpRepository lookUpRepo, IVolunteerInfoRepository volunteerInfoRepository)
+        public VolunteerClockTimeController(IEmployeeRepository employeeRepository, ILookUpRepository lookUpRepository, IVolunteerInfoRepository volunteerInfoRepository)
         {
-            this.lookUpRepository = lookUpRepo;
+            this.employeeRepository = employeeRepository;
+            this.lookUpRepository = lookUpRepository;
             this.volunteerInfoRepository = volunteerInfoRepository;
         }
 
@@ -34,9 +36,14 @@ namespace TJS.VIMS.Controllers
         public ActionResult VolunteerLookUp(int id)
         {
             Location location = lookUpRepository.GetLocationById(id);
-            return View(new VolunteerLookUpViewModel(location.LocationId.ToString(), location.LocationName));
+
+            VolunteerLookUpViewModel view_model = new VolunteerLookUpViewModel(location.LocationId.ToString(), location.LocationName);
+            //view_model.Employee = null;
+            //view_model.Location = location;
+            
+            return View(view_model);
         }
-        
+
         /// <summary>
         /// VolunteerLookUpNext: volunteer pressed next 
         /// </summary>
@@ -70,9 +77,11 @@ namespace TJS.VIMS.Controllers
                 volunteerInfoRepository.Dispose();
 
                 VolunteerClockInViewModel view_model = new VolunteerClockInViewModel();
+                //view_model.Location = model.Location;
+                //view_model.Employee = model.Employee;
                 view_model.Volunteer = volunteer;
                 view_model.LocationId = model.LocationId;
-
+                
                 return View("VolunteerClockIn", view_model);
             }
 
@@ -114,7 +123,7 @@ namespace TJS.VIMS.Controllers
                 clockIn.ClockInOutLocationId = ViewBag.LocationId;
                 clockIn.ClockInProfilePhotoPath =
                     photo != null ? photo.VolunteerProfilePhotoPath : null;
-                clockIn.CreatedBy = 1; //BKP todo
+                clockIn.CreatedBy = null; 
                 clockIn.CreatedDt = DateTime.Now;
                 volunteer.VolunteerClockInOutInfoes.Add(clockIn);
                 context.SaveChanges(); //BKP todo, merge with repo code
@@ -135,13 +144,18 @@ namespace TJS.VIMS.Controllers
 
         public ActionResult VolunteerAllReadyClockedIn(int locationId, int userId)
         {
+            //BKP todo create a view model here
             ViewBag.locationId = locationId;
-            ViewBag.userId = userId;
+            Location location = lookUpRepository.GetLocationById(locationId);
+            ViewBag.Location = location;
+            ViewBag.Organization = lookUpRepository.GetOrganizationById((int)location.OrganizationId);
+            ViewBag.UserId = userId;
             return View();
         }
 
         public ActionResult VolunteerCreateAccount()
         {
+            //todo
             return View();
         }
 

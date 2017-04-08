@@ -303,7 +303,7 @@
     <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerCreateAccount.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerAllReadyClockedIn.cshtml" />
-    <Content Include="Views\Shared\_LocationNameView.cshtml" />
+    <Content Include="Views\Shared\_LocationName.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>

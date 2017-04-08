@@ -9,10 +9,10 @@ using TJS.VIMS.Models;
 
 namespace TJS.VIMS.ViewModel
 {
-    public class VolunteerLookUpViewModel
+    public class VolunteerLookUpViewModel : AuthorizedViewModel
     {
-        public string LocationName { get; set; }
-        public int LocationId { get; set; }
+        //public string LocationName { get; set; }
+        //public int LocationId { get; set; }
          
         [Required]
         [Display(Name = "Username")]

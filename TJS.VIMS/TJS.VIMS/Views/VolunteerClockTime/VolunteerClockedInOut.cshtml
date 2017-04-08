@@ -21,9 +21,10 @@
     <br />
     <br />
     <br />
-
-    <strong>Case # @Model.CaseNumber</strong><br />
+    @* @Html.Partial("_LocationName") *@
+    @Model.LocationName
     @Html.Partial("_Clock")
+    <strong>Case # @Model.CaseNumber</strong><br />
 
     <br />
     <br />

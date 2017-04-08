@@ -37,7 +37,10 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { id = model.SelectedLocationId });
+            //Location location = lookUpRepository.GetLocationById(model.SelectedLocationId);
+            //AuthorizedViewModel view_model = new AuthorizedViewModel(null, location); // todo employee
+            //TempData["AuthorizedViewModel"] = view_model;
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { id = model.SelectedLocationId } );
         }
 
         //BKP testing partial view, todo remove when done

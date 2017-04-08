@@ -6,17 +6,19 @@
 
 <div class="center">
 
+    @* @Html.Partial("_LocationName") *@
+    @ViewBag.Location.LocationName
     @Html.Partial("_Clock")
     <br />
     <p>
         We're sorry, but you are not clocked in.<br />
         Our time clock app might have messed up.<br />
-        Maybe youi forgot to clock in before you started working.<br />
-        Either way, please see a TODO employee so we can get this fixed for you.<br />
+        Maybe you forgot to clock in before you started working.<br />
+        Either way, please see a @ViewBag.Organization.OrganizationName employee so we can get this fixed for you.<br />
         Sorry for the hassle.
     </p>
     <br />
-    @using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", new { id = ViewBag.userId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", new { id = ViewBag.UserId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
         <div class="center">
@@ -32,16 +34,16 @@
     <div id="counter">120</div>
 </div>
 
-@section scripts
+@section scripts 
 {
         <script>
-    setInterval(function () {
-        var div = document.querySelector("#counter");
-        var count = div.textContent * 1 - 1;
-        div.textContent = count;
-        if (count <= 0) {
-                location.href = "@Url.Action("VolunteerLookUp", "VolunteerClockTime", new { id = ViewBag.userId })";
+        setInterval(function () {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                    location.href = "@Url.Action("VolunteerLookUp", "VolunteerClockTime", new { id = ViewBag.UserId })";
             }
         }, 1000);
         </script>
-    }
+}

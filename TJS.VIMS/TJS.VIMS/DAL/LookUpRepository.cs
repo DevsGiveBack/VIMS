@@ -26,6 +26,13 @@ namespace TJS.VIMS.DAL
                 .Where(x => x.LocationId == locationId).SingleOrDefault();
         }
 
+        public Organization GetOrganizationById(int organizationId)
+        {
+            return vimsDBContext
+                .Organizations
+                .Where(obj => obj.OrganizationId == organizationId).SingleOrDefault();
+        }
+
         public List<Country> GetCountry()
         {
             return vimsDBContext.Countries.ToList<Country>();

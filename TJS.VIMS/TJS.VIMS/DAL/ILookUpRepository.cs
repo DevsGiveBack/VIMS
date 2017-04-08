@@ -11,6 +11,7 @@ namespace TJS.VIMS.DAL
     {
         List<Location> GetLocation();
         Location GetLocationById(int locationId);
+        Organization GetOrganizationById(int organizationId);
         List<Country> GetCountry();
         List<State> GetState();
     }
