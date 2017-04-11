@@ -4,27 +4,17 @@
     ViewBag.Title = "VolunteerLookUp";
 }
 
-@using (Html.BeginForm("VolunteerLookUpNext", "VolunteerClockTime", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("VolunteerLookUpNext", "VolunteerClockTime", 
+    new { ReturnUrl = ViewBag.ReturnUrl, LocationId = Model.LocationId, UserName = Model.UserName }, 
+    FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.LocationId)
-
-
-    @* @Html.Partial("_LocationName") *@
-    @Model.LocationName
+    @Html.Partial("_LocationName", Model) 
     @Html.Partial("_Clock")
 
     <div class="center">
         <table style="width:25%">
-            <tr>
-                <td></td>
-                <td align="left" style="width:40%" class="text-info tex">@Html.DisplayFor(m => m.LocationName)</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="3"><span>&nbsp;</span></td>
-            </tr>
-            <tr>
+           <tr> 
                 <td></td>
                 <td style="width:40%">
                     Login to Clock In or Out

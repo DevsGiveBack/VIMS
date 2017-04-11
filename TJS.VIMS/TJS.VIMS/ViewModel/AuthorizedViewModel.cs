@@ -13,14 +13,19 @@ namespace TJS.VIMS.ViewModel
         {
         }
 
-        public AuthorizedViewModel(Employee employee, Location location)
+        public AuthorizedViewModel(int locationId)
         {
-            Employee = employee;
-            Location = location;
+
         }
 
-        public Employee Employee { get; set; }
-        public Location Location { get; set; }
+        //public AuthorizedViewModel(Employee employee, Location location)
+        //{
+        //    Employee = employee;
+        //    Location = location;
+        //}
+
+        //public Employee Employee { get; set; }
+        //public Location Location { get; set; }
 
         //[Required]
         [Display(Name = "AdminName")]
@@ -36,7 +41,7 @@ namespace TJS.VIMS.ViewModel
         [Display(Name = "LocationId")]
         public int LocationId { get; set; }
 
-        //[DataType(DataType.Text)]
+        //[Required]
         [Display(Name = "Location")]
         public string LocationName { get; set; }
     }
