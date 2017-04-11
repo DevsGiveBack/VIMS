@@ -74,8 +74,9 @@
                     UploadPic();
                 },
                 onCapture: function () {
-                    webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.Volunteer.UserName");
-             },
+                    //if(webcam.getCameraList().length != 0)
+                        webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.Volunteer.VolunteerId");
+                },
                 debug: function () { },
                 onLoad: function () { }
 

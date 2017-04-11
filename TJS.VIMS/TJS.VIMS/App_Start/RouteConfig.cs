@@ -13,15 +13,15 @@ namespace TJS.VIMS
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                 name: "Route66",
-                 url: "{controller}/{action}/{locationId}/{userId}"
-              );
+            //routes.MapRoute(
+            //     name: "Route66",
+            //     url: "{controller}/{action}/{locationId}/{userId}"
+            //  );
 
             routes.MapRoute(
                   name: "Capture",
-                  url: "VolunteerClockTime/Capture/{user}",
-                  defaults: new { controller = "VolunteerClockTime", action = "Capture", user = UrlParameter.Optional }
+                  url: "VolunteerClockTime/Capture/{id}",
+                  defaults: new { controller = "VolunteerClockTime", action = "Capture", id = UrlParameter.Optional }
               );
 
             routes.MapRoute(

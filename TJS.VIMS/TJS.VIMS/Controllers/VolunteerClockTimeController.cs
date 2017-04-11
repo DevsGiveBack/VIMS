@@ -169,7 +169,7 @@ namespace TJS.VIMS.Controllers
         /// </summary>
         /// <param name="user">user name</param>
         [HttpPost]
-        public void Capture(string user)
+        public void Capture(int id)
         {
             var stream = Request.InputStream;
             string dump = string.Empty;
@@ -184,7 +184,7 @@ namespace TJS.VIMS.Controllers
             System.IO.File.WriteAllBytes(path, Util.Utility.HexToBytes(dump));
 
             DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
-            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(user);
+            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteerById(id);
             VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
             photo.VolunteerProfilePhotoPath = name;
             photo.CreatedDt = DateTime.Now;
