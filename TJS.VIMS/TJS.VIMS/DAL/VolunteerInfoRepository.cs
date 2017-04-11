@@ -11,7 +11,23 @@ namespace TJS.VIMS.DAL
         public VolunteerInfoRepository(VIMSDBContext context) : base(context)
         {
         }
+        
+        /// <summary>
+        /// get volunteer from Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public VolunteerInfo GetVolunteerById(int Id)
+        {
+            return context.VolunteerInfoes
+             .Where(volunteer => volunteer.VolunteerId == Id).SingleOrDefault();
+        }
 
+        /// <summary>
+        /// get volunteer from user name
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public VolunteerInfo GetVolunteer(string userName)
         {
             return context.VolunteerInfoes
