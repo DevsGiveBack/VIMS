@@ -15,7 +15,7 @@ namespace TJS.VIMS.DAL
         public VolunteerInfo GetVolunteer(string userName)
         {
             return context.VolunteerInfoes
-             .Where(x => x.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
+             .Where(volunteer => volunteer.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
         }
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace TJS.VIMS.DAL
                 .FirstOrDefault();
         }
 
-        public VolunteerProfileInfo GetDefaultProfileInfo(long vid)
+        public VolunteerProfileInfo GetDefaultProfileInfo(long id)
         {
             //todo
-            return GetLastProfileInfo(vid);
+            return GetLastProfileInfo(id);
         }
 
         public List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n)

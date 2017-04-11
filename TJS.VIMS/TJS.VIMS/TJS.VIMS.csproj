@@ -219,6 +219,7 @@
     <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\VolunteerAllReadyClockedInViewModel.cs" />
     <Compile Include="ViewModel\VolunteerLookUpViewModel.cs" />
     <Compile Include="ViewModel\VolunteerClockedInOutViewModel.cs" />
     <Compile Include="ViewModel\VolunteerClockInViewModel.cs" />

@@ -33,15 +33,12 @@ namespace TJS.VIMS.Controllers
         /// <param name="id">a location id</param>
         /// <returns>an ActionResult</returns>
         //[Authorize]
-        public ActionResult VolunteerLookUp(int id)
+        public ActionResult VolunteerLookUp(int locationId)
         {
-            Location location = lookUpRepository.GetLocationById(id);
-
-            VolunteerLookUpViewModel view_model = new VolunteerLookUpViewModel(location.LocationId.ToString(), location.LocationName);
-            //view_model.Employee = null;
-            //view_model.Location = location;
-            
-            return View(view_model);
+            Location location = lookUpRepository.GetLocationById(locationId);
+            VolunteerLookUpViewModel vm = new VolunteerLookUpViewModel(locationId, location.LocationName);
+          
+            return View(vm);
         }
 
         /// <summary>
@@ -66,23 +63,22 @@ namespace TJS.VIMS.Controllers
                     volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
                 VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
 
-                // move to view model?
+                //BKP move to view model?
                 ViewBag.isClockedIn = (clockInfo != null); // clocked in
                 ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
                 
                 TempData["VolunteerInfo"] = volunteer;
                 TempData["VolunteerLookUpViewModel"] = model; 
 
-                //BKP dispose now, new context will be created in next request 
+                //dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
 
-                VolunteerClockInViewModel view_model = new VolunteerClockInViewModel();
-                //view_model.Location = model.Location;
-                //view_model.Employee = model.Employee;
-                view_model.Volunteer = volunteer;
-                view_model.LocationId = model.LocationId;
+                VolunteerClockInViewModel vm = new VolunteerClockInViewModel();
+                vm.Volunteer = volunteer;
+                vm.LocationId = model.LocationId;
+                vm.LocationName = model.LocationName;
                 
-                return View("VolunteerClockIn", view_model);
+                return View("VolunteerClockIn", vm);
             }
 
             return View("VolunteerLookUp", model);
@@ -144,13 +140,15 @@ namespace TJS.VIMS.Controllers
 
         public ActionResult VolunteerAllReadyClockedIn(int locationId, int userId)
         {
-            //BKP todo create a view model here
-            ViewBag.locationId = locationId;
+            // build model for view
+            VolunteerAllReadyClockedInViewModel model = new VolunteerAllReadyClockedInViewModel();
             Location location = lookUpRepository.GetLocationById(locationId);
-            ViewBag.Location = location;
-            ViewBag.Organization = lookUpRepository.GetOrganizationById((int)location.OrganizationId);
-            ViewBag.UserId = userId;
-            return View();
+            model.LocationId = locationId;
+            model.LocationName = location.LocationName;
+            model.UserId = userId;
+            model.OrganizationName = lookUpRepository.GetOrganizationById((int)location.OrganizationId).OrganizationName;
+
+            return View(model);
         }
 
         public ActionResult VolunteerCreateAccount()

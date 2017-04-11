@@ -11,9 +11,6 @@ namespace TJS.VIMS.ViewModel
 {
     public class VolunteerLookUpViewModel : AuthorizedViewModel
     {
-        //public string LocationName { get; set; }
-        //public int LocationId { get; set; }
-         
         [Required]
         [Display(Name = "Username")]
         [DataType(DataType.Text)]
@@ -21,12 +18,9 @@ namespace TJS.VIMS.ViewModel
 
         public VolunteerLookUpViewModel() { }
 
-        public VolunteerLookUpViewModel(string locId, string locationName)
+        public VolunteerLookUpViewModel(int locationId, string locationName)
         {
-            if (locId != null)
-            {
-                this.LocationId = Convert.ToInt32(locId);
-            }
+            this.LocationId = locationId;
             this.LocationName = locationName;
         }
     }
