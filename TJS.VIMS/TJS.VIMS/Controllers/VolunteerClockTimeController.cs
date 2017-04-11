@@ -55,7 +55,7 @@ namespace TJS.VIMS.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("VolunteerLookUp");
+                return RedirectToAction("Login", "AccountController");
             }
 
             VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(userName);
@@ -85,7 +85,7 @@ namespace TJS.VIMS.Controllers
                 return View("VolunteerClockIn", vm);
             }
 
-            return View("VolunteerLookUp");
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
         }
 
         /// <summary>

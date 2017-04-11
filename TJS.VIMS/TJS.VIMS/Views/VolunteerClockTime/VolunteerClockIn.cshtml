@@ -10,12 +10,10 @@
     @Html.Partial("_Clock")
      
     <div id="Camera"></div>
-        <input type="button" value="Capture" onclick="webcam.capture();" />
-    <div>
-        <h3>Camera</h3>
-        <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
-    </div>
+    <input type="button" value="Capture" onclick="webcam.capture();" />
+
     <br />
+
     <strong>Case # @ViewBag.Case</strong><br />
     @if (ViewBag.isClockedIn)
     {
@@ -50,12 +48,12 @@
     <p>
         @if (ViewBag.isClockedIn)
         {
-            @Html.ActionLink("Never mind, I want to keep on working", "VolunteerLookUp", new { id = Model.LocationId })
+            @Html.ActionLink("Never mind, I want to keep on working", "VolunteerLookUp", new { locationId = Model.LocationId })
         }
         else
         {
             @Html.ActionLink("I need to clock out instead", "VolunteerAllReadyClockedIn", new { locationId = Model.LocationId, userId = Model.LocationId } )<br />
-            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "VolunteerLookUp", new { id = Model.LocationId })
+            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "VolunteerLookUp", new { locationId = Model.LocationId })
         }
    </p>
 
