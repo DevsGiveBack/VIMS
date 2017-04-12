@@ -306,6 +306,7 @@
     <Content Include="Views\VolunteerClockTime\VolunteerAllReadyClockedIn.cshtml" />
     <Content Include="Views\Shared\_LocationName.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\VolunteerClockTime\VolunteerPhotoCapture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

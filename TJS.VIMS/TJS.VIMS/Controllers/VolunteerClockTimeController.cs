@@ -67,7 +67,7 @@ namespace TJS.VIMS.Controllers
                     volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
                 VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
 
-                //BKP move to view model?
+                //todo move to a view model?
                 ViewBag.isClockedIn = (clockInfo != null); // clocked in
                 ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
                 
