@@ -300,13 +300,16 @@
     <Content Include="Views\Shared\_Clock.cshtml" />
     <Content Include="Views\Shared\_HoursStatus.cshtml" />
     <Content Include="Views\Shared\_RecentHours.cshtml" />
-    <Content Include="Views\Home\Body.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerCreateAccount.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerAllReadyClockedIn.cshtml" />
     <Content Include="Views\Shared\_LocationName.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerPhotoCapture.cshtml" />
+    <Content Include="Views\VolunteerClockTime\TestView.cshtml" />
+    <Content Include="Views\Home\EditLocation.cshtml" />
+    <Content Include="Views\Home\AddLocation.cshtml" />
+    <Content Include="Views\Home\DeleteLocation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

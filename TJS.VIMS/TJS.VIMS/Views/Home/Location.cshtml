@@ -27,21 +27,21 @@
                                 <input type="submit" value="Open time clock app for this location" class="btn btn-default" />
                             </td>
                             <td style="width:50%">
-                                <input type="button" value="Edit Location" onclick="location.href='@Url.Action("AddLocation", "Home")'" class="btn btn-default" />
+                                <input type="button" value="Add Location" onclick="location.href='@Url.Action("AddLocation", "Home")'" class="btn btn-default" />
                             </td>
                         </tr>
                         <tr><td><span>&nbsp;</span></td></tr>
                         <tr>
                             <td colspan="2" style="align-content:flex-start">
                                 <div style="margin:initial">
-                                    @Html.ActionLink("Add new location", "AddNewLocation")
+                                    @Html.ActionLink("Edit this location", "EditLocation")
                                 </div>
                             </td>
                         </tr>
                         <tr><td><span>&nbsp;</span></td></tr>
                         <tr>
                             <td colspan="2" style="align-content:flex-start">
-                                @Html.ActionLink("Delete this location", "EditLocation")
+                                @Html.ActionLink("Delete this location", "DeleteLocation")
                             </td>
                         </tr>
                     </table>

@@ -43,10 +43,18 @@ namespace TJS.VIMS.Controllers
             return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = model.SelectedLocationId } );
         }
 
-        //BKP testing partial view, todo remove when done
-        public ActionResult Body()
+        public ActionResult AddLocation()
         {
-            ViewBag.Message = "Body";
+            return View();
+        }
+
+        public ActionResult EditLocation()
+        {
+            return View();
+        }
+
+        public ActionResult DeleteLocation()
+        {
             return View();
         }
 
