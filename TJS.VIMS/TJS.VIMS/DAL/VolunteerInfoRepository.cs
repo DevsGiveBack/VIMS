@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TJS.VIMS.Models;
-using TJS.VIMS.Util;
 
 namespace TJS.VIMS.DAL
 {
@@ -47,16 +46,27 @@ namespace TJS.VIMS.DAL
         }
 
         /// <summary>
-        /// gets volunteers photo info
+        /// gets volunteers last photo info
         /// </summary>
         /// <param name="volunteer"></param>
         /// <returns>if exsit in returns VolunteerProfilePhotoInfo otherwise null</returns>
-        public VolunteerProfilePhotoInfo GetPhotoInfo(VolunteerInfo volunteer)
+        public VolunteerProfilePhotoInfo GetLastPhotoInfo(VolunteerInfo volunteer)
         {
             return volunteer.VolunteerProfilePhotoInfoes
                 .Where(m => m.CreatedDt.Value.Date == DateTime.Today)
                 .OrderByDescending(m => m.CreatedDt)
                 .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// gets volunteers default photo info
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <returns>if exsit in returns VolunteerProfilePhotoInfo otherwise null</returns>
+        public VolunteerProfilePhotoInfo GetDefaultPhotoInfo(VolunteerInfo volunteer)
+        {
+            //todo
+            return GetLastPhotoInfo(volunteer);
         }
 
         /// <summary>

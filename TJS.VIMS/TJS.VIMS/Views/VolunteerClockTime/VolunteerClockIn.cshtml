@@ -8,10 +8,11 @@
     
     @Html.Partial("_LocationName", Model)
     @Html.Partial("_Clock")
-     
-    <div id="Camera"></div>
-    <input type="button" value="Capture" onclick="webcam.capture();" />
-
+    
+    <div id="Photo">
+        <img src="~/Capture/@Model.DefaultPhotoPath" />
+    </div>
+    
     <br />
 
     <strong>Case # @ViewBag.Case</strong><br />
@@ -59,28 +60,4 @@
 
 </div>
 
-@section scripts
-{
-    <script src="@Url.Content("~/Scripts/jquery.webcam.js")">
-    </script>
-    <script type="text/javascript">
-            $("#Camera").webcam({
-                width: 320,
-                height: 240,
-                mode: "save",
-                swffile: "@Url.Content("~/Scripts/jscam.swf")",
-                onTick: function () { },
-                onSave: function () {
-                    UploadPic();
-                },
-                onCapture: function () {
-                    //if(webcam.getCameraList().length != 0)
-                        webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@Model.Volunteer.VolunteerId");
-                },
-                debug: function () { },
-                onLoad: function () { }
-
-            });
-    </script>
-}
 

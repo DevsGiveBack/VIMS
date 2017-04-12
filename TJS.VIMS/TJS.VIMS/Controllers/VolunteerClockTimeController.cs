@@ -81,6 +81,7 @@ namespace TJS.VIMS.Controllers
                 vm.Volunteer = volunteer;
                 vm.LocationId = location.LocationId;
                 vm.LocationName = location.LocationName;
+                //vm.DefaultPhotoPath = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.VolunteerId);
                 
                 return View("VolunteerClockIn", vm);
             }
@@ -104,7 +105,7 @@ namespace TJS.VIMS.Controllers
             context.Entry(volunteer).State = EntityState.Modified; // reload after request
 
             VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
-            VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetPhotoInfo(volunteer);
+            VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
             VolunteerProfileInfo profile = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.VolunteerId);
             
             if (clockInfo != null)
