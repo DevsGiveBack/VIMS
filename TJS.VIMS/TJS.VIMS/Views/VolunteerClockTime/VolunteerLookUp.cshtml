@@ -4,7 +4,7 @@
     ViewBag.Title = "VolunteerLookUp";
 }
 
-@using (Html.BeginForm("VolunteerLookUpNext", "VolunteerClockTime", 
+@using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", 
     new { ReturnUrl = ViewBag.ReturnUrl, LocationId = Model.LocationId, UserName = Model.UserName }, 
     FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

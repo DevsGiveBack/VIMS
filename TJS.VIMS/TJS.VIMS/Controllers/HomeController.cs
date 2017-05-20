@@ -15,17 +15,16 @@ namespace TJS.VIMS.Controllers
 
         public HomeController()
         {
-
         }
 
-        public HomeController(ILookUpRepository lookUpRepo)
+        public HomeController(ILookUpRepository lookUpRepository)
         {
-            this.lookUpRepository = lookUpRepo;
+            this.lookUpRepository = lookUpRepository;
         }
 
         public ActionResult Location()
         {
-            List<Location> lsLocation= lookUpRepository.GetLocation();
+            List<Location> lsLocation = lookUpRepository.GetLocations();
             return View(new LocationViewModel(lsLocation));
         }
 
@@ -37,23 +36,75 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            //Location location = lookUpRepository.GetLocationById(model.SelectedLocationId);
-            //AuthorizedViewModel view_model = new AuthorizedViewModel(null, location); // todo employee
-            //TempData["AuthorizedViewModel"] = view_model;
             return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = model.SelectedLocationId } );
         }
 
+        [HttpGet]
         public ActionResult AddLocation()
         {
-            return View();
+            EditLocationsViewModel vm = new EditLocationsViewModel();
+            vm.countries = lookUpRepository.GetCountries();
+            vm.states = lookUpRepository.GetStates();
+            vm.Location = new Location();
+            return View("AddLocation", vm);
         }
 
-        public ActionResult EditLocation()
+        [HttpPost]
+        public ActionResult AddLocation(EditLocationsViewModel model)
         {
+            if (ModelState.IsValid) 
+            {
+                LocationRepository repo = new LocationRepository(new VIMSDBContext());
+                repo.Add(model.Location);
+                repo.Save();
+                repo.Dispose();
+
+                return RedirectToAction("Location");
+            }
+            return View(model.Location);
+        }
+
+        [HttpGet]
+        public ActionResult EditLocation(int locationId)
+        {
+            EditLocationsViewModel vm = new EditLocationsViewModel();
+            vm.countries = lookUpRepository.GetCountries();
+            vm.states = lookUpRepository.GetStates();
+            vm.Location = lookUpRepository.GetLocationById(locationId);
+            return View("EditLocation", vm);
+        }
+
+        [HttpPost]
+        public ActionResult EditLocation(EditLocationsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                LocationRepository repo = new LocationRepository(new VIMSDBContext());
+                Location location = repo.Get(model.Location.LocationId);
+                location.LocationName = model.Location.LocationName;
+
+                repo.Context.Entry(location).State = System.Data.Entity.EntityState.Modified;
+                repo.Save();
+                repo.Dispose();
+
+                return RedirectToAction("Location");
+            }
+            return View(model.Location);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteLocation(int locationId)
+        {
+            Location location = lookUpRepository.GetLocationById(locationId);
+            VIMSDBContext context = ((LookUpRepository)lookUpRepository).Context;
+            context.Locations.Remove(location);
+            context.SaveChanges();
+
             return View();
         }
 
-        public ActionResult DeleteLocation()
+        [HttpPost]
+        public ActionResult DeleteLocation(Location location)
         {
             return View();
         }
@@ -70,7 +121,18 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
-        public ActionResult Test(int locationId, int userId)
+        public ActionResult Test2()
+        {
+            return View();
+        }
+
+        //public ActionResult Test(int locationId, int userId)
+        //{
+        //    return View();
+        //}
+
+        [HttpPost]
+        public ActionResult Test(LocationViewModel model)
         {
             return View();
         }

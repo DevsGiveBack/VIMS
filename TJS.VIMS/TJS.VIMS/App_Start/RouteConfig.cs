@@ -13,6 +13,7 @@ namespace TJS.VIMS
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //TMP TESTING
             //routes.MapRoute(
             //     name: "Route66",
             //     url: "{controller}/{action}/{locationId}/{userId}"
@@ -23,6 +24,22 @@ namespace TJS.VIMS
                   url: "VolunteerClockTime/Capture/{id}",
                   defaults: new { controller = "VolunteerClockTime", action = "Capture", id = UrlParameter.Optional }
               );
+
+            //TMP TESTING
+            routes.MapRoute(
+                name: "Test1",
+                url: "VolunteerClockTime/Test1/{x}/{s}",
+                defaults: new { controller = "VolunteerClockTime", action = "Test1", x = UrlParameter.Optional, s = UrlParameter.Optional}
+            );
+
+            //TMP TESTING
+            routes.MapRoute(
+               name: "Test2",
+               url: "VolunteerClockTime/Test2/{x}",
+               defaults: new { controller = "VolunteerClockTime", action = "Test2", x = UrlParameter.Optional }
+           );
+
+ 
 
             routes.MapRoute(
                     name: "Default",

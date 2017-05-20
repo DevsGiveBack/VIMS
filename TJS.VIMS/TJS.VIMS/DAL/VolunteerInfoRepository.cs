@@ -18,8 +18,9 @@ namespace TJS.VIMS.DAL
         /// <returns></returns>
         public VolunteerInfo GetVolunteerById(int Id)
         {
-            return context.VolunteerInfoes
-             .Where(volunteer => volunteer.VolunteerId == Id).SingleOrDefault();
+            //return context.VolunteerInfoes
+            // .Where(volunteer => volunteer.VolunteerId == Id).SingleOrDefault();
+            return SingleOrDefault(volunteer => volunteer.VolunteerId == Id);
         }
 
         /// <summary>
@@ -29,8 +30,9 @@ namespace TJS.VIMS.DAL
         /// <returns></returns>
         public VolunteerInfo GetVolunteer(string userName)
         {
-            return context.VolunteerInfoes
-             .Where(volunteer => volunteer.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
+            //return context.VolunteerInfoes
+            // .Where(volunteer => volunteer.UserName.ToLower() == userName.ToLower()).SingleOrDefault();
+            return SingleOrDefault(volunteer => volunteer.UserName.ToLower() == userName.ToLower());
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace TJS.VIMS.Controllers
         /// </summary>
         /// <param name="id">a location id</param>
         /// <returns>an ActionResult</returns>
-        //[Authorize]
+        [HttpGet]
         public ActionResult VolunteerLookUp(int locationId)
         {
             Location location = lookUpRepository.GetLocationById(locationId);
@@ -43,7 +43,7 @@ namespace TJS.VIMS.Controllers
 
             return View(vm);
         }
-
+           
         /// <summary>
         /// VolunteerLookUpNext: volunteer pressed next 
         /// </summary>
@@ -51,7 +51,7 @@ namespace TJS.VIMS.Controllers
         /// <returns>ActionResult</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult VolunteerLookUpNext(int locationId, string userName)
+        public ActionResult VolunteerLookUp(int locationId, string userName)
         {
             if (!ModelState.IsValid)
             {
@@ -59,20 +59,44 @@ namespace TJS.VIMS.Controllers
             }
 
             VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(userName);
-            Location location = lookUpRepository.GetLocationById(locationId);
+                      
+            if (volunteer != null && volunteer.VolunteerId > 0)
+            {
+                ViewBag.LocationId = locationId;
+                ViewBag.UserName = userName;
+                ViewBag.VolunteerId = volunteer.VolunteerId;
+
+                return View("VolunteerPhotoCapture");
+            }
+
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+        }
+        
+        //PhotoCaptured
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult VolunteerClockIn(int locationId, string userName)
+        {
+            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(userName);
+            Location location = lookUpRepository.GetLocationById((int)locationId);
 
             if (volunteer != null && volunteer.VolunteerId > 0)
             {
-                VolunteerProfileInfo profile = 
-                    volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
+                VolunteerProfileInfo profile =
+                   volunteerInfoRepository.GetLastProfileInfo(volunteer.VolunteerId);
                 VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
 
                 //todo move to a view model?
                 ViewBag.isClockedIn = (clockInfo != null); // clocked in
                 ViewBag.Case = profile != null ? profile.CaseNumber : "NA";
-                
+
                 TempData["VolunteerInfo"] = volunteer;
-                TempData["Location"] = location; 
+                TempData["Location"] = location;
 
                 //dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
@@ -82,11 +106,23 @@ namespace TJS.VIMS.Controllers
                 vm.LocationId = location.LocationId;
                 vm.LocationName = location.LocationName;
                 //vm.DefaultPhotoPath = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.VolunteerId);
-                
-                return View("VolunteerClockIn", vm);
+
+                return View(vm);
             }
 
-            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = location.LocationId });
+        }
+
+        public ActionResult VolunteerPhotoCaptured()
+        {
+            //BKP todo
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "MyId1", Value = "MyId1", Selected = true });
+            items.Add(new SelectListItem { Text = "MyId2", Value = "MyId2" });
+
+            ViewBag.IdList = items;
+
+            return View();
         }
 
         /// <summary>
@@ -146,6 +182,12 @@ namespace TJS.VIMS.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public ActionResult VolunteerAllReadyClockedIn(int locationId, int userId)
         {
             // build model for view
