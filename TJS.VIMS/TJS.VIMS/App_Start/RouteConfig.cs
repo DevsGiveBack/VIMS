@@ -21,8 +21,8 @@ namespace TJS.VIMS
 
             routes.MapRoute(
                   name: "Capture",
-                  url: "VolunteerClockTime/Capture/{id}",
-                  defaults: new { controller = "VolunteerClockTime", action = "Capture", id = UrlParameter.Optional }
+                  url: "VolunteerClockTime/Capture/{userId}",
+                  defaults: new { controller = "VolunteerClockTime", action = "Capture", userId = UrlParameter.Optional }
               );
 
             //TMP TESTING

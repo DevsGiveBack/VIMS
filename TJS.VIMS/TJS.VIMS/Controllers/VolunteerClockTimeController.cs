@@ -62,6 +62,7 @@ namespace TJS.VIMS.Controllers
                       
             if (volunteer != null && volunteer.VolunteerId > 0)
             {
+                ViewBag.VolunteerId = volunteer.VolunteerId;
                 ViewBag.LocationId = locationId;
                 ViewBag.UserName = userName;
                 ViewBag.VolunteerId = volunteer.VolunteerId;
@@ -79,7 +80,7 @@ namespace TJS.VIMS.Controllers
         /// <param name="locationId"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        [HttpGet]
+        //[HttpGet]
         public ActionResult VolunteerClockIn(int locationId, string userName)
         {
             VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(userName);
@@ -98,14 +99,14 @@ namespace TJS.VIMS.Controllers
                 TempData["VolunteerInfo"] = volunteer;
                 TempData["Location"] = location;
 
-                //dispose now, new context will be created in next request 
-                volunteerInfoRepository.Dispose();
-
                 VolunteerClockInViewModel vm = new VolunteerClockInViewModel();
                 vm.Volunteer = volunteer;
                 vm.LocationId = location.LocationId;
                 vm.LocationName = location.LocationName;
-                //vm.DefaultPhotoPath = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.VolunteerId);
+                vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).VolunteerProfilePhotoPath;
+
+                //dispose now, new context will be created in next request 
+                volunteerInfoRepository.Dispose();
 
                 return View(vm);
             }
@@ -207,12 +208,12 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
-        /// <summary>
+          /// <summary>
         /// Capture: capture action for webcam 
         /// </summary>
-        /// <param name="user">user name</param>
+        /// <param name="userId">user id</param>
         [HttpPost]
-        public void Capture(int id)
+        public void Capture(int userId)
         {
             var stream = Request.InputStream;
             string dump = string.Empty;
@@ -227,7 +228,7 @@ namespace TJS.VIMS.Controllers
             System.IO.File.WriteAllBytes(path, Util.Utility.HexToBytes(dump));
 
             DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
-            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteerById(id);
+            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteerById(userId);
             VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
             photo.VolunteerProfilePhotoPath = name;
             photo.CreatedDt = DateTime.Now;
