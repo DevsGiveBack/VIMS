@@ -5,6 +5,11 @@ namespace TJS.VIMS.ViewModel
 {
     public class LogInViewModel
     {
+        //[Required]
+        [Display(Name = "OrganizationId")]
+        [DataType(DataType.Text)]
+        public int OrganizationId { get; set; }
+
         [Required]
         [Display(Name = "UserName")]
         [DataType(DataType.Text)]
@@ -17,6 +22,5 @@ namespace TJS.VIMS.ViewModel
 
         [DataType(DataType.Text)]
         public string InvalidLogin { get; set; }
-      
     }
 }

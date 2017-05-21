@@ -35,7 +35,8 @@ namespace TJS.VIMS.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            // BKP todo: harcoded org id
+            return View(new LogInViewModel { OrganizationId = 1 });
         }
 
         //
@@ -60,6 +61,14 @@ namespace TJS.VIMS.Controllers
             return View(model);
         }
 
+        public ActionResult TimeClock(LogInViewModel model, string returnUrl)
+        {
+            return View();
+        }
 
+        public ActionResult AdminPortal(LogInViewModel model, string returnUrl)
+        {
+            return View();
+        }
     }
 }

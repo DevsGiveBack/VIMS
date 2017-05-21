@@ -8,32 +8,44 @@ namespace TJS.VIMS.DAL
 {
     public class LookUpRepository : ILookUpRepository, IDisposable
     {
-        private VIMSDBContext vimsDBContext;
+        private VIMSDBContext context;
 
-        public LookUpRepository(VIMSDBContext vimsDBContext)
+        public VIMSDBContext Context
         {
-            this.vimsDBContext = vimsDBContext;
+            get { return context; }
         }
 
-        public List<Location> GetLocation()
+        public LookUpRepository(VIMSDBContext context)
         {
-            return vimsDBContext.Locations.ToList<Location>();
+            this.context = context;
         }
-        
+
+        public List<Location> GetLocations()
+        {
+            return context.Locations.ToList<Location>();
+        }
+
         public Location GetLocationById(int locationId)
         {
-            return vimsDBContext.Locations
+            return context.Locations
                 .Where(x => x.LocationId == locationId).SingleOrDefault();
         }
 
-        public List<Country> GetCountry()
+        public Organization GetOrganizationById(int organizationId)
         {
-            return vimsDBContext.Countries.ToList<Country>();
+            return context
+                .Organizations
+                .Where(obj => obj.OrganizationId == organizationId).SingleOrDefault();
         }
 
-        public List<State> GetState()
+        public List<Country> GetCountries()
         {
-            return vimsDBContext.States.ToList<State>();
+            return context.Countries.ToList<Country>();
+        }
+
+        public List<State> GetStates()
+        {
+            return context.States.ToList<State>();
         }
 
         #region Disposable method
@@ -44,7 +56,7 @@ namespace TJS.VIMS.DAL
             {
                 if (disposing)
                 {
-                    vimsDBContext.Dispose();
+                    context.Dispose();
                 }
             }
             this.disposed = true;

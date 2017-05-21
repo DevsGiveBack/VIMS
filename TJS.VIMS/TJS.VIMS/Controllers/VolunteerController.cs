@@ -21,8 +21,8 @@ namespace TJS.VIMS.Controllers
 
             if (lookUpRepository != null)
             {
-                lsState = lookUpRepository.GetState();
-                lsLocation = lookUpRepository.GetLocation();
+                lsState = lookUpRepository.GetStates();
+                lsLocation = lookUpRepository.GetLocations();
             }
             else
             {

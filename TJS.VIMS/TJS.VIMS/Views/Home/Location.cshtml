@@ -27,22 +27,34 @@
                                 <input type="submit" value="Open time clock app for this location" class="btn btn-default" />
                             </td>
                             <td style="width:50%">
-                                <input type="button" value="Edit Location" onclick="location.href='@Url.Action("AddLocation", "Home")'" class="btn btn-default" />
+                                <input type="button" value="Edit Location" onclick="location.href='@Url.Action("EditLocation", "Home", new { locationId = Model.SelectedLocationId })'" class="btn btn-default" />
+                            </td>
+                            <td style="width:50%">
+                                <input type="submit" value="Test2" formaction="@Url.Action("Test2")" class="btn btn-default" />
+                            </td>
+                            <td style="width:50%">
+                                <input type="submit" value="Test3" formaction="@Url.Action("Test")" class="btn btn-default" />
                             </td>
                         </tr>
                         <tr><td><span>&nbsp;</span></td></tr>
                         <tr>
                             <td colspan="2" style="align-content:flex-start">
                                 <div style="margin:initial">
-                                    @Html.ActionLink("Add new location", "AddNewLocation")
+                                    @Html.ActionLink("Add a location", " ")
                                 </div>
                             </td>
                         </tr>
                         <tr><td><span>&nbsp;</span></td></tr>
                         <tr>
                             <td colspan="2" style="align-content:flex-start">
-                                @Html.ActionLink("Delete this location", "EditLocation")
+                                <div style="margin:initial">
+                                    @Html.ActionLink("Delete this location", "DeleteLocation")
+                                </div>
                             </td>
+                            <td colspan="2" style="align-content:flex-start">
+                                
+                            </td>
+                          
                         </tr>
                     </table>
                 </div>
@@ -50,6 +62,7 @@
         </tr>
 
     </table>
+  
 </div>
 }
 

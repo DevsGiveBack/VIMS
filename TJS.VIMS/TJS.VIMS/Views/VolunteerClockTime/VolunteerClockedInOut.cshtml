@@ -1,0 +1,75 @@
+﻿@model TJS.VIMS.ViewModel.VolunteerClockedInOutViewModel
+
+@{
+    ViewBag.Title = "VolunteerClockedInOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center">
+
+    <br />
+
+    @if (Model.isClockedIn)
+    {
+        <h3>You are now clocked in and may begin working.</h3>
+    }
+    else
+    {
+        <h3>You are now clocked out. Thank you for your service.</h3>
+    }
+    
+    <br />
+    <br />
+    <br />
+    @Html.Partial("_LocationName", Model)
+    @Html.Partial("_Clock")
+    <strong>Case # @Model.CaseNumber</strong><br />
+
+    <br />
+    <br />
+    <br />
+
+    @Html.Partial("_RecentHours", Model)
+
+    <br />
+    <br />
+    <br />
+
+    @using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", new { locationId = Model.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="center">
+            <table align="center" style="width:25%">
+                <tr>
+                    <td align="center" style="width:100%">
+                        <input type="submit" value="Finished, return to home page ..." class="btn btn-default" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+
+    <br />
+    <br />
+    <br />
+
+    @Html.Partial("_HoursStatus", Model)
+
+    <br />
+
+    <div id="counter">120</div>
+</div>
+
+@section scripts
+{
+    <script>
+    setInterval(function () {
+        var div = document.querySelector("#counter");
+        var count = div.textContent * 1 - 1;
+        div.textContent = count;
+        if (count <= 0) {
+                location.href = "@Url.Action("VolunteerLookUp", "VolunteerClockTime", new { locationId = Model.LocationId })";
+            }
+        }, 1000);
+    </script>
+}

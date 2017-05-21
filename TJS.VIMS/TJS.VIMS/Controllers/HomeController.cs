@@ -15,17 +15,16 @@ namespace TJS.VIMS.Controllers
 
         public HomeController()
         {
-
         }
 
-        public HomeController(ILookUpRepository lookUpRepo)
+        public HomeController(ILookUpRepository lookUpRepository)
         {
-            this.lookUpRepository = lookUpRepo;
+            this.lookUpRepository = lookUpRepository;
         }
 
         public ActionResult Location()
         {
-            List<Location> lsLocation= lookUpRepository.GetLocation();
+            List<Location> lsLocation = lookUpRepository.GetLocations();
             return View(new LocationViewModel(lsLocation));
         }
 
@@ -37,7 +36,77 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime", new { id = model.SelectedLocationId });
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = model.SelectedLocationId } );
+        }
+
+        [HttpGet]
+        public ActionResult AddLocation()
+        {
+            EditLocationsViewModel vm = new EditLocationsViewModel();
+            vm.countries = lookUpRepository.GetCountries();
+            vm.states = lookUpRepository.GetStates();
+            vm.Location = new Location();
+            return View("AddLocation", vm);
+        }
+
+        [HttpPost]
+        public ActionResult AddLocation(EditLocationsViewModel model)
+        {
+            if (ModelState.IsValid) 
+            {
+                LocationRepository repo = new LocationRepository(new VIMSDBContext());
+                repo.Add(model.Location);
+                repo.Save();
+                repo.Dispose();
+
+                return RedirectToAction("Location");
+            }
+            return View(model.Location);
+        }
+
+        [HttpGet]
+        public ActionResult EditLocation(int locationId)
+        {
+            EditLocationsViewModel vm = new EditLocationsViewModel();
+            vm.countries = lookUpRepository.GetCountries();
+            vm.states = lookUpRepository.GetStates();
+            vm.Location = lookUpRepository.GetLocationById(locationId);
+            return View("EditLocation", vm);
+        }
+
+        [HttpPost]
+        public ActionResult EditLocation(EditLocationsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                LocationRepository repo = new LocationRepository(new VIMSDBContext());
+                Location location = repo.Get(model.Location.LocationId);
+                location.LocationName = model.Location.LocationName;
+
+                repo.Context.Entry(location).State = System.Data.Entity.EntityState.Modified;
+                repo.Save();
+                repo.Dispose();
+
+                return RedirectToAction("Location");
+            }
+            return View(model.Location);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteLocation(int locationId)
+        {
+            Location location = lookUpRepository.GetLocationById(locationId);
+            VIMSDBContext context = ((LookUpRepository)lookUpRepository).Context;
+            context.Locations.Remove(location);
+            context.SaveChanges();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteLocation(Location location)
+        {
+            return View();
         }
 
         public ActionResult About()
@@ -49,6 +118,22 @@ namespace TJS.VIMS.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+            return View();
+        }
+
+        public ActionResult Test2()
+        {
+            return View();
+        }
+
+        //public ActionResult Test(int locationId, int userId)
+        //{
+        //    return View();
+        //}
+
+        [HttpPost]
+        public ActionResult Test(LocationViewModel model)
+        {
             return View();
         }
     }

@@ -1,0 +1,10 @@
+﻿@model TJS.VIMS.ViewModel.MyViewModel
+
+@{
+    ViewBag.Title = "TestView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TestView</h2>
+
+@Html.DropDownListFor(m => m.SelectedCountry, Model.CountrySelectListItem)

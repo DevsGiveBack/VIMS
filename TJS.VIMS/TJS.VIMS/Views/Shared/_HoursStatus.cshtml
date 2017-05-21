@@ -1,0 +1,9 @@
+﻿@using System;
+@model TJS.VIMS.ViewModel.VolunteerClockedInOutViewModel
+
+<div>
+    <b>You have worked @((int)Math.Floor(Model.TimeLogged.TotalHours)) hours @Model.TimeLogged.Minutes minutes toward your goal of @Model.TimeNeeded.TotalHours hours.</b><br />
+    <progress value="@Model.PercentComplete" max="100"></progress><br />
+    <b>You have @((int)Math.Floor(Model.RemainingTime.TotalHours)) hours @Model.RemainingTime.Minutes minutes remaining.</b>
+</div>
+                                                    

@@ -20,6 +20,8 @@ namespace TJS.VIMS.Models
         [Key]
         public long VolunteerId { get; set; }
 
+        public int? DefaultVolunteerProfileInfoId { get; set; }
+
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }

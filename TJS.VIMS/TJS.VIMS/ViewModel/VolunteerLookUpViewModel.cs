@@ -9,29 +9,22 @@ using TJS.VIMS.Models;
 
 namespace TJS.VIMS.ViewModel
 {
-    public class TimeClockInViewModel
+    public class VolunteerLookUpViewModel : AuthorizedViewModel
     {
-        public string LocationName { get; set; }
-        public int LocationId { get; set; }
-
         [Required]
         [Display(Name = "Username")]
         [DataType(DataType.Text)]
         public string UserName { get; set;}
 
-        public TimeClockInViewModel() { }
+        public VolunteerLookUpViewModel() { }
 
-        public TimeClockInViewModel(Location location)
+        public VolunteerLookUpViewModel(Location location) : this(location.LocationId, location.LocationName)
         {
-            //BKP todo
         }
 
-        public TimeClockInViewModel(string locId, string locationName)
+        public VolunteerLookUpViewModel(int locationId, string locationName)
         {
-            if (locId != null)
-            {
-                 this.LocationId = Convert.ToInt32(locId);
-            }
+            this.LocationId = locationId;
             this.LocationName = locationName;
         }
     }
