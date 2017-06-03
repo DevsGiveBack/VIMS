@@ -6,7 +6,7 @@
 
 <h4>Edit Time Clock Location</h4>
 
-@using (Html.BeginForm("EditLocation", "Home"))
+@using (Html.BeginForm("EditLocation_", "Home"))
 {
     @Html.AntiForgeryToken()
 
@@ -67,16 +67,16 @@
             </div>
         </div>
 
+        @Html.HiddenFor(model => model.Location.LocationId, Model.Location.LocationId)
         @Html.HiddenFor(model => model.Location.CreatedDt, new { @Value = System.DateTime.Now })
         @*todo*@
         @Html.HiddenFor(model => model.Location.OrganizationId, new { @Value = 1 })
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
-
     </div>
 }
 

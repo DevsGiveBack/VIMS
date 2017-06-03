@@ -23,7 +23,7 @@ namespace TJS.VIMS.DAL
             entities = context.Set<TEntity>();
         }
 
-        public TEntity Get(int id)
+        public TEntity Find(int id)
         {
             return entities.Find(id);
         }

@@ -64,26 +64,24 @@ namespace TJS.VIMS.Controllers
             return View(model.Location);
         }
 
-        [HttpGet]
-        public ActionResult EditLocation(int locationId)
+        [HttpPost]
+        public ActionResult EditLocation(LocationViewModel model)
         {
             EditLocationsViewModel vm = new EditLocationsViewModel();
             vm.countries = lookUpRepository.GetCountries();
             vm.states = lookUpRepository.GetStates();
-            vm.Location = lookUpRepository.GetLocationById(locationId);
+            vm.Location = lookUpRepository.GetLocationById(model.SelectedLocationId);
             return View("EditLocation", vm);
         }
 
         [HttpPost]
-        public ActionResult EditLocation(EditLocationsViewModel model)
+        public ActionResult EditLocation_(EditLocationsViewModel model)
         {
             if (ModelState.IsValid)
             {
                 LocationRepository repo = new LocationRepository(new VIMSDBContext());
-                Location location = repo.Get(model.Location.LocationId);
-                location.LocationName = model.Location.LocationName;
-
-                repo.Context.Entry(location).State = System.Data.Entity.EntityState.Modified;
+                Location location = repo.Find(model.Location.LocationId);
+                repo.Context.Entry(location).CurrentValues.SetValues(model.Location);
                 repo.Save();
                 repo.Dispose();
 
@@ -92,34 +90,17 @@ namespace TJS.VIMS.Controllers
             return View(model.Location);
         }
 
-        [HttpGet]
-        public ActionResult DeleteLocation(int locationId)
+        [HttpPost]
+        public ActionResult DeleteLocation(LocationViewModel model)
         {
-            Location location = lookUpRepository.GetLocationById(locationId);
+            Location location = lookUpRepository.GetLocationById(model.SelectedLocationId);
             VIMSDBContext context = ((LookUpRepository)lookUpRepository).Context;
             context.Locations.Remove(location);
             context.SaveChanges();
 
-            return View();
+            return RedirectToAction("Location");
+            //todo create confirmation view!
+            //return View();
         }
-
-        [HttpPost]
-        public ActionResult DeleteLocation(Location location)
-        {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-            return View();
-        }
-   
     }
 }

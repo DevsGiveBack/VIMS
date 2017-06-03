@@ -27,29 +27,19 @@
                                 <input type="submit" value="Open time clock app for this location" class="btn btn-default" />
                             </td>
                             <td style="width:50%">
-                                <input type="button" value="Edit Location" onclick="location.href='@Url.Action("EditLocation", "Home", new { locationId = Model.SelectedLocationId })'" class="btn btn-default" />
+                                <input type="submit" value="Edit Location" formaction="@Url.Action("EditLocation", "Home")" class="btn btn-default" />
                             </td>
-                            
-                        </tr>
-                        <tr><td><span>&nbsp;</span></td></tr>
-                        <tr>
-                            <td colspan="2" style="align-content:flex-start">
-                                <div style="margin:initial">
-                                    @Html.ActionLink("Add a location", " ")
-                                </div>
+                            <td style="width:50%">
+                                <input type="submit" value="Delete Location" formaction="@Url.Action("DeleteLocation", "Home")" class="btn btn-default" />
                             </td>
                         </tr>
                         <tr><td><span>&nbsp;</span></td></tr>
                         <tr>
                             <td colspan="2" style="align-content:flex-start">
                                 <div style="margin:initial">
-                                    @Html.ActionLink("Delete this location", "DeleteLocation")
+                                    @Html.ActionLink("Add a location", "AddLocation", "Home")
                                 </div>
                             </td>
-                            <td colspan="2" style="align-content:flex-start">
-                                
-                            </td>
-                          
                         </tr>
                     </table>
                 </div>
