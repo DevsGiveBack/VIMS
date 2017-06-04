@@ -92,16 +92,15 @@ namespace TJS.VIMS.Controllers
         [HttpPost]
         public ActionResult DeleteLocation(LocationViewModel model)
         {
-            //Location location = lookUpRepository.GetLocationById(model.SelectedLocationId);
-
-            LocationRepository repo = new LocationRepository(new VIMSDBContext());
-            Location location = repo.Find(model.SelectedLocationId);
-            repo.Remove(location);
-            repo.Save();
-
-            //VIMSDBContext context = ((LookUpRepository)lookUpRepository).Context;
-            //context.Locations.Remove(location);
-            //context.SaveChanges();
+            //LocationRepository repo = new LocationRepository(new VIMSDBContext());
+            //Location location = repo.Find(model.SelectedLocationId);
+            //repo.Remove(location);
+            //repo.Save();
+            
+            VIMSDBContext context = new VIMSDBContext();
+            Location location = context.Locations.Find(model.SelectedLocationId);
+            context.Locations.Remove(location);
+            context.SaveChanges();
 
             return RedirectToAction("Location");
             //todo create confirmation view!
