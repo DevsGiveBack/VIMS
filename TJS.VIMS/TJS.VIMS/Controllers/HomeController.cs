@@ -17,10 +17,10 @@ namespace TJS.VIMS.Controllers
         {
         }
 
-        public HomeController(ILookUpRepository lookUpRepository)
-        {
-            //this.lookUpRepository = lookUpRepository;
-        }
+        //public HomeController(ILookUpRepository lookUpRepository)
+        //{
+        //    this.lookUpRepository = lookUpRepository;
+        //}
 
         public ActionResult Location()
         {
@@ -47,10 +47,6 @@ namespace TJS.VIMS.Controllers
         public ActionResult AddLocation()
         {
             EditLocationsViewModel vm = new EditLocationsViewModel();
-
-            //vm.countries = lookUpRepository.GetCountries();
-            //vm.states = lookUpRepository.GetStates();
-
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 vm.countries = context.Countries.ToList<Country>();
@@ -86,11 +82,6 @@ namespace TJS.VIMS.Controllers
         public ActionResult EditLocation(LocationViewModel model)
         {
             EditLocationsViewModel vm = new EditLocationsViewModel();
-
-            //vm.countries = lookUpRepository.GetCountries();
-            //vm.states = lookUpRepository.GetStates();
-            //vm.Location = lookUpRepository.GetLocationById(model.SelectedLocationId);
-
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 vm.countries = context.Countries.ToList<Country>();
@@ -112,7 +103,7 @@ namespace TJS.VIMS.Controllers
                 //repo.Save();
 
                 using (VIMSDBContext context = new VIMSDBContext())
-                {
+                { 
                     Location location = context.Locations.Find(model.Location.LocationId);
                     context.Entry(location).CurrentValues.SetValues(model.Location);
                     context.SaveChanges();

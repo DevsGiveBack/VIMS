@@ -36,7 +36,6 @@ namespace TJS.VIMS.Controllers
         public ActionResult VolunteerLookUp(int locationId)
         {
             Location location = lookUpRepository.GetLocationById(locationId);
-
             VolunteerLookUpViewModel vm = new VolunteerLookUpViewModel();
             vm.LocationId = location.LocationId;
             vm.LocationName = location.LocationName;
