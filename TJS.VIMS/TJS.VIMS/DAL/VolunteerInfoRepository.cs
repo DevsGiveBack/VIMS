@@ -48,7 +48,7 @@ namespace TJS.VIMS.DAL
         }
 
         /// <summary>
-        /// gets volunteers last photo info
+        /// gets volunteers last photo info (aka default photo)
         /// </summary>
         /// <param name="volunteer"></param>
         /// <returns>if exsit in returns VolunteerProfilePhotoInfo otherwise null</returns>
@@ -67,7 +67,6 @@ namespace TJS.VIMS.DAL
         /// <returns>if exsit in returns VolunteerProfilePhotoInfo otherwise null</returns>
         public VolunteerProfilePhotoInfo GetDefaultPhotoInfo(VolunteerInfo volunteer)
         {
-            //todo
             return GetLastPhotoInfo(volunteer);
         }
 
@@ -84,9 +83,13 @@ namespace TJS.VIMS.DAL
                 .FirstOrDefault();
         }
 
+        /// <summary>
+        /// gets volunteers profile photo info
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public VolunteerProfileInfo GetDefaultProfileInfo(long id)
         {
-            //todo
             return GetLastProfileInfo(id);
         }
 

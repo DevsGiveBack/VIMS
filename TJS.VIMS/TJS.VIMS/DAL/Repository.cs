@@ -23,7 +23,7 @@ namespace TJS.VIMS.DAL
             entities = context.Set<TEntity>();
         }
 
-        public TEntity Get(int id)
+        public TEntity Find(int id)
         {
             return entities.Find(id);
         }
@@ -35,32 +35,34 @@ namespace TJS.VIMS.DAL
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().Where(predicate);
+            //return Context.Set<TEntity>().Where(predicate);
+            return entities.Where(predicate);
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().SingleOrDefault(predicate);
+            //return Context.Set<TEntity>().SingleOrDefault(predicate);
+            return entities.SingleOrDefault(predicate);
         }
 
         public void Add(TEntity entity)
         {
-            Context.Set<TEntity>().Add(entity);
+            entities.Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
-            Context.Set<TEntity>().AddRange(entities);
+            context.Set<TEntity>().AddRange(entities);
         }
 
         public void Remove(TEntity entity)
         {
-            Context.Set<TEntity>().Remove(entity);
+            entities.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            context.Set<TEntity>().RemoveRange(entities);
         }
 
         public void Save()

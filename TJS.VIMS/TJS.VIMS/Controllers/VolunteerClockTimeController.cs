@@ -36,7 +36,6 @@ namespace TJS.VIMS.Controllers
         public ActionResult VolunteerLookUp(int locationId)
         {
             Location location = lookUpRepository.GetLocationById(locationId);
-
             VolunteerLookUpViewModel vm = new VolunteerLookUpViewModel();
             vm.LocationId = location.LocationId;
             vm.LocationName = location.LocationName;
@@ -114,18 +113,6 @@ namespace TJS.VIMS.Controllers
             return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = location.LocationId });
         }
 
-        public ActionResult VolunteerPhotoCaptured()
-        {
-            //BKP todo
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "MyId1", Value = "MyId1", Selected = true });
-            items.Add(new SelectListItem { Text = "MyId2", Value = "MyId2" });
-
-            ViewBag.IdList = items;
-
-            return View();
-        }
-
         /// <summary>
         /// VolunteerClockedInOut: volunteer punched clock
         /// </summary>
@@ -200,6 +187,18 @@ namespace TJS.VIMS.Controllers
             model.OrganizationName = lookUpRepository.GetOrganizationById((int)location.OrganizationId).OrganizationName;
 
             return View(model);
+        }
+
+        public ActionResult VolunteerPhotoCaptured()
+        {
+            //BKP todo
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "MyId1", Value = "MyId1", Selected = true });
+            items.Add(new SelectListItem { Text = "MyId2", Value = "MyId2" });
+
+            ViewBag.IdList = items;
+
+            return View();
         }
 
         public ActionResult VolunteerCreateAccount()

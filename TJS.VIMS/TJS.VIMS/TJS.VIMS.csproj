@@ -191,6 +191,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\VolunteerClockTimeController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
@@ -328,6 +329,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Capture\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\Location\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

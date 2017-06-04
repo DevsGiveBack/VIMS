@@ -12,10 +12,6 @@ namespace TJS.VIMS.DAL
 
         public Employee GetEmployee(String userName, String password)
         {
-            //return context.Employees
-            //    .Where(m => m.UserName.ToLower() == userName.ToLower() && m.Password == password)
-            //    .SingleOrDefault();
-
             return SingleOrDefault(m => m.UserName.ToLower() == userName.ToLower() && m.Password == password);
         }
     }
