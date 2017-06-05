@@ -324,7 +324,6 @@
     <Content Include="Views\Home\AddLocation.cshtml" />
     <Content Include="Views\Home\EditLocation.cshtml" />
     <Content Include="Views\Shared\_LocationForm.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerCreateAccount2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
