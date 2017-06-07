@@ -49,7 +49,7 @@ namespace TJS.VIMS.Controllers
             EditLocationsViewModel vm = new EditLocationsViewModel();
             using (VIMSDBContext context = new VIMSDBContext())
             {
-                vm.countries = context.Countries.ToList<Country>();
+                vm.countries = context.Countries.ToList<Country>(); 
                 vm.states = context.States.ToList<State>();
                 vm.Location = new Location();
             }

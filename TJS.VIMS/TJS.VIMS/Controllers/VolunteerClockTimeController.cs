@@ -201,13 +201,26 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult VolunteerCreateAccount()
         {
-            //todo
             return View();
         }
 
-          /// <summary>
+        [HttpPost]
+        public ActionResult VolunteerCreateAccount(VolunteerInfo volunteer)
+        {
+            VIMSDBContext context = new VIMSDBContext();
+            context.VolunteerInfoes.Add(volunteer);
+            volunteer.CreatedBy = "na";
+            volunteer.CreatedDt = DateTime.Now;
+            volunteer.UpdatedBy = "na";
+            volunteer.UpdatedDt = DateTime.Now;
+            context.SaveChanges();
+            return View();
+        }
+
+        /// <summary>
         /// Capture: capture action for webcam 
         /// </summary>
         /// <param name="userId">user id</param>
