@@ -102,7 +102,9 @@ namespace TJS.VIMS.Controllers
                 vm.Volunteer = volunteer;
                 vm.LocationId = location.LocationId;
                 vm.LocationName = location.LocationName;
-                vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).VolunteerProfilePhotoPath;
+                VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
+                if(photo != null)
+                    vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).VolunteerProfilePhotoPath;
 
                 //dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
