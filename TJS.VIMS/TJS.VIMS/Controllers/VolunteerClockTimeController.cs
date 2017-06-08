@@ -202,13 +202,14 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult VolunteerCreateAccount()
+        public ActionResult VolunteerCreateAccount(int locationId)
         {
+            ViewBag.LactionId = locationId;
             return View();
         }
 
         [HttpPost]
-        public ActionResult VolunteerCreateAccount(VolunteerInfo volunteer)
+        public ActionResult VolunteerCreateAccount(VolunteerInfo volunteer, int locationId)
         {
             VIMSDBContext context = new VIMSDBContext();
             context.VolunteerInfoes.Add(volunteer);
@@ -217,7 +218,8 @@ namespace TJS.VIMS.Controllers
             volunteer.UpdatedBy = "na";
             volunteer.UpdatedDt = DateTime.Now;
             context.SaveChanges();
-            return View();
+
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
         }
 
         /// <summary>
