@@ -22,6 +22,14 @@ namespace TJS.VIMS.Controllers
         //    this.lookUpRepository = lookUpRepository;
         //}
 
+        public ActionResult Index(int? id)
+        {
+            if (id == null)
+                id = Properties.Settings.Default.OrganizationId;
+
+            return RedirectToAction("Login", "Account", new { organizationId = id });
+        }
+
         public ActionResult Location()
         {
             //List<Location> lsLocation = lookUpRepository.GetLocations();
