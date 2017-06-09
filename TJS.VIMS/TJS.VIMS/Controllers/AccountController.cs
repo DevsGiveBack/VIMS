@@ -29,8 +29,6 @@ namespace TJS.VIMS.Controllers
             this.employeeRepository = empRepository;
         }
 
-      
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl, int organizationId)
         {
@@ -38,8 +36,6 @@ namespace TJS.VIMS.Controllers
             return View(new LogInViewModel { OrganizationId = organizationId });
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
