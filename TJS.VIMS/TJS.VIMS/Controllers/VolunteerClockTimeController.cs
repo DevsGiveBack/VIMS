@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
 using TJS.VIMS.ViewModel;
+using System.Linq;
+
 
 namespace TJS.VIMS.Controllers
 {
@@ -214,14 +216,20 @@ namespace TJS.VIMS.Controllers
         public ActionResult VolunteerCreateAccount(VolunteerInfo volunteer, int locationId)
         {
             VIMSDBContext context = new VIMSDBContext();
-            context.VolunteerInfoes.Add(volunteer);
-            volunteer.CreatedBy = "na";
-            volunteer.CreatedDt = DateTime.Now;
-            volunteer.UpdatedBy = "na";
-            volunteer.UpdatedDt = DateTime.Now;
-            context.SaveChanges();
+            var v = context.VolunteerInfoes.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
+            if (v == null)
+            {
+                context.VolunteerInfoes.Add(volunteer);
+                volunteer.CreatedBy = "na"; // todo
+                volunteer.CreatedDt = DateTime.Now;
+                volunteer.UpdatedBy = "na"; // todo
+                volunteer.UpdatedDt = DateTime.Now;
+                context.SaveChanges();
 
-            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+                return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+            }
+
+            return View();
         }
 
         /// <summary>
