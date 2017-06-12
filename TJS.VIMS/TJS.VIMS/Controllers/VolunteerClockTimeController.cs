@@ -199,9 +199,7 @@ namespace TJS.VIMS.Controllers
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "MyId1", Value = "MyId1", Selected = true });
             items.Add(new SelectListItem { Text = "MyId2", Value = "MyId2" });
-
             ViewBag.IdList = items;
-
             return View();
         }
 
@@ -229,6 +227,8 @@ namespace TJS.VIMS.Controllers
                 return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
             }
 
+            ViewBag.LactionId = locationId;
+            ViewBag.Error = "User already exsit! Please choose another user name.";
             return View();
         }
 
