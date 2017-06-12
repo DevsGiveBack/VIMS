@@ -206,7 +206,7 @@ namespace TJS.VIMS.Controllers
         [HttpGet]
         public ActionResult VolunteerCreateAccount(int locationId)
         {
-            ViewBag.LactionId = locationId;
+            ViewBag.LocationId = locationId;
             return View();
         }
 
@@ -227,7 +227,7 @@ namespace TJS.VIMS.Controllers
                 return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
             }
 
-            ViewBag.LactionId = locationId;
+            ViewBag.LocationId = locationId;
             ViewBag.Error = "User already exsit! Please choose another user name.";
             return View();
         }
