@@ -227,6 +227,8 @@ namespace TJS.VIMS.Controllers
                 return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
             }
 
+            ModelState.AddModelError("UserName", "User already exsit.");
+           
             ViewBag.LocationId = locationId;
             ViewBag.Error = "User already exsit! Please choose another user name.";
             return View();
