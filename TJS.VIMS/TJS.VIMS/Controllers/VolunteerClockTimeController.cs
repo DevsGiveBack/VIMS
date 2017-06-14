@@ -215,7 +215,11 @@ namespace TJS.VIMS.Controllers
         {
             VIMSDBContext context = new VIMSDBContext();
             var v = context.VolunteerInfoes.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
-            if (v == null)
+            if(v != null)
+            {
+                ModelState.AddModelError("UserName", "User already exist.");
+            }
+            else 
             {
                 context.VolunteerInfoes.Add(volunteer);
                 volunteer.CreatedBy = "na"; // todo
@@ -226,9 +230,7 @@ namespace TJS.VIMS.Controllers
 
                 return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
             }
-
-            ModelState.AddModelError("UserName", "User already exsit.");
-           
+                       
             ViewBag.LocationId = locationId;
             ViewBag.Error = "User already exsit! Please choose another user name.";
             return View();
