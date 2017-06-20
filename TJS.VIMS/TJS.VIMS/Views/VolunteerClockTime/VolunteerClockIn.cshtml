@@ -9,13 +9,12 @@
     @Html.Partial("_LocationName", Model)
     @Html.Partial("_Clock")
     
-    <div id="Photo">
-        <img src="~/Capture/@Model.DefaultPhotoPath" />
-    </div>
-    
+     
     <br />
 
     <strong>Case # @ViewBag.Case</strong><br />
+    @Html.ActionLink("Edit profile details.", "VolunteerEditAccount", new { locationId = Model.LocationId })<br />  
+
     @if (ViewBag.isClockedIn)
     {
         <strong>If you are finished working:</strong>

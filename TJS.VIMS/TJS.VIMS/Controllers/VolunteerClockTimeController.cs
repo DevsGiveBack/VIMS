@@ -195,7 +195,7 @@ namespace TJS.VIMS.Controllers
 
         public ActionResult VolunteerPhotoCaptured()
         {
-            //BKP todo
+            //BKP todo 
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "MyId1", Value = "MyId1", Selected = true });
             items.Add(new SelectListItem { Text = "MyId2", Value = "MyId2" });
@@ -203,6 +203,22 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult VolunteerEditAccount(VolunteerInfo volunteer, int locationId)
+        {
+            ViewBag.LocationId = locationId;
+            var locations = lookUpRepository.GetLocations();
+            VolunteerViewModel model = new VolunteerViewModel(locations);
+            model.VolunteerInfo = volunteer;
+            return View("EditVolunteerProfile", model);
+        }
+
+        [HttpPost]
+        public ActionResult VolunteerEditAccount(VolunteerInfo volunteer, VolunteerProfileInfo profile, int locationId)
+        {
+           return View();
+        }
+        
         [HttpGet]
         public ActionResult VolunteerCreateAccount(int locationId)
         {

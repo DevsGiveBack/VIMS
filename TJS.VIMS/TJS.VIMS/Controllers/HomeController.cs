@@ -101,7 +101,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditLocation_(EditLocationsViewModel model)
+        public ActionResult UpdateLocation(EditLocationsViewModel model)
         {
             if (ModelState.IsValid)
             {
