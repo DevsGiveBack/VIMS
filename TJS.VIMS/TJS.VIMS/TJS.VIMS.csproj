@@ -225,6 +225,8 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Models\State.cs" />
+    <Compile Include="TMP\AccountViewModels.cs" />
+    <Compile Include="TMP\IdentityModels.cs" />
     <Compile Include="Util\TJSConstants.cs" />
     <Compile Include="Util\Utility.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
