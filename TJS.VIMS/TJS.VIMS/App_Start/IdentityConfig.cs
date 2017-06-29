@@ -12,7 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using TJS.VIMS.Models;
 
-namespace UserRoles
+namespace TJS.VIMS
 {
     public class EmailService : IIdentityMessageService
     {
