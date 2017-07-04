@@ -29,18 +29,13 @@ namespace TJS.VIMS.Controllers
             this.employeeRepository = empRepository;
         }
 
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, int organizationId)
         {
             ViewBag.ReturnUrl = returnUrl;
-            // BKP todo: harcoded org id
-            return View(new LogInViewModel { OrganizationId = 1 });
+            return View(new LogInViewModel { OrganizationId = organizationId });
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

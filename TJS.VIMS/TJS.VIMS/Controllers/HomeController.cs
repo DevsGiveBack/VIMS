@@ -22,6 +22,14 @@ namespace TJS.VIMS.Controllers
         //    this.lookUpRepository = lookUpRepository;
         //}
 
+        public ActionResult Index(int? id)
+        {
+            if (id == null)
+                id = Properties.Settings.Default.OrganizationId;
+
+            return RedirectToAction("Login", "Account", new { organizationId = id });
+        }
+
         public ActionResult Location()
         {
             //List<Location> lsLocation = lookUpRepository.GetLocations();
@@ -49,7 +57,7 @@ namespace TJS.VIMS.Controllers
             EditLocationsViewModel vm = new EditLocationsViewModel();
             using (VIMSDBContext context = new VIMSDBContext())
             {
-                vm.countries = context.Countries.ToList<Country>();
+                vm.countries = context.Countries.ToList<Country>(); 
                 vm.states = context.States.ToList<State>();
                 vm.Location = new Location();
             }
@@ -93,7 +101,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditLocation_(EditLocationsViewModel model)
+        public ActionResult UpdateLocation(EditLocationsViewModel model)
         {
             if (ModelState.IsValid)
             {

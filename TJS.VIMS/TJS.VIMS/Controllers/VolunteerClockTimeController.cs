@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
 using TJS.VIMS.ViewModel;
+using System.Linq;
+
 
 namespace TJS.VIMS.Controllers
 {
@@ -102,7 +104,9 @@ namespace TJS.VIMS.Controllers
                 vm.Volunteer = volunteer;
                 vm.LocationId = location.LocationId;
                 vm.LocationName = location.LocationName;
-                vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).VolunteerProfilePhotoPath;
+                VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
+                if(photo != null)
+                    vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).VolunteerProfilePhotoPath;
 
                 //dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
@@ -191,23 +195,64 @@ namespace TJS.VIMS.Controllers
 
         public ActionResult VolunteerPhotoCaptured()
         {
-            //BKP todo
+            //BKP todo 
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "MyId1", Value = "MyId1", Selected = true });
             items.Add(new SelectListItem { Text = "MyId2", Value = "MyId2" });
-
             ViewBag.IdList = items;
-
             return View();
         }
 
-        public ActionResult VolunteerCreateAccount()
+        [HttpGet]
+        public ActionResult VolunteerEditAccount(VolunteerInfo volunteer, int locationId)
         {
-            //todo
+            ViewBag.LocationId = locationId;
+            var locations = lookUpRepository.GetLocations();
+            VolunteerViewModel model = new VolunteerViewModel(locations);
+            model.VolunteerInfo = volunteer;
+            return View("EditVolunteerProfile", model);
+        }
+
+        [HttpPost]
+        public ActionResult VolunteerEditAccount(VolunteerInfo volunteer, VolunteerProfileInfo profile, int locationId)
+        {
+           return View();
+        }
+        
+        [HttpGet]
+        public ActionResult VolunteerCreateAccount(int locationId)
+        {
+            ViewBag.LocationId = locationId;
             return View();
         }
 
-          /// <summary>
+        [HttpPost]
+        public ActionResult VolunteerCreateAccount(VolunteerInfo volunteer, int locationId)
+        {
+            VIMSDBContext context = new VIMSDBContext();
+            var v = context.VolunteerInfoes.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
+            if(v != null)
+            {
+                ModelState.AddModelError("UserName", "User already exist.");
+            }
+            else 
+            {
+                context.VolunteerInfoes.Add(volunteer);
+                volunteer.CreatedBy = "na"; // todo
+                volunteer.CreatedDt = DateTime.Now;
+                volunteer.UpdatedBy = "na"; // todo
+                volunteer.UpdatedDt = DateTime.Now;
+                context.SaveChanges();
+
+                return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+            }
+                       
+            ViewBag.LocationId = locationId;
+            ViewBag.Error = "User already exsit! Please choose another user name.";
+            return View();
+        }
+
+        /// <summary>
         /// Capture: capture action for webcam 
         /// </summary>
         /// <param name="userId">user id</param>
