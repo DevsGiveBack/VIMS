@@ -12,13 +12,13 @@ namespace TJS.VIMS
     {
         public void Configuration(IAppBuilder app)
         {
-            //ConfigureAuth(app);
-            //createRolesandUsers();
+            ConfigureAuth(app);
+            createRolesUsers();
         }
 
 
         // In this method we will create default User roles and Admin user for login
-        private void createRolesandUsers()
+        private void createRolesUsers()
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
