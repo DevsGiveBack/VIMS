@@ -19,6 +19,9 @@ namespace TJS.VIMS.Controllers
 
         public TestController(IEmployeeRepository employeeRepository, ILookUpRepository lookUpRepository, IVolunteerInfoRepository volunteerInfoRepository)
         {
+            this.employeeRepository = employeeRepository;
+            this.lookUpRepository = lookUpRepository;
+            this.volunteerInfoRepository = volunteerInfoRepository;
         }
 
         // GET: Test
@@ -37,6 +40,7 @@ namespace TJS.VIMS.Controllers
 
         }
 
+        [Authorize]
         public ActionResult TestView()
         {
             MyViewModel vm = new MyViewModel();

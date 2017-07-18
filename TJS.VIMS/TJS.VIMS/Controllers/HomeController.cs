@@ -30,6 +30,7 @@ namespace TJS.VIMS.Controllers
             return RedirectToAction("Login", "Account", new { organizationId = id });
         }
 
+        [Authorize]
         public ActionResult Location()
         {
             //List<Location> lsLocation = lookUpRepository.GetLocations();
