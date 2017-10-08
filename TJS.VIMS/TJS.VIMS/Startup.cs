@@ -31,7 +31,7 @@ namespace TJS.VIMS
             {
 
                 // first we create Admin rool
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Employee";
                 roleManager.Create(role);
 

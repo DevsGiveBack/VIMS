@@ -35,6 +35,7 @@ namespace TJS.VIMS.Controllers
         /// <param name="id">a location id</param>
         /// <returns>an ActionResult</returns>
         [HttpGet]
+        [Authorize]
         public ActionResult VolunteerLookUp(int locationId)
         {
             Location location = lookUpRepository.GetLocationById(locationId);

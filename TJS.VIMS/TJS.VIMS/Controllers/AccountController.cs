@@ -114,10 +114,10 @@ namespace TJS.VIMS.Controllers
                 case SignInStatus.Success:
                     //return RedirectToLocal(returnUrl);
                     return RedirectToAction("Location", "Home");
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                //case SignInStatus.LockedOut:
+                //    return View("Lockout");
+                //case SignInStatus.RequiresVerification:
+                //    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -183,15 +183,5 @@ namespace TJS.VIMS.Controllers
             }
         }
         #endregion
-
-        public ActionResult TimeClock(LogInViewModel model, string returnUrl)
-        {
-            return View();
-        }
-
-        public ActionResult AdminPortal(LogInViewModel model, string returnUrl)
-        {
-            return View();
-        }
     }
 }

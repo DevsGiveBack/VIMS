@@ -15,7 +15,7 @@ namespace TJS.VIMS
         public void ConfigureAuth(IAppBuilder app)
         {
             // configure login path
-            string orgId = Properties.Settings.Default.OrganizationId.ToString();
+            string orgId = Properties.Settings.Default.OrganizationId.ToString(); 
             string loginPath = string.Format("/Account/Login/{0}", orgId);
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
