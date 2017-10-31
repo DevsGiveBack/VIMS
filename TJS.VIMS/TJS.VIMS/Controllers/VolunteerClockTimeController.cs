@@ -205,7 +205,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult VolunteerEditAccount(VolunteerInfo volunteer, int locationId)
+        public ActionResult VolunteerEditProfile(VolunteerInfo volunteer, int locationId)
         {
             ViewBag.LocationId = locationId;
             var locations = lookUpRepository.GetLocations();
@@ -215,11 +215,45 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult VolunteerEditAccount(VolunteerInfo volunteer, VolunteerProfileInfo profile, int locationId)
+        public ActionResult VolunteerEditProfile(VolunteerInfo volunteer, VolunteerProfileInfo profile, int locationId)
         {
            return View();
         }
-        
+
+
+        [HttpGet]
+        public ActionResult VolunteerEditAccount(/*VolunteerInfo volunteer,*/ int locationId)
+        {
+            ViewBag.LocationId = locationId;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult VolunteerEditAccountUpdate(VolunteerInfo volunteer, int locationId)
+        {
+            VIMSDBContext context = new VIMSDBContext();
+            var v = context.VolunteerInfoes.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
+            //if (v == null)
+            //{
+            //    ModelState.AddModelError("UserName", "User already exist.");
+            //}
+            //else
+            //{
+            //    context.VolunteerInfoes.Add(volunteer);
+            //    volunteer.CreatedBy = "na"; // todo
+            //    volunteer.CreatedDt = DateTime.Now;
+            //    volunteer.UpdatedBy = "na"; // todo
+            //    volunteer.UpdatedDt = DateTime.Now;
+            //    context.SaveChanges();
+
+            //    return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+            //}
+
+            ViewBag.LocationId = locationId;
+            //ViewBag.Error = "User already exsit! Please choose another user name.";
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+        }
+
         [HttpGet]
         public ActionResult VolunteerCreateAccount(int locationId)
         {
