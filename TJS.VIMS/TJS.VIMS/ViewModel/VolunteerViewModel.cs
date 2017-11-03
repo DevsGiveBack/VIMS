@@ -3,40 +3,39 @@ using System.Web.Mvc;
 using TJS.VIMS.Models;
 using System.Linq;
 
-
 namespace TJS.VIMS.ViewModel
 {
     public class VolunteerViewModel
     {
+        private List<Location> locations { get; set; }
+        private List<Organization> organizations { get; set; }
+
         public VolunteerInfo VolunteerInfo { get; set; }
         public VolunteerProfileInfo VolunteerProfile { get; set; }
-        private List<Location> lsLocation { get; set; }
-        private List<Organization> lsOrganization { get; set; }
-
         public int LocationSelectedId { get; set; }
         public int OrganizationSelectedId { get; set; }
 
-        public VolunteerViewModel(List<Location> lsLocation)
+        public VolunteerViewModel(List<Location> locations) 
         {
             VolunteerInfo = new VolunteerInfo();
             VolunteerProfile = new VolunteerProfileInfo();
-            this.lsLocation = lsLocation;
+            this.locations = locations;
         }
 
-        public IEnumerable<SelectListItem> LocationSelectListItem
+        public IEnumerable<SelectListItem> LocationSelectList
         {
             get
             {
-                var locationListItem = lsLocation.Select(x => new SelectListItem
+                var locationListItem = locations.Select(m => new SelectListItem
                 {
-                    Value = x.LocationId.ToString(),
-                    Text = x.LocationName
+                    Value = m.LocationId.ToString(),
+                    Text = m.LocationName
                 });
-                return DefaultLocationFlavorItem.Concat(locationListItem);
+                return DefaultLocationItem.Concat(locationListItem);
             }
         }
 
-        public IEnumerable<SelectListItem> DefaultLocationFlavorItem
+        public IEnumerable<SelectListItem> DefaultLocationItem
         {
             get
             {
@@ -48,7 +47,7 @@ namespace TJS.VIMS.ViewModel
             }
         }
 
-        public IEnumerable<SelectListItem> OrganizationSelectListItem
+        public IEnumerable<SelectListItem> OrganizationSelectList
         {
             get
             {
@@ -56,9 +55,9 @@ namespace TJS.VIMS.ViewModel
                 List<SelectListItem> tmpList = new List<SelectListItem>();
                 tmpList.Add(new SelectListItem { Text = "INFORMATIONAL", Value = "INFORMATIONAL" });
 
-                if (lsOrganization != null)
+                if (organizations != null)
                 {
-                    organizationListItem = lsOrganization.Select(x => new SelectListItem
+                    organizationListItem = organizations.Select(x => new SelectListItem
                     {
                         Value = x.OrganizationId.ToString(),
                         Text = x.OrganizationName
@@ -69,11 +68,11 @@ namespace TJS.VIMS.ViewModel
                     organizationListItem = tmpList.Select(x => new SelectListItem
                     { Text = "INFORMATIONAL", Value = "INFORMATIONAL" });
                 }
-                return DefaultOrganizationFlavorItem.Concat(organizationListItem);
+                return DefaultOrganizationItem.Concat(organizationListItem);
             }
         }
 
-        public IEnumerable<SelectListItem> DefaultOrganizationFlavorItem
+        public IEnumerable<SelectListItem> DefaultOrganizationItem
         {
             get
             {

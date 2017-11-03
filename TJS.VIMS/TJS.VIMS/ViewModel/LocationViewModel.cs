@@ -7,30 +7,28 @@ namespace TJS.VIMS.ViewModel
 {
     public class LocationViewModel
     {
-        private List<Location> lsLocation { get; set; }
+        private List<Location> locations { get; set; }
         public int SelectedLocationId { get; set; }      
 
-        public LocationViewModel(List<Location> lsLocation)
+        public LocationViewModel(List<Location> locations)
         {
-            this.lsLocation = lsLocation;
+            this.locations = locations;
         }
-
-        public LocationViewModel() { }
-
-        public IEnumerable<SelectListItem> LocationSelectListItem
+        
+        public IEnumerable<SelectListItem> LocationSelectList
         {
            get
             {
-                var locationListItem = lsLocation.Select(x => new SelectListItem
+                var locationListItem = locations.Select(m => new SelectListItem
                 {
-                    Value = x.LocationId.ToString(),
-                    Text = x.LocationName
+                    Value = m.LocationId.ToString(),
+                    Text = m.LocationName
                 });
-                return DefaultFlavorItem.Concat(locationListItem);
+                return DefaultItem.Concat(locationListItem);
             }            
         }
 
-        public IEnumerable<SelectListItem> DefaultFlavorItem
+        public IEnumerable<SelectListItem> DefaultItem
         {
             get
             {

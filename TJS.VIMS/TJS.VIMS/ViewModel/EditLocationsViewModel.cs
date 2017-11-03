@@ -31,7 +31,7 @@ namespace TJS.VIMS.ViewModel
         public List<Country> countries { get; set; }
         public List<State> states { get; set; }
 
-        public IEnumerable<SelectListItem> CountrySelectListItem
+        public IEnumerable<SelectListItem> CountrySelectList
         {
             get
             {
@@ -44,7 +44,7 @@ namespace TJS.VIMS.ViewModel
             }
         }
 
-        public IEnumerable<SelectListItem> StateSelectListItem
+        public IEnumerable<SelectListItem> StateSelectList
         {
             get
             {
