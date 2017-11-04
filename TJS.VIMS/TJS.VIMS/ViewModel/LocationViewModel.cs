@@ -8,7 +8,9 @@ namespace TJS.VIMS.ViewModel
     public class LocationViewModel
     {
         private List<Location> locations { get; set; }
-        public int SelectedLocationId { get; set; }      
+        public int SelectedLocationId { get; set; }
+
+        public LocationViewModel() { }
 
         public LocationViewModel(List<Location> locations)
         {
