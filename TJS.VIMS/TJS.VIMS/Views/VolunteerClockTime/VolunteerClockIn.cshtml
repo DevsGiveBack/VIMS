@@ -13,7 +13,7 @@
     <br />
 
     <strong>Case # @ViewBag.Case</strong><br />
-    @Html.ActionLink("Edit profile details.", "VolunteerEditAccount", new { locationId = Model.LocationId })<br />  
+    @Html.ActionLink("Edit profile details.", "VolunteerEditAccount", new { volunteerId = Model.Volunteer.VolunteerId, locationId = Model.LocationId })<br />  
 
     @if (ViewBag.isClockedIn)
     {

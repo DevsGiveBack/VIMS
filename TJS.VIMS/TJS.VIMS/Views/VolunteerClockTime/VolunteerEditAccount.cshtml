@@ -6,7 +6,7 @@
 
 <h2>VolunteerEditAccount</h2>
 
-@using (Html.BeginForm("VolunteerEditAccountUpdate", "VolunteerClockTime", new { locationId = ViewBag.LocationId }, FormMethod.Post, null))
+@using (Html.BeginForm("VolunteerUpdateAccount", "VolunteerClockTime", new { locationId = ViewBag.LocationId }, FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
 

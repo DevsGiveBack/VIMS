@@ -222,36 +222,28 @@ namespace TJS.VIMS.Controllers
 
 
         [HttpGet]
-        public ActionResult VolunteerEditAccount(/*VolunteerInfo volunteer,*/ int locationId)
+        public ActionResult VolunteerEditAccount(int volunteerId, int locationId)
         {
             ViewBag.LocationId = locationId;
             return View();
         }
 
         [HttpPost]
-        public ActionResult VolunteerEditAccountUpdate(VolunteerInfo volunteer, int locationId)
+        public ActionResult VolunteerUpdateAccount(VolunteerInfo volunteer, int locationId)
         {
-            VIMSDBContext context = new VIMSDBContext();
-            var v = context.VolunteerInfoes.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
-            //if (v == null)
-            //{
-            //    ModelState.AddModelError("UserName", "User already exist.");
-            //}
-            //else
-            //{
-            //    context.VolunteerInfoes.Add(volunteer);
-            //    volunteer.CreatedBy = "na"; // todo
-            //    volunteer.CreatedDt = DateTime.Now;
-            //    volunteer.UpdatedBy = "na"; // todo
-            //    volunteer.UpdatedDt = DateTime.Now;
-            //    context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.VolunteerId);
+                    context.Entry(info).CurrentValues.SetValues(volunteer);
+                    context.SaveChanges();
+                }
 
-            //    return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
-            //}
+                return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+            }
 
-            ViewBag.LocationId = locationId;
-            //ViewBag.Error = "User already exsit! Please choose another user name.";
-            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
+            return View("VolunteerEditAccount", volunteer);
         }
 
         [HttpGet]
