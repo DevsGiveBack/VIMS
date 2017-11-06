@@ -225,7 +225,10 @@ namespace TJS.VIMS.Controllers
         public ActionResult VolunteerEditAccount(int volunteerId, int locationId)
         {
             ViewBag.LocationId = locationId;
-            return View();
+            VIMSDBContext context = new VIMSDBContext();
+            VolunteerInfo info = context.VolunteerInfoes.Find(volunteerId);
+
+            return View(info);
         }
 
         [HttpPost]

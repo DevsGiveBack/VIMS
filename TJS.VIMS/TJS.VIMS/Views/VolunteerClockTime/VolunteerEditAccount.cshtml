@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         <h4>VolunteerInfo</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -131,6 +131,9 @@
             }
         </div>
     </div>
+    @Html.HiddenFor(model => model.VolunteerId, new { @Value = Model.VolunteerId })
+    @Html.HiddenFor(model => model.CreatedBy, new { @Value = 0 })
+    @Html.HiddenFor(model => model.CreatedDt, new { @Value = System.DateTime.Now })
 }
 
 <div>
