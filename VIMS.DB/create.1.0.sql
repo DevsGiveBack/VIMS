@@ -156,7 +156,7 @@ CREATE TABLE [dbo].[VolunteerInfo](
 	[DOB] [datetime] NULL,
 	[Emrgncy_Cntct_Name] [varchar](100) NULL,
 	[Emrgncy_Cntct_Phn] [varchar](12) NULL,
-	[CreatedBy] [varchar](50) NOT NULL,
+	[CreatedBy] [varchar](50) NULL,
 	[CreatedDt] [datetime] NOT NULL,
 	[UpdatedBy] [varchar](50) NULL,
 	[UpdatedDt] [datetime] NULL,
