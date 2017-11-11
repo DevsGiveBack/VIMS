@@ -329,8 +329,6 @@
     <Content Include="Views\VolunteerClockTime\VolunteerPhotoCapture.cshtml" />
     <Content Include="Views\VolunteerClockTime\TestView.cshtml" />
     <Content Include="Views\Home\DeleteLocation.cshtml" />
-    <Content Include="Views\Home\AddLocation.old.cshtml" />
-    <Content Include="Views\Home\EditLocation.old.cshtml" />
     <Content Include="Views\Shared\_ClockInTimeout.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerPhotoCaptured.cshtml" />
     <Content Include="Views\Home\AddLocation.cshtml" />

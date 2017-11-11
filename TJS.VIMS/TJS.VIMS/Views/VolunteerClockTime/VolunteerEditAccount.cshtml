@@ -137,7 +137,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back", "VolunteerClockIn", new { locationId = ViewBag.LocationId, userName = Model.UserName })
 </div>
 
 @section Scripts {

@@ -209,7 +209,8 @@ namespace TJS.VIMS.Controllers
         {
             ViewBag.LocationId = locationId;
             var locations = lookUpRepository.GetLocations();
-            VolunteerViewModel model = new VolunteerViewModel(locations);
+            var organizations = lookUpRepository.GetOrganizations();
+            VolunteerViewModel model = new VolunteerViewModel(locations, organizations);
             model.VolunteerInfo = volunteer;
             return View("EditVolunteerProfile", model);
         }

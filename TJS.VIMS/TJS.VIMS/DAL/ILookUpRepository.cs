@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
@@ -11,6 +8,7 @@ namespace TJS.VIMS.DAL
     {
         List<Location> GetLocations();
         Location GetLocationById(int locationId);
+        List<Organization> GetOrganizations();
         Organization GetOrganizationById(int organizationId);
         List<Country> GetCountries();
         List<State> GetStates();

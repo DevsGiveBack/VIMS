@@ -31,6 +31,11 @@ namespace TJS.VIMS.DAL
                 .Where(x => x.LocationId == locationId).SingleOrDefault();
         }
 
+        public List<Organization> GetOrganizations()
+        {
+            return context.Organizations.ToList<Organization>();
+        }
+
         public Organization GetOrganizationById(int organizationId)
         {
             return context

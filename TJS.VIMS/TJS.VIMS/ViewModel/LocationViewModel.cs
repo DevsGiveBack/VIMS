@@ -21,16 +21,16 @@ namespace TJS.VIMS.ViewModel
         {
            get
             {
-                var locationListItem = locations.Select(m => new SelectListItem
+                var items = locations.Select(m => new SelectListItem
                 {
                     Value = m.LocationId.ToString(),
                     Text = m.LocationName
                 });
-                return DefaultItem.Concat(locationListItem);
+                return DefaultItem.Concat(items);
             }            
         }
 
-        public IEnumerable<SelectListItem> DefaultItem
+        private IEnumerable<SelectListItem> DefaultItem
         {
             get
             {
