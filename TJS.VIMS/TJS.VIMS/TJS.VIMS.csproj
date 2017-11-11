@@ -336,6 +336,7 @@
     <Content Include="Views\Shared\_LocationForm.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerEditAccount.cshtml" />
     <Content Include="Views\VolunteerClockTime\EditVolunteerProfile.cshtml" />
+    <Content Include="Views\Volunteer\DisplayAcknowledgePolicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

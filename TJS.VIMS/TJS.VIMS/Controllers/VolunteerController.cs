@@ -35,5 +35,9 @@ namespace TJS.VIMS.Controllers
 
             return View(new VolunteerViewModel(locations, organizations));
         }
-    }
+
+        public ActionResult DisplayAcknowledgePolicy()
+        {
+            return View();
+        }
 }
