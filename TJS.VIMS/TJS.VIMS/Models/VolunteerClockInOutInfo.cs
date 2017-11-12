@@ -16,9 +16,17 @@ namespace TJS.VIMS.Models
 
         public long? VolunteerProfileId { get; set; }
 
+        public int? LocationId { get; set; }
+
         public DateTime? ClockInDateTime { get; set; }
 
         public DateTime? ClockOutDateTime { get; set; }
+
+        [StringLength(500)]
+        public string ClockInProfilePhotoPath { get; set; }
+
+        [StringLength(500)]
+        public string ClockOutProfilePhotoPath { get; set; }
 
         public int? ClockInOutLocationId { get; set; }
 
@@ -26,16 +34,8 @@ namespace TJS.VIMS.Models
 
         public DateTime? CreatedDt { get; set; }
 
-        public string ClockInProfilePhotoPath { get; set; }
-
-        public string ClockOutProfilePhotoPath { get; set; }
-
-        public virtual Employee Employee { get; set; }
-
-        public virtual Location Location { get; set; }
+        public virtual VolunteerProfileInfo VolunteerProfileInfo { get; set; }
 
         public virtual VolunteerInfo VolunteerInfo { get; set; }
-
-        public virtual VolunteerProfileInfo VolunteerProfileInfo { get; set; }
     }
 }

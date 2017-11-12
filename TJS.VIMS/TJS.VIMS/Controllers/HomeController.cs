@@ -11,22 +11,34 @@ namespace TJS.VIMS.Controllers
 {
     public class HomeController : Controller
     {
-        private ILookUpRepository lookUpRepository;
+        //private ILookUpRepository lookUpRepository;
 
-       public HomeController()
+        public HomeController()
         {
-
         }
 
-        public HomeController(ILookUpRepository lookUpRepo)
+        //public HomeController(ILookUpRepository lookUpRepository)
+        //{
+        //    this.lookUpRepository = lookUpRepository;
+        //}
+
+        public ActionResult Index(int? id)
         {
-            this.lookUpRepository = lookUpRepo;
+            if (id == null)
+                id = Properties.Settings.Default.OrganizationId;
+
+            return RedirectToAction("Login", "Account", new { organizationId = id });
         }
 
+        [Authorize]
         public ActionResult Location()
         {
-            List<Location> lsLocation= lookUpRepository.GetLocation();
-            return View(new LocationViewModel(lsLocation));
+            //List<Location> lsLocation = lookUpRepository.GetLocations();
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                List<Location> locations = context.Locations.ToList<Location>();
+                return View(new LocationViewModel(locations));
+            }
         }
 
         [HttpPost]      
@@ -37,21 +49,98 @@ namespace TJS.VIMS.Controllers
             {
                 return View(model);
             }
-            TempData["SelectedLocationId"] = model.SelectedLocationId;
-            return RedirectToAction("TimeClockLogIn", "VolunteerClockTime");
+            return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = model.SelectedLocationId } );
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult AddLocation()
         {
-            ViewBag.Message = "Your application description page.";
-            return View();
+            EditLocationsViewModel vm = new EditLocationsViewModel();
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                vm.countries = context.Countries.ToList<Country>(); 
+                vm.states = context.States.ToList<State>();
+                vm.Location = new Location();
+            }
+
+            return View("AddLocation", vm);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult AddLocation(EditLocationsViewModel model)
         {
-            ViewBag.Message = "Your contact page.";
+            if (ModelState.IsValid) 
+            {
+                //LocationRepository repo = new LocationRepository(new VIMSDBContext());
+                //repo.Add(model.Location);
+                //repo.Save();
+                //repo.Dispose();
 
-            return View();
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    context.Locations.Add(model.Location);
+                    context.SaveChanges();
+                }
+
+                return RedirectToAction("Location");
+            }
+            return View(model.Location);
+        }
+
+        [HttpPost]
+        public ActionResult EditLocation(LocationViewModel model)
+        {
+            EditLocationsViewModel vm = new EditLocationsViewModel();
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                vm.countries = context.Countries.ToList<Country>();
+                vm.states = context.States.ToList<State>();
+                vm.Location = context.Locations.Find(model.SelectedLocationId);
+            }
+
+            return View("EditLocation", vm);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateLocation(EditLocationsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //LocationRepository repo = new LocationRepository(new VIMSDBContext());
+                //Location location = repo.Find(model.Location.LocationId);
+                //repo.Context.Entry(location).CurrentValues.SetValues(model.Location);
+                //repo.Save();
+
+                using (VIMSDBContext context = new VIMSDBContext())
+                { 
+                    Location location = context.Locations.Find(model.Location.LocationId);
+                    context.Entry(location).CurrentValues.SetValues(model.Location);
+                    context.SaveChanges();
+                }
+
+                return RedirectToAction("Location");
+            }
+            return View(model.Location);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteLocation(LocationViewModel model)
+        {
+            //LocationRepository repo = new LocationRepository(new VIMSDBContext());
+            //Location location = repo.Find(model.SelectedLocationId);
+            //repo.Remove(location);
+            //repo.Save();
+
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                Location location = context.Locations.Find(model.SelectedLocationId);
+                context.Locations.Remove(location);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Location");
+            //todo create confirmation view!
+            //return View();
         }
     }
 }

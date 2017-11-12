@@ -1,0 +1,51 @@
+﻿@model TJS.VIMS.ViewModel.VolunteerLookUpViewModel
+
+@{
+    ViewBag.Title = "VolunteerLookUp";
+}
+
+@using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", 
+    new { ReturnUrl = ViewBag.ReturnUrl, LocationId = Model.LocationId, UserName = Model.UserName }, 
+    FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_LocationName", Model) 
+    @Html.Partial("_Clock")
+
+    <div class="center">
+        <table style="width:25%">
+           <tr> 
+                <td></td>
+                <td style="width:40%">
+                    Login to Clock In or Out
+                </td>
+                <td style="width:20%"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="width:40%">
+                    @Html.TextBoxFor(m => m.UserName)
+                </td>
+                <td style="width:20%"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align="right" style="width:40%">
+               
+                </td>
+                <td style="width:20%">
+                    <input type="submit" value="Next" class="btn btn-default" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="width:40%">
+                    @Html.ActionLink("Create a new account", "VolunteerCreateAccount", new { locationId = Model.LocationId })
+                </td>
+                <td style="width:20%"></td>
+            </tr>
+        </table>
+    </div>
+}
+
+

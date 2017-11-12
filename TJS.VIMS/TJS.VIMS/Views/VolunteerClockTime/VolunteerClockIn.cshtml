@@ -1,42 +1,64 @@
-﻿@model TJS.VIMS.Models.VolunteerInfo
+﻿@model TJS.VIMS.ViewModel.VolunteerClockInViewModel
 
 @{
     ViewBag.Title = "VolunteerClockIn";
 }
 
 <div class="center">
-    <div id="Camera">
-    </div>
-    <br>
-    <input type="button" value="Capture" onclick="webcam.capture();" />
-    <div>
-        <h3>Camera</h3>
-        <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
-    </div>
+    
+    @Html.Partial("_LocationName", Model)
+    @Html.Partial("_Clock")
+    
+     
+    <br />
+
+    <strong>Case # @ViewBag.Case</strong><br />
+    @Html.ActionLink("Edit profile details.", "VolunteerEditAccount", new { volunteerId = Model.Volunteer.VolunteerId, locationId = Model.LocationId })<br />  
+
+    @if (ViewBag.isClockedIn)
+    {
+        <strong>If you are finished working:</strong>
+    }
+    else
+    {
+        <strong>If you are ready to start working:</strong>
+    }
+    <br />
+    @using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10"> 
+                    @if (ViewBag.isClockedIn)
+                    {
+                        <input type="submit" value="Clock Out" class="btn btn-default" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Clock In" class="btn btn-default" />
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <p>
+        @if (ViewBag.isClockedIn)
+        {
+            @Html.ActionLink("Never mind, I want to keep on working", "VolunteerLookUp", new { locationId = Model.LocationId })
+        }
+        else
+        {
+            @Html.ActionLink("I need to clock out instead", "VolunteerAllReadyClockedIn", new { locationId = Model.LocationId, userId = Model.LocationId } )<br />
+            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "VolunteerLookUp", new { locationId = Model.LocationId })
+        }
+   </p>
+
 </div>
 
-@section scripts
-{
-    <script src="@Url.Content("~/Scripts/jquery.webcam.js")">
-    </script>
-    <script type="text/javascript">
-            $("#Camera").webcam({
-                width: 320,
-                height: 240,
-                mode: "save",
-                swffile: "@Url.Content("~/Scripts/jscam.swf")",
-                onTick: function () { },
-                onSave: function () {
-                    UploadPic();
-                },
-                onCapture: function () {
-                    webcam.save("@Url.Content("~/Photo/Capture")/");
-             },
-                debug: function () { },
-                onLoad: function () { }
+@*@Html.Partial("_ClockInTimeout", Model)*@
 
-            });
-
-    </script>
-}
 

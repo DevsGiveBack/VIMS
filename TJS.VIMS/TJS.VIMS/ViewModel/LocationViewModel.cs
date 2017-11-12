@@ -1,39 +1,36 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TJS.VIMS.Models;
-using System.Linq;
-
-
 
 namespace TJS.VIMS.ViewModel
 {
     public class LocationViewModel
     {
-        private List<Location> lsLocation { get; set; }
-
-       public int SelectedLocationId { get; set; }      
-
-       public LocationViewModel(List<Location> lsLocation)
-        {
-            this.lsLocation = lsLocation;
-        }
+        private List<Location> locations { get; set; }
+        public int SelectedLocationId { get; set; }
 
         public LocationViewModel() { }
 
-        public IEnumerable<SelectListItem> LocationSelectListItem
+        public LocationViewModel(List<Location> locations)
+        {
+            this.locations = locations;
+        }
+        
+        public IEnumerable<SelectListItem> LocationSelectList
         {
            get
             {
-                var locationListItem = lsLocation.Select(x => new SelectListItem
+                var items = locations.Select(m => new SelectListItem
                 {
-                    Value = x.LocationId.ToString(),
-                    Text = x.LocationName
+                    Value = m.LocationId.ToString(),
+                    Text = m.LocationName
                 });
-                return DefaultFlavorItem.Concat(locationListItem);
+                return DefaultItem.Concat(items);
             }            
         }
 
-        public IEnumerable<SelectListItem> DefaultFlavorItem
+        private IEnumerable<SelectListItem> DefaultItem
         {
             get
             {

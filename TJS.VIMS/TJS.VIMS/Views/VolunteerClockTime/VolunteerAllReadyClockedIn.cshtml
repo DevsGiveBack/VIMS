@@ -1,0 +1,49 @@
+﻿@model TJS.VIMS.ViewModel.VolunteerAllReadyClockedInViewModel
+
+@{
+    ViewBag.Title = "VolunteerAllReadyClockedIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="center">
+
+    @Html.Partial("_LocationName", Model)
+    @Html.Partial("_Clock")
+    <br />
+    <p>
+        We're sorry, but you are not clocked in.<br />
+        Our time clock app might have messed up.<br />
+        Maybe you forgot to clock in before you started working.<br />
+        Either way, please see a @Model.OrganizationName employee so we can get this fixed for you.<br />
+        Sorry for the hassle.
+    </p>
+    <br />
+    @using (Html.BeginForm("VolunteerLookUp", "VolunteerClockTime", new { locationId = Model.LocationId }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="center">
+            <table align="center" style="width:25%">
+                <tr>
+                    <td align="center" style="width:100%">
+                        <input type="submit" value="Logout and return to home page ..." class="btn btn-default" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+    <div id="counter">120</div>
+</div>
+
+@section scripts 
+{
+        <script>
+        setInterval(function () {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                    location.href = "@Url.Action("VolunteerLookUp", "VolunteerClockTime", new { locationId = Model.LocationId })";
+            }
+        }, 1000);
+        </script>
+}

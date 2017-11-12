@@ -11,30 +11,34 @@ namespace TJS.VIMS.Controllers
 {
     public class VolunteerController : Controller
     {
-        private ILookUpRepository lookUpRepository;
-
+        private ILookUpRepository lookUpRepository = null;
 
         // GET: Volunteer
         public ActionResult CreateProfile()
         {
-            List<State> lsState;
-            List<Location> lsLocation;
+            List<State> states;
+            List<Location> locations;
+            List<Organization> organizations;
 
             if (lookUpRepository != null)
             {
-                lsState = lookUpRepository.GetState();
-                lsLocation = lookUpRepository.GetLocation();
+                states = lookUpRepository.GetStates();
+                locations = lookUpRepository.GetLocations();
+                organizations = lookUpRepository.GetOrganizations();
             }
             else
             {
-                lsState = new List<State>();
-                lsLocation = new List<Location>();
+                states = new List<State>();
+                locations = new List<Location>();
+                organizations = new List<Organization>();
             }
 
-            return View(new VolunteerViewModel(lsLocation));
+            return View(new VolunteerViewModel(locations, organizations));
         }
 
-
-
+        public ActionResult DisplayAcknowledgePolicy()
+        {
+            return View();
+        }
     }
 }

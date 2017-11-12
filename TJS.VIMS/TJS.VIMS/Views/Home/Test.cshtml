@@ -1,0 +1,24 @@
+﻿<h1>Testing View</h1>
+
+<div style="margin:initial">
+    @Html.ActionLink("linky", "action", "controller", new { onclick = "someFunction();" })
+</div>
+
+@Html.ActionLink("Link1", "Test1", "Test", new { x = 5, s = "Hello" }, null)<br />
+@Html.ActionLink("Link2", "Test2", "Test", new { x = 5 }, null)<br />
+
+@using (Html.BeginForm("Location", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+            <td style="width:50%">
+                <input type="submit" value="Test2" formaction="@Url.Action("Test2")" class="btn btn-default" />
+            </td>
+            <td style="width:50%">
+                <input type="submit" value="Test3" formaction="@Url.Action("Test")" class="btn btn-default" />
+            </td>
+        </tr>
+    </table>
+}

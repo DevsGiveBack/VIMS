@@ -12,34 +12,33 @@
     <table class="tjs-table" style="width:40%;border:none;align-content:center">
         <tr>
             <td style="width:100%">
-                @Html.DropDownListFor(m => m.SelectedLocationId, Model.LocationSelectListItem, new { style = "width:100%", @class = "form-control", id = "ddlLocation" })
+                @Html.DropDownListFor(m => m.SelectedLocationId, Model.LocationSelectList, new { style = "width:100%", @class = "form-control", id = "ddlLocation" })
             </td>
         </tr>
-        <tr><td><span>&nbsp;</span></td</tr>
+        <tr>
+            <td><span>&nbsp;</span></td>
+        </tr>
         <tr>
             <td style="width:100%;">
                 <div id="showTimeClockLink" style="visibility:hidden;">
                     <table style="width:100%">
                         <tr>
                             <td style="width:50%">
-                                <input type="submit" value="Open time clock app for this location" onclick="location.href='@Url.Action("TimeClockLogIn", "VolunteerClockTime")'" class="btn btn-default" />
+                                <input type="submit" value="Open time clock app for this location" class="btn btn-default" />
                             </td>
                             <td style="width:50%">
-                                <input type="button" value="Edit Location" onclick="location.href='@Url.Action("AddLocation", "Home")'" class="btn btn-default" />
+                                <input type="submit" value="Edit Location" formaction="@Url.Action("EditLocation", "Home")" class="btn btn-default" />
+                            </td>
+                            <td style="width:50%">
+                                <input type="submit" value="Delete Location" formaction="@Url.Action("DeleteLocation", "Home")" class="btn btn-default" />
                             </td>
                         </tr>
                         <tr><td><span>&nbsp;</span></td></tr>
                         <tr>
                             <td colspan="2" style="align-content:flex-start">
                                 <div style="margin:initial">
-                                    @Html.ActionLink("Add new location", "AddNewLocation")
+                                    @Html.ActionLink("Add a location", "AddLocation", "Home")
                                 </div>
-                            </td>
-                        </tr>
-                        <tr><td><span>&nbsp;</span></td></tr>
-                        <tr>
-                            <td colspan="2" style="align-content:flex-start">
-                                @Html.ActionLink("Delete this location", "EditLocation")
                             </td>
                         </tr>
                     </table>
@@ -48,6 +47,7 @@
         </tr>
 
     </table>
+  
 </div>
 }
 

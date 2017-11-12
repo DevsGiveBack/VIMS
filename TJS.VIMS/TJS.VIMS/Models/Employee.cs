@@ -14,11 +14,11 @@ namespace TJS.VIMS.Models
         {
             Countries = new HashSet<Country>();
             Locations = new HashSet<Location>();
-            Organizations = new HashSet<Organization>();            
+            Organizations = new HashSet<Organization>();
+            Organizations1 = new HashSet<Organization>();
             States = new HashSet<State>();
             VolunteerProfileInfoes = new HashSet<VolunteerProfileInfo>();
             VolunteerProfilePhotoInfoes = new HashSet<VolunteerProfilePhotoInfo>();
-            VolunteerClockInOutInfoes = new HashSet<VolunteerClockInOutInfo>();
         }
 
         public long EmployeeId { get; set; }
@@ -74,8 +74,5 @@ namespace TJS.VIMS.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VolunteerProfilePhotoInfo> VolunteerProfilePhotoInfoes { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
     }
 }

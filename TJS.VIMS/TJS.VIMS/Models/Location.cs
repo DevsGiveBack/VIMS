@@ -9,16 +9,12 @@ namespace TJS.VIMS.Models
     [Table("Location")]
     public partial class Location
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Location()
-        {
-            VolunteerClockInOutInfoes = new HashSet<VolunteerClockInOutInfo>();
-        }
-
         public int LocationId { get; set; }
 
         [StringLength(100)]
         public string LocationName { get; set; }
+
+        public int? OrganizationId { get; set; }
 
         [StringLength(50)]
         public string Address1 { get; set; }
@@ -47,8 +43,5 @@ namespace TJS.VIMS.Models
         public virtual Employee Employee { get; set; }
 
         public virtual State State { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
     }
 }

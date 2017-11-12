@@ -20,18 +20,19 @@ namespace TJS.VIMS.Models
         [Key]
         public long VolunteerId { get; set; }
 
+        public int? DefaultVolunteerProfileInfoId { get; set; }
+
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(50)]
         public string UserName { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string LastName { get; set; }
 
         [StringLength(50)]
         public string Address1 { get; set; }
