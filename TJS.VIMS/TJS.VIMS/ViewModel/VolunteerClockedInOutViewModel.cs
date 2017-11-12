@@ -68,31 +68,22 @@ namespace TJS.VIMS.ViewModel
         /// <returns>formated string ({0} hours {1} minutes)</returns>
         public static TimeSpan GetHoursLogged(List<VolunteerClockInOutInfo> infos)
         {
-            int minutes = 0;
-            foreach (var i in infos)
-            {
-                minutes += (int)Math.Ceiling((i.ClockOutDateTime.Value - i.ClockInDateTime.Value).TotalMinutes);
-            }
-            return new TimeSpan(0, minutes, 0);
+            return TJS.VIMS.Reports.Reporting.GetHoursLogged(infos);
         }
 
         public static string GetFormatedTimeSpan(DateTime start, DateTime end)
         {
-            TimeSpan span = end.Subtract(start);
-            return GetFormatedTimeSpan(span);
+            return TJS.VIMS.Reports.Reporting.GetFormatedTimeSpan(start, end);
         }
 
         public static string GetFormatedTimeSpan(TimeSpan span)
         {
-            int total = (int)Math.Ceiling(span.TotalMinutes);
-            return GetFormatedTimeSpan(total);
+            return TJS.VIMS.Reports.Reporting.GetFormatedTimeSpan(span);
         }
 
         public static string GetFormatedTimeSpan(int total)
         {
-            int hours = (int)Math.Floor(total / 60d);
-            int minutes = total % 60;
-            return string.Format("{0} hours {1} minutes", hours, minutes);
+            return TJS.VIMS.Reports.Reporting.GetFormatedTimeSpan(total);
         }
     }
 }
