@@ -157,6 +157,7 @@ CREATE TABLE [dbo].[VolunteerInfo](
 	[Address2] [varchar](50) NULL,
 	[City] [varchar](50) NULL,
 	[StateId] [smallint] NULL,
+	[CountryId] [smallint] NULL,
 	[ZipCode] [varchar](10) NULL,
 	[PhoneNumber] [varchar](12) NULL,
 	[PhoneNumberType] [smallint] NULL,
