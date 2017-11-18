@@ -8,8 +8,11 @@
     
     @Html.Partial("_LocationName", Model)
     @Html.Partial("_Clock")
-    
-     
+
+    <div id="Photo">
+        <img src="~/Capture/@Model.DefaultPhotoPath" />
+    </div>
+         
     <br />
 
     <strong>Case # @ViewBag.Case</strong><br />
@@ -31,7 +34,7 @@
             <div class="form-group">
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10"> 
+                <div class="col-md-offset-1 col-md-10">
                     @if (ViewBag.isClockedIn)
                     {
                         <input type="submit" value="Clock Out" class="btn btn-default" />
@@ -44,18 +47,21 @@
             </div>
         </div>
     }
-
+    <br />
+    <br />
     <p>
-        @if (ViewBag.isClockedIn)
-        {
-            @Html.ActionLink("Never mind, I want to keep on working", "VolunteerLookUp", new { locationId = Model.LocationId })
-        }
-        else
-        {
-            @Html.ActionLink("I need to clock out instead", "VolunteerAllReadyClockedIn", new { locationId = Model.LocationId, userId = Model.LocationId } )<br />
-            @Html.ActionLink("Never mind, I just want to out out and return to the Home Screen", "VolunteerLookUp", new { locationId = Model.LocationId })
-        }
-   </p>
+        <div class="col-md-offset-1 col-md-10">
+            @if (ViewBag.isClockedIn)
+            {
+                @Html.ActionLink("Never mind, I want to keep on working.", "VolunteerLookUp", new { locationId = Model.LocationId })
+            }
+            else
+            {
+                @Html.ActionLink("I need to clock out instead", "VolunteerAllReadyClockedIn", new { locationId = Model.LocationId, userId = Model.LocationId })<br />
+                @Html.ActionLink("Never mind, I just want to logout and return to the \"Home Screen\".", "VolunteerLookUp", new { locationId = Model.LocationId })
+            }
+     </div>
+    </p>
 
 </div>
 

@@ -47,5 +47,13 @@ namespace TJS.VIMS.Controllers
             vm.countries = lookUpRepository.GetCountries();
             return View(vm);
         }
+
+        public void TestVM()
+        {
+            VIMSDBContext context = new VIMSDBContext();
+
+            VolunteerViewModel vm = new VolunteerViewModel(context.Locations.ToList(), context.Organizations.ToList());
+            
+        }
     }
 }
