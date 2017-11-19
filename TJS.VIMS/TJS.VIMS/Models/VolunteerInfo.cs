@@ -58,9 +58,11 @@ namespace TJS.VIMS.Models
 
         public DateTime? DOB { get; set; }
 
+        [Display(Name = "Emergency Contact")]
         [StringLength(100)]
         public string Emrgncy_Cntct_Name { get; set; }
 
+        [Display(Name = "Emergency Contact Phone")]
         [StringLength(12)]
         public string Emrgncy_Cntct_Phn { get; set; }
 
