@@ -30,7 +30,7 @@
     @using (Html.BeginForm("VolunteerClockedInOut", "VolunteerClockTime", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <div>
+        <div> 
             <div class="form-group">
             </div>
             <div class="form-group">
@@ -57,7 +57,7 @@
             }
             else
             {
-                @Html.ActionLink("I need to clock out instead", "VolunteerAllReadyClockedIn", new { locationId = Model.LocationId, userId = Model.LocationId })<br />
+                @Html.ActionLink("I need to clock out instead.", "VolunteerAllReadyClockedIn", new { locationId = Model.LocationId, userId = Model.LocationId })<br />
                 @Html.ActionLink("Never mind, I just want to logout and return to the \"Home Screen\".", "VolunteerLookUp", new { locationId = Model.LocationId })
             }
      </div>
