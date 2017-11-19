@@ -10,7 +10,7 @@ namespace TJS.VIMS.DAL
         public VolunteerInfoRepository(VIMSDBContext context) : base(context)
         {
         }
-        
+
         /// <summary>
         /// get volunteer from Id
         /// </summary>
@@ -70,7 +70,12 @@ namespace TJS.VIMS.DAL
             return GetLastPhotoInfo(volunteer);
         }
 
-        /// <summary>
+        // one profile per oranization
+        //public VolunteerProfileInfo GetProfileInfoByOrganization(long id, long organization id)
+        //{
+        //}
+
+            /// <summary>
         /// gets the last profile for a volunteer
         /// </summary>
         /// <param name="id">the volunterr id</param>

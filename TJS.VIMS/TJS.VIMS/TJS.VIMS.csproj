@@ -325,7 +325,7 @@
     <Content Include="Views\Shared\_HoursStatus.cshtml" />
     <Content Include="Views\Shared\_RecentHours.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerCreateAccount.cshtml" />
+    <Content Include="Views\Volunteer\VolunteerCreateAccount.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerAllReadyClockedIn.cshtml" />
     <Content Include="Views\Shared\_LocationName.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
@@ -337,8 +337,8 @@
     <Content Include="Views\Home\AddLocation.cshtml" />
     <Content Include="Views\Home\EditLocation.cshtml" />
     <Content Include="Views\Shared\_LocationForm.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerEditAccount.cshtml" />
-    <Content Include="Views\VolunteerClockTime\EditVolunteerProfile.cshtml" />
+    <Content Include="Views\Volunteer\VolunteerEditAccount.cshtml" />
+    <Content Include="Views\Volunteer\EditVolunteerProfile.cshtml" />
     <Content Include="Views\Volunteer\DisplayAcknowledgePolicy.cshtml" />
     <Content Include="Views\Shared\_Photo.cshtml" />
   </ItemGroup>

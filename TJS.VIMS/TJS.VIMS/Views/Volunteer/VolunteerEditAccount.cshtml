@@ -1,21 +1,20 @@
 ﻿@model TJS.VIMS.Models.VolunteerInfo
 
 @{
-    ViewBag.Title = "VolunteerCreateAccount";
+    ViewBag.Title = "VolunteerEditAccount";
 }
 
-<h2>VolunteerCreateAccount2</h2>
+<h2>VolunteerEditAccount</h2>
 
-
-@using (Html.BeginForm("VolunteerCreateAccount", "VolunteerClockTime", new { locationId = ViewBag.LocationId } , FormMethod.Post, null))
+@using (Html.BeginForm("VolunteerUpdateAccount", "Volunteer", new { locationId = ViewBag.LocationId }, FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>VolunteerInfo</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
+
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -63,20 +62,6 @@
                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(m => m.Location.StateId, "State", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Location.StateId, Model.StateSelectList, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Location.CountryId, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Location.CountryId, Model.CountrySelectList, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -136,7 +121,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Update" class="btn btn-default" />
             </div>
         </div>
         <div>
@@ -146,12 +131,16 @@
             }
         </div>
     </div>
+    @Html.HiddenFor(model => model.VolunteerId, new { @Value = Model.VolunteerId })
+    @Html.HiddenFor(model => model.CreatedBy, new { @Value = 0 })
+    @Html.HiddenFor(model => model.CreatedDt, new { @Value = System.DateTime.Now })
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back", "VolunteerClockIn", new { locationId = ViewBag.LocationId, userName = Model.UserName })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
