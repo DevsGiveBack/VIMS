@@ -71,11 +71,15 @@ namespace TJS.VIMS.DAL
         }
 
         // one profile per oranization
-        //public VolunteerProfileInfo GetProfileInfoByOrganization(long id, long organization id)
-        //{
-        //}
+        //BKP TEST
+        public VolunteerProfileInfo GetProfileInfoByOrganization(long id, long organization_id)
+        {
+            return context.VolunteerProfileInfoes
+                .Where(m => m.VolunteerId == id && m.OrganizationId == organization_id)
+                .SingleOrDefault();
+        }
 
-            /// <summary>
+        /// <summary>
         /// gets the last profile for a volunteer
         /// </summary>
         /// <param name="id">the volunterr id</param>

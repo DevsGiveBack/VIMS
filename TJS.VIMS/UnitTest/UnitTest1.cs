@@ -20,5 +20,16 @@ namespace UnitTest
                 Assert.IsNotNull(list);
             }
         }
+
+        //[TestMethod]
+        //public void GetProfileInfo(int volunteer_id, int organization_id)
+        //{
+        //    using (VIMSDBContext context = new VIMSDBContext())
+        //    {
+        //        List<Country> list = context.VolunteerInfoes.Where()
+        //        Assert.IsNotNull(context);
+        //        Assert.IsNotNull(list);
+        //    }
+        //}
     }
 }
