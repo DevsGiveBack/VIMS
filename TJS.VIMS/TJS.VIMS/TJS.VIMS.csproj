@@ -346,6 +346,10 @@
     <Content Include="Views\Administration\AddOrganization.cshtml" />
     <Content Include="Views\Administration\EditOrganization.cshtml" />
     <Content Include="Views\Administration\DeleteOrganization.cshtml" />
+    <Content Include="Views\Administration\AddOrganization2.cshtml" />
+    <Content Include="Views\Administration\CreateEmployee.cshtml" />
+    <Content Include="Views\Administration\EditEmployee.cshtml" />
+    <Content Include="Views\Administration\DeleteEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,5 +31,23 @@ namespace TJS.VIMS.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult CreateEmployee()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditEmployee()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult DeleteEmployee()
+        {
+            return View();
+        }
     }
 }
