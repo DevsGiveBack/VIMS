@@ -13,5 +13,23 @@ namespace TJS.VIMS.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult AddOrganization()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditOrganization()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult DeleteOrganization()
+        {
+            return View();
+        }
     }
 }

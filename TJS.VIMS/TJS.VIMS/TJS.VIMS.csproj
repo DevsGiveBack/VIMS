@@ -343,6 +343,9 @@
     <Content Include="Views\Shared\_Photo.cshtml" />
     <Content Include="Views\TimeClock\TestView.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Administration\AddOrganization.cshtml" />
+    <Content Include="Views\Administration\EditOrganization.cshtml" />
+    <Content Include="Views\Administration\DeleteOrganization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
