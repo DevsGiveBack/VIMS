@@ -60,22 +60,27 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditEmployee(Employee employee)
+        public ActionResult EditEmployee(long id)
         {
-            return View(employee);
+            Employee e = null;
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                e = context.Employees.Find(id);
+            }
+            return View("EditEmployee", e);
         }
 
         [HttpPost]
-        public ActionResult EditEmployee(Employee employee, bool post)
+        public ActionResult EditEmployee(Employee employee)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    employee.ActiveInd = true;
                     employee.UpdatedBy = "0";
                     employee.UpdatedDt = System.DateTime.Now;
-                    context.Employees.Add(employee);
+                    Employee e = context.Employees.Find(employee.EmployeeId);
+                    context.Entry(e).CurrentValues.SetValues(employee);
                     context.SaveChanges();
                 }
 
@@ -111,6 +116,40 @@ namespace TJS.VIMS.Controllers
                 context.Employees.Remove(employee);
                 context.SaveChanges();
             }
+            return View();
+        }
+
+        /// <summary>
+        /// time clock activity
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TimeClockActivity()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// activity of single volunteer
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <returns></returns>
+        public ActionResult TimeClockActivity(VolunteerInfo volunteer)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <returns></returns>
+        public ActionResult NoShows(VolunteerInfo volunteer)
+        {
+            return View();
+        }
+
+        public ActionResult TestView()
+        {
             return View();
         }
     }

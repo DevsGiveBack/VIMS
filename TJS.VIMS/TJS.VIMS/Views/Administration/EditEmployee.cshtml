@@ -44,6 +44,7 @@
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,6 +65,9 @@
             </div>
         </div>
     </div>
+    @Html.HiddenFor(model => model.ActiveInd, new { @Value = Model.ActiveInd})
+    @Html.HiddenFor(model => model.CreatedBy, new { @Value = Model.CreatedBy })
+    @Html.HiddenFor(model => model.CreatedDt, new { @Value = Model.CreatedDt })
 }
 
 <div>
