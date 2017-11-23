@@ -25,14 +25,17 @@ namespace TJS.VIMS.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
 
         [Required]
@@ -43,7 +46,7 @@ namespace TJS.VIMS.Models
 
         public bool ActiveInd { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(50)]
         public string CreatedBy { get; set; }
 
