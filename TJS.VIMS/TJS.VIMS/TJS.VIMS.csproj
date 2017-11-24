@@ -365,6 +365,7 @@
     <Content Include="Views\Administration\NoShows.cshtml" />
     <Content Include="Views\Administration\TestView.cshtml" />
     <Content Include="Views\Administration\VolunteersReport.cshtml" />
+    <Content Include="Views\Administration\Start.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
