@@ -247,43 +247,6 @@ PRIMARY KEY CLUSTERED
 
 GO
 
-/* seed data */
-INSERT INTO Employee VALUES('Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
-
-INSERT INTO [dbo].[Organization]
-           ([OrganizationName]
-           ,[Active]
-           ,[CreatedBy]
-           ,[CreatedDt]
-           ,[UpdatedBy]
-           ,[UpdatedDt])
-     VALUES
-           (
-		   'TestOrganization'
-           ,1
-           ,NULL
-           ,GETDATE()
-           ,NULL
-           ,GETDATE())
-
-DECLARE @ORG_ID INT
-SET @ORG_ID = @@IDENTITY
- 		   
-INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Plano',@ORG_ID,GETDATE())
-INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Frisco',@ORG_ID,GETDATE())
-INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Haltom City',@ORG_ID,GETDATE())
-
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('United States' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Uraguay' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Canada' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Mexico' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Russia' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('France' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Nepal' ,1 ,1 ,GETDATE())
-
-GO
-
-GO
 ALTER TABLE [dbo].[Country]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
 REFERENCES [dbo].[Employee] ([Id])
 GO
@@ -331,4 +294,39 @@ REFERENCES [dbo].[Employee] ([Id])
 GO
 ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
 REFERENCES [dbo].[VolunteerInfo] ([Id])
+GO
+
+/* seed data */
+INSERT INTO Employee VALUES('Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
+
+INSERT INTO [dbo].[Organization]
+           ([OrganizationName]
+           ,[Active]
+           ,[CreatedBy]
+           ,[CreatedDt]
+           ,[UpdatedBy]
+           ,[UpdatedDt])
+     VALUES
+           (
+		   'TestOrganization'
+           ,1
+           ,NULL
+           ,GETDATE()
+           ,NULL
+           ,GETDATE())
+
+DECLARE @ORG_ID INT
+SET @ORG_ID = @@IDENTITY
+ 		   
+INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Plano',@ORG_ID,GETDATE())
+INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Frisco',@ORG_ID,GETDATE())
+INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Haltom City',@ORG_ID,GETDATE())
+
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('United States' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Uraguay' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Canada' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Mexico' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Russia' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('France' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Nepal' ,1 ,1 ,GETDATE())
 GO
