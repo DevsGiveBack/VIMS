@@ -83,7 +83,6 @@ namespace TJS.VIMS.Controllers
                     context.Entry(e).CurrentValues.SetValues(employee);
                     context.SaveChanges();
                 }
-
                 return RedirectToAction("Index");
             }
             return View(employee);
@@ -144,6 +143,11 @@ namespace TJS.VIMS.Controllers
         /// <param name="volunteer"></param>
         /// <returns></returns>
         public ActionResult NoShows(VolunteerInfo volunteer)
+        {
+            return View();
+        }
+
+        public ActionResult VolunteersReport()
         {
             return View();
         }

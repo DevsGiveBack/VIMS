@@ -65,6 +65,9 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
+                    //todo
+                    model.Location.CreatedBy = 0;
+                    model.Location.CreatedDt = System.DateTime.Now;
                     context.Locations.Add(model.Location);
                     context.SaveChanges();
                 }
@@ -94,7 +97,10 @@ namespace TJS.VIMS.Controllers
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
-                { 
+                {
+                    //todo
+                    //model.Location.UpdatedBy = "0";
+                    //model.Location.UpdatedDt = System.DateTime.Now;
                     Location location = context.Locations.Find(model.Location.LocationId);
                     context.Entry(location).CurrentValues.SetValues(model.Location);
                     context.SaveChanges();

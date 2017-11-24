@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Country](
 	[Id] [smallint] IDENTITY(1,1) NOT NULL,
-	[CountryName] [varchar](100) NULL,
+	[CountryName] [varchar](100) NOT NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[Employee](
 	[LastName] [varchar](50) NOT NULL,
 	[UserName] [varchar](50) NOT NULL,
 	[Password] [varchar](400) NOT NULL,
-	[IsAdmin] [bit] NOT NULL,
+	[Admin] [bit] NOT NULL,
 	[Active] [bit] NOT NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -55,7 +55,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Location](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[LocationName] [varchar](100) NULL,
+	[LocationName] [varchar](100) NOT NULL,
 	[OrganizationId] [int] NULL,
 	[Address1] [varchar](50) NULL,
 	[Address2] [varchar](50) NULL,
@@ -82,7 +82,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Organization](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[OrganizationName] [varchar](100) NULL,
+	[OrganizationName] [varchar](100) NOT NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -102,7 +102,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[State](
 	[Id] [smallint] IDENTITY(1,1) NOT NULL,
-	[StateName] [varchar](100) NULL,
+	[StateName] [varchar](100) NOT NULL,
 	[CountryId] [smallint] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -185,13 +185,13 @@ CREATE TABLE [dbo].[VolunteerProfileInfo](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[VolunteerId] [bigint] NULL,
 	[OrganizationId] [int] NULL,
-	[CaseNumber] [varchar](50) NOT NULL,
+	[CaseNumber] [varchar](50) NULL,
 	[Volunteer_Hours_Needed] [smallint] NULL,
 	[Skill] [varchar](50) NULL,
 	[WorkInfo] [varchar](400) NULL,
-	[Felony_Cnvctn] [bit] NOT NULL,
-	[Sexual_Abuse_Related] [bit] NOT NULL,
-	[Recv_Email] [bit] NOT NULL,
+	[Felony_Cnvctn] [bit] NULL,
+	[Sexual_Abuse_Related] [bit] NULL,
+	[Recv_Email] [bit] NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -231,7 +231,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Group](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[Name] [bigint] NULL,
+	[Name] [bigint] NOT NULL,
 	[NumberVolunteers] [smallint] NULL,
 	[Hours] [int] NULL,
 	[Date] [bigint] NULL,

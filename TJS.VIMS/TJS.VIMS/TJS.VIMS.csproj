@@ -353,6 +353,7 @@
     <Content Include="Views\Administration\TimeClockActivity.cshtml" />
     <Content Include="Views\Administration\NoShows.cshtml" />
     <Content Include="Views\Administration\TestView.cshtml" />
+    <Content Include="Views\Administration\VolunteersReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
