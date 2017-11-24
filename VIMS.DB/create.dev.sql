@@ -110,7 +110,7 @@ CREATE TABLE [dbo].[State](
 	[UpdatedDt] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[StateId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -214,6 +214,27 @@ CREATE TABLE [dbo].[VolunteerProfilePhotoInfo](
 	[VolunteerId] [bigint] NULL,
 	[VolunteerProfilePhotoPath] [varchar](500) NULL,
 	[Active] [bit] NULL,
+	[CreatedBy] [bigint] NULL,
+	[CreatedDt] [datetime] NULL,
+	[UpdatedBy] [bigint] NULL,
+	[UpdatedDt] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Group](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Name] [bigint] NULL,
+	[NumberVolunteers] [smallint] NULL,
+	[Hours] [int] NULL,
+	[Date] [bigint] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
