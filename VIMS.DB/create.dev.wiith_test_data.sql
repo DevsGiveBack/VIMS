@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Country](
-	[Id] [smallint] IDENTITY(1,1) NOT NULL,
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[CountryName] [varchar](100) NOT NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
@@ -54,13 +54,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Location](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[LocationName] [varchar](100) NOT NULL,
-	[OrganizationId] [int] NULL,
+	[OrganizationId] [bigint] NULL,
 	[Address1] [varchar](50) NULL,
 	[Address2] [varchar](50) NULL,
-	[StateId] [smallint] NULL,
-	[CountryId] [smallint] NULL,
+	[StateId] [bigint] NULL,
+	[CountryId] [bigint] NULL,
 	[ZipCode] [varchar](10) NULL,
 	[Notes] [varchar](250) NULL,
 	[Active] [bit] NULL,
@@ -81,7 +81,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Organization](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[OrganizationName] [varchar](100) NOT NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
@@ -101,9 +101,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[State](
-	[Id] [smallint] IDENTITY(1,1) NOT NULL,
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[StateName] [varchar](100) NOT NULL,
-	[CountryId] [smallint] NULL,
+	[CountryId] [bigint] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -122,9 +122,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VolunteerClockInOutInfo](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[VolunteerId] [bigint] NULL,
-	[VolunteerProfileId] [bigint] NULL,
-	[LocationId] [int] NULL,
+	[VolunteerInfoId] [bigint] NULL,
+	[VolunteerProfileInfoId] [bigint] NULL,
+	[LocationId] [bigint] NULL,
 	[ClockInDateTime] [datetime] NULL,
 	[ClockOutDateTime] [datetime] NULL,
 	[ClockInProfilePhotoPath] [varchar](500) NULL,
@@ -148,15 +148,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VolunteerInfo](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[DefaultVolunteerProfileInfoId] [int] NULL,
+	[DefaultVolunteerProfileInfoId] [bigint] NULL,
 	[FirstName] [varchar](50) NOT NULL,
 	[LastName] [varchar](50) NOT NULL,
 	[UserName] [varchar](50) NOT NULL,
 	[Address1] [varchar](50) NULL,
 	[Address2] [varchar](50) NULL,
 	[City] [varchar](50) NULL,
-	[StateId] [smallint] NULL,
-	[CountryId] [smallint] NULL,
+	[StateId] [bigint] NULL,
+	[CountryId] [bigint] NULL,
 	[ZipCode] [varchar](10) NULL,
 	[PhoneNumber] [varchar](12) NULL,
 	[PhoneNumberType] [smallint] NULL,
@@ -183,8 +183,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VolunteerProfileInfo](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[VolunteerId] [bigint] NULL,
-	[OrganizationId] [int] NULL,
+	[VolunteerInfoId] [bigint] NULL,
+	[OrganizationId] [bigint] NULL,
 	[CaseNumber] [varchar](50) NULL,
 	[Volunteer_Hours_Needed] [smallint] NULL,
 	[Skill] [varchar](50) NULL,
@@ -211,7 +211,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[VolunteerProfilePhotoInfo](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[VolunteerId] [bigint] NULL,
+	[VolunteerInfoId] [bigint] NULL,
 	[VolunteerProfilePhotoPath] [varchar](500) NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
@@ -281,4 +281,54 @@ INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) 
 INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('France' ,1 ,1 ,GETDATE())
 INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Nepal' ,1 ,1 ,GETDATE())
 
+GO
+
+GO
+ALTER TABLE [dbo].[Country]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[Location]  WITH CHECK ADD FOREIGN KEY([CountryId])
+REFERENCES [dbo].[Country] ([Id])
+GO
+ALTER TABLE [dbo].[Location]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[Location]  WITH CHECK ADD FOREIGN KEY([StateId])
+REFERENCES [dbo].[State] ([Id])
+GO
+ALTER TABLE [dbo].[Organization]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[Organization]  WITH CHECK ADD FOREIGN KEY([UpdatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[State]  WITH CHECK ADD FOREIGN KEY([CountryId])
+REFERENCES [dbo].[Country] ([Id])
+GO
+ALTER TABLE [dbo].[State]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerClockInOutInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerProfileInfoId])
+REFERENCES [dbo].[VolunteerProfileInfo] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerClockInOutInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
+REFERENCES [dbo].[VolunteerInfo] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerInfo]  WITH CHECK ADD FOREIGN KEY([StateId])
+REFERENCES [dbo].[State] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([OrganizationId])
+REFERENCES [dbo].[Organization] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
+REFERENCES [dbo].[VolunteerInfo] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
+REFERENCES [dbo].[VolunteerInfo] ([Id])
 GO
