@@ -131,7 +131,7 @@
             }
         </div>
     </div>
-    @Html.HiddenFor(model => model.VolunteerId, new { @Value = Model.VolunteerId })
+    @Html.HiddenFor(model => model.Id, new { @Value = Model.Id })
     @Html.HiddenFor(model => model.CreatedBy, new { @Value = 0 })
     @Html.HiddenFor(model => model.CreatedDt, new { @Value = System.DateTime.Now })
 }
