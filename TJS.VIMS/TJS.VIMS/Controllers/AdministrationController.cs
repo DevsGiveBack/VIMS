@@ -81,11 +81,12 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteOrganization(Organization orgnaization, bool post)
+        public ActionResult DeleteOrganization(long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
-                context.Organizations.Remove(orgnaization);
+                Organization organization = context.Organizations.Find(id);
+                context.Organizations.Remove(organization);
                 context.SaveChanges();
             }
             return View();
@@ -150,18 +151,6 @@ namespace TJS.VIMS.Controllers
             return View(employee);
         }
 
-        [HttpPost]
-        public ActionResult DeleteEmployee(Employee employee, bool post)
-        {
-            using (VIMSDBContext context = new VIMSDBContext())
-            {
-                context.Employees.Remove(employee);
-                context.SaveChanges();
-            }
-            return View();
-        }
-        
-        // BKP look this over
         [HttpPost]
         public ActionResult DeleteEmployee(long id)
         {
