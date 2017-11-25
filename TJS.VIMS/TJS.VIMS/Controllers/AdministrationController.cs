@@ -27,15 +27,67 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult EditOrganization()
+        [HttpPost]
+        public ActionResult AddOrganization(Organization organization)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    organization.Active = true;
+                    organization.CreatedBy = 0;
+                    organization.CreatedDt = System.DateTime.Now;
+                    context.Organizations.Add(organization);
+                    context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            return View(organization);
+        }
+
+        [HttpGet]
+        public ActionResult EditOrganization(long id)
+        {
+            Organization organization = null;
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                organization = context.Organizations.Find(id);
+            }
+            return View("EditOrganization", organization);
+        }
+
+        [HttpPost]
+        public ActionResult EditOrganization(Employee oraganization)
+        {
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    oraganization.UpdatedBy = 0;
+                    oraganization.UpdatedDt = System.DateTime.Now;
+                    Organization o = context.Organizations.Find(oraganization.Id);
+                    context.Entry(o).CurrentValues.SetValues(oraganization);
+                    context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+            return View(oraganization);
         }
 
         [HttpGet]
         public ActionResult DeleteOrganization()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteOrganization(Organization orgnaization, bool post)
+        {
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                context.Organizations.Remove(orgnaization);
+                context.SaveChanges();
+            }
             return View();
         }
 
@@ -58,7 +110,6 @@ namespace TJS.VIMS.Controllers
                     context.Employees.Add(employee);
                     context.SaveChanges();
                 }
-
                 return RedirectToAction("Index");
             }
             return View(employee);
@@ -84,7 +135,7 @@ namespace TJS.VIMS.Controllers
                 {
                     employee.UpdatedBy = 0;
                     employee.UpdatedDt = System.DateTime.Now;
-                    Employee e = context.Employees.Find(employee.Id);
+                    Employee e = context.Employees.Find(employee. Id);
                     context.Entry(e).CurrentValues.SetValues(employee);
                     context.SaveChanges();
                 }

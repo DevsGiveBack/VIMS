@@ -105,8 +105,6 @@ namespace TJS.VIMS.Controllers
                     context.Entry(location).CurrentValues.SetValues(model.Location);
                     context.SaveChanges();
                 }
-
-                
             }
             return View(model.Location);
         }
