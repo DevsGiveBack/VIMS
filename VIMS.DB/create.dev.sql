@@ -1,6 +1,6 @@
 USE [VIMS_DEV]
 GO
-/****** Object:  Table [dbo].[Country]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[Country]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20,7 +20,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Employee]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[Employee]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -48,7 +48,29 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Location]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[Group]    Script Date: 11/25/2017 3:59:22 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Group](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Name] [bigint] NOT NULL,
+	[NumberVolunteers] [smallint] NULL,
+	[Hours] [int] NULL,
+	[Date] [bigint] NULL,
+	[CreatedBy] [bigint] NULL,
+	[CreatedDt] [datetime] NULL,
+	[UpdatedBy] [bigint] NULL,
+	[UpdatedDt] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Location]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -75,7 +97,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Organization]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[Organization]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -95,7 +117,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[State]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[State]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -115,7 +137,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerClockInOutInfo]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[VolunteerClockInOutInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -141,7 +163,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerInfo]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[VolunteerInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,7 +198,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerProfileInfo]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[VolunteerProfileInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -204,7 +226,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerProfilePhotoInfo]    Script Date: 3/28/2017 4:27:17 PM ******/
+/****** Object:  Table [dbo].[VolunteerProfilePhotoInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -225,28 +247,6 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Group](
-	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[Name] [bigint] NOT NULL,
-	[NumberVolunteers] [smallint] NULL,
-	[Hours] [int] NULL,
-	[Date] [bigint] NULL,
-	[CreatedBy] [bigint] NULL,
-	[CreatedDt] [datetime] NULL,
-	[UpdatedBy] [bigint] NULL,
-	[UpdatedDt] [datetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
 ALTER TABLE [dbo].[Country]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
 REFERENCES [dbo].[Employee] ([Id])
 GO
@@ -294,4 +294,8 @@ REFERENCES [dbo].[Employee] ([Id])
 GO
 ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
 REFERENCES [dbo].[VolunteerInfo] ([Id])
+GO
+USE [master]
+GO
+ALTER DATABASE [VIMS_DEV] SET  READ_WRITE 
 GO
