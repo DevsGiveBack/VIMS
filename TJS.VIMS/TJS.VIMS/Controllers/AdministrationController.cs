@@ -52,8 +52,8 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    employee.ActiveInd = true;
-                    employee.CreatedBy = "0";
+                    employee.Active = true;
+                    employee.CreatedBy = 0;
                     employee.CreatedDt = System.DateTime.Now;
                     context.Employees.Add(employee);
                     context.SaveChanges();
@@ -82,9 +82,9 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    employee.UpdatedBy = "0";
+                    employee.UpdatedBy = 0;
                     employee.UpdatedDt = System.DateTime.Now;
-                    Employee e = context.Employees.Find(employee.EmployeeId);
+                    Employee e = context.Employees.Find(employee.Id);
                     context.Entry(e).CurrentValues.SetValues(employee);
                     context.SaveChanges();
                 }

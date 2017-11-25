@@ -15,14 +15,12 @@ namespace TJS.VIMS.Models
             VolunteerClockInOutInfoes = new HashSet<VolunteerClockInOutInfo>();
         }
 
-        [Key]
-        public long VolunteerProfileId { get; set; }
+        public long Id { get; set; }
 
-        public long? VolunteerId { get; set; }
+        public long? VolunteerInfoId { get; set; }
 
-        public int? OrganizationId { get; set; }
+        public long? OrganizationId { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string CaseNumber { get; set; }
 
@@ -34,18 +32,19 @@ namespace TJS.VIMS.Models
         [StringLength(400)]
         public string WorkInfo { get; set; }
 
-        public bool Felony_Cnvctn { get; set; }
+        public bool? Felony_Cnvctn { get; set; }
 
-        public bool Sexual_Abuse_Related { get; set; }
+        public bool? Sexual_Abuse_Related { get; set; }
 
-        public bool Recv_Email { get; set; }
+        public bool? Recv_Email { get; set; }
+
+        public bool? Active { get; set; }
 
         public long? CreatedBy { get; set; }
 
         public DateTime? CreatedDt { get; set; }
 
-        [StringLength(50)]
-        public string UpdatedBy { get; set; }
+        public long? UpdatedBy { get; set; }
 
         public DateTime? UpdatedDt { get; set; }
 

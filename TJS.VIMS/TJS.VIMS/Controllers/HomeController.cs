@@ -101,7 +101,7 @@ namespace TJS.VIMS.Controllers
                     //todo
                     //model.Location.UpdatedBy = "0";
                     //model.Location.UpdatedDt = System.DateTime.Now;
-                    Location location = context.Locations.Find(model.Location.LocationId);
+                    Location location = context.Locations.Find(model.Location.Id);
                     context.Entry(location).CurrentValues.SetValues(model.Location);
                     context.SaveChanges();
                 }

@@ -20,7 +20,7 @@ namespace TJS.VIMS.DAL
         {
             //return context.VolunteerInfoes
             // .Where(volunteer => volunteer.VolunteerId == Id).SingleOrDefault();
-            return SingleOrDefault(volunteer => volunteer.VolunteerId == Id);
+            return SingleOrDefault(volunteer => volunteer.Id == Id);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace TJS.VIMS.DAL
         public VolunteerProfileInfo GetProfileInfoByOrganization(long id, long organization_id)
         {
             return context.VolunteerProfileInfoes
-                .Where(m => m.VolunteerId == id && m.OrganizationId == organization_id)
+                .Where(m => m.Id == id && m.OrganizationId == organization_id)
                 .SingleOrDefault();
         }
 
@@ -87,7 +87,7 @@ namespace TJS.VIMS.DAL
         public VolunteerProfileInfo GetLastProfileInfo(long id)
         {
             return context.VolunteerProfileInfoes
-                .Where(m => m.VolunteerId == id)
+                .Where(m => m.Id == id)
                 .OrderByDescending(m => m.CreatedDt)
                 .FirstOrDefault();
         }
@@ -105,7 +105,7 @@ namespace TJS.VIMS.DAL
         public List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n)
         {
             return context.VolunteerClockInOutInfoes
-                .Where(m => m.VolunteerId == volunteer.VolunteerId && m.ClockOutDateTime != null)
+                .Where(m => m.Id == volunteer.Id && m.ClockOutDateTime != null)
                 .OrderByDescending(m => m.CreatedDt)
                 .Take(n)
                 .ToList();
@@ -114,7 +114,7 @@ namespace TJS.VIMS.DAL
         public List<VolunteerClockInOutInfo> GetVolunteersCompletedInOutInfos(VolunteerInfo volunteer)
         {
             return context.VolunteerClockInOutInfoes
-                .Where(m => m.VolunteerId == volunteer.VolunteerId && m.ClockOutDateTime != null)
+                .Where(m => m.Id == volunteer.Id && m.ClockOutDateTime != null)
                 .OrderByDescending(m => m.CreatedDt)
                 .ToList();
         }

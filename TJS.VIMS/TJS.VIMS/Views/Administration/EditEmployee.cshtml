@@ -14,7 +14,7 @@
         <h4>Employee</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -50,11 +50,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Admin, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsAdmin)
-                    @Html.ValidationMessageFor(model => model.IsAdmin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Admin)
+                    @Html.ValidationMessageFor(model => model.Admin, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    @Html.HiddenFor(model => model.ActiveInd, new { @Value = Model.ActiveInd})
+    @Html.HiddenFor(model => model.Active, new { @Value = Model.Active})
     @Html.HiddenFor(model => model.CreatedBy, new { @Value = Model.CreatedBy })
     @Html.HiddenFor(model => model.CreatedDt, new { @Value = Model.CreatedDt })
 }

@@ -191,11 +191,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
-    <Compile Include="DAL2\Country.cs" />
-    <Compile Include="DAL2\Employee.cs" />
-    <Compile Include="DAL2\Group.cs" />
-    <Compile Include="DAL2\Location.cs" />
-    <Compile Include="DAL2\Organization.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Reports\Individual.cs" />
     <Compile Include="Reports\Reporting.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -235,7 +231,6 @@
     <Compile Include="Reports\VolunteersAll.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\State.cs" />
-    <Compile Include="DAL2\State.cs" />
     <Compile Include="Util\TJSConstants.cs" />
     <Compile Include="Util\Utility.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
@@ -256,11 +251,6 @@
     <Compile Include="Models\VolunteerInfo.cs" />
     <Compile Include="Models\VolunteerProfileInfo.cs" />
     <Compile Include="Models\VolunteerProfilePhotoInfo.cs" />
-    <Compile Include="DAL2\VIMS_DEV_Context.cs" />
-    <Compile Include="DAL2\VolunteerClockInOutInfo.cs" />
-    <Compile Include="DAL2\VolunteerInfo.cs" />
-    <Compile Include="DAL2\VolunteerProfileInfo.cs" />
-    <Compile Include="DAL2\VolunteerProfilePhotoInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

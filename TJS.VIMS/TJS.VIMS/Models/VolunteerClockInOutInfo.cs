@@ -9,14 +9,13 @@ namespace TJS.VIMS.Models
     [Table("VolunteerClockInOutInfo")]
     public partial class VolunteerClockInOutInfo
     {
-        [Key]
-        public long VolunteerClockInOutId { get; set; }
+        public long Id { get; set; }
 
-        public long? VolunteerId { get; set; }
+        public long? VolunteerInfoId { get; set; }
 
-        public long? VolunteerProfileId { get; set; }
+        public long? VolunteerProfileInfoId { get; set; }
 
-        public int? LocationId { get; set; }
+        public long? LocationId { get; set; }
 
         public DateTime? ClockInDateTime { get; set; }
 
@@ -33,6 +32,10 @@ namespace TJS.VIMS.Models
         public long? CreatedBy { get; set; }
 
         public DateTime? CreatedDt { get; set; }
+
+        public long? UpdatedBy { get; set; }
+
+        public DateTime? UpdatedDt { get; set; }
 
         public virtual VolunteerProfileInfo VolunteerProfileInfo { get; set; }
 

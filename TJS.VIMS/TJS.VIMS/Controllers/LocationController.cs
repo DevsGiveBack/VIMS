@@ -22,7 +22,7 @@ namespace TJS.VIMS.Controllers
             if (ModelState.IsValid)
             {
                 LocationRepository repo = new LocationRepository(new VIMSDBContext());
-                Location location = repo.Find(model.Location.LocationId);
+                Location location = repo.Find((int)model.Location.Id);
                 location.LocationName = model.Location.LocationName;
 
                 repo.Context.Entry(location).State = System.Data.Entity.EntityState.Modified;

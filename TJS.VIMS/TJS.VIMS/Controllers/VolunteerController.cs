@@ -58,7 +58,7 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.VolunteerId);
+                    VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.Id);
                     context.Entry(info).CurrentValues.SetValues(volunteer);
                     context.SaveChanges();
                 }
@@ -88,9 +88,9 @@ namespace TJS.VIMS.Controllers
             else
             {
                 context.VolunteerInfoes.Add(volunteer);
-                volunteer.CreatedBy = "na"; // todo
+                volunteer.CreatedBy = 0; // todo
                 volunteer.CreatedDt = DateTime.Now;
-                volunteer.UpdatedBy = "na"; // todo
+                volunteer.UpdatedBy = 0; // todo
                 volunteer.UpdatedDt = DateTime.Now;
                 context.SaveChanges();
 

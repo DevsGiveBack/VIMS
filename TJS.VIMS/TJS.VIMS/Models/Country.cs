@@ -16,16 +16,21 @@ namespace TJS.VIMS.Models
             States = new HashSet<State>();
         }
 
-        public short CountryId { get; set; }
+        public long Id { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string CountryName { get; set; }
 
-        public bool? ActiveInd { get; set; }
+        public bool? Active { get; set; }
 
         public long? CreatedBy { get; set; }
 
         public DateTime? CreatedDt { get; set; }
+
+        public long? UpdatedBy { get; set; }
+
+        public DateTime? UpdatedDt { get; set; }
 
         public virtual Employee Employee { get; set; }
 
