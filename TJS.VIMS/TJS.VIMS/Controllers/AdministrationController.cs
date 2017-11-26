@@ -75,12 +75,6 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteOrganization()
-        {
-            return View();
-        }
-
-        [HttpPost]
         public ActionResult DeleteOrganization(long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
@@ -111,7 +105,7 @@ namespace TJS.VIMS.Controllers
                     context.Employees.Add(employee);
                     context.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return View("CreateEmployeeConfirmation", employee);
             }
             return View(employee);
         }
@@ -140,28 +134,44 @@ namespace TJS.VIMS.Controllers
                     context.Entry(e).CurrentValues.SetValues(employee);
                     context.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); 
             }
             return View(employee);
         }
 
-        [HttpGet]
-        public ActionResult DeleteEmployee(Employee employee)
+        public ActionResult UndoEditEmployee(Employee employee)
         {
-            return View(employee);
+            return CreateEmployee(employee);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult DeleteEmployee(long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Employee employee = context.Employees.Find(id);
-                context.Employees.Remove(employee);
+                employee.Active = false; // just set to not active
+                employee.UpdatedBy = 0;  // todo
+                employee.UpdatedDt = System.DateTime.Now;
                 context.SaveChanges();
+                return View("DeleteEmployeeConfirmation", employee);
             }
-            return View();
         }
+
+        public ActionResult UndoDeleteEmployee(long id)
+        {
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                Employee employee = context.Employees.Find(id);
+                employee.Active = true; // just set to active
+                employee.UpdatedBy = 0;  // todo
+                employee.UpdatedDt = System.DateTime.Now;
+                context.SaveChanges();
+                return View("UndoDeleteEmployeeConfirmation");
+            }
+        }
+
+        //todo...
 
         /// <summary>
         /// time clock activity
@@ -192,11 +202,20 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult VolunteersReport()
         {
             return View();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult TestView()
         {
             return View();

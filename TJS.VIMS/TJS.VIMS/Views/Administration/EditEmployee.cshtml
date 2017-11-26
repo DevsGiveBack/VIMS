@@ -71,5 +71,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Delete this employee.", "DeleteEmployee", new { id = Model.Id })<br />
+    @Html.ActionLink("Close without saving.", "Start")<br />
 </div>
