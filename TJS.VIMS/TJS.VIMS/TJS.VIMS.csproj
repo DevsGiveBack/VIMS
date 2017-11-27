@@ -358,6 +358,8 @@
     <Content Include="Views\Administration\DeleteEmployeeConfirmation.cshtml" />
     <Content Include="Views\Administration\CreateOrganizationConfirmation.cshtml" />
     <Content Include="Views\Administration\UndoDeleteEmployeeConfirmation.cshtml" />
+    <Content Include="Views\Administration\VolunteerInformation.cshtml" />
+    <Content Include="Views\Administration\VolunteerInformationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -174,12 +174,40 @@ namespace TJS.VIMS.Controllers
 
         //todo...
 
+        [HttpGet]
+        public ActionResult VolunteerInformation(long id)
+        {
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                VolunteerInfo volunteer = context.VolunteerInfoes.Find(id);
+                return View("VolunteerInformation", volunteer);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult VolunteerInformation(VolunteerInfo volunteer)
+        {
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.Id);
+                    context.Entry(info).CurrentValues.SetValues(volunteer);
+                    context.SaveChanges();
+                }
+            }
+            //else todo!
+            
+            return View("VolunteerInformationConfirmation");
+        }
+
         /// <summary>
         /// time clock activity
         /// </summary>
         /// <returns></returns>
         public ActionResult TimeClockActivity()
         {
+            // todo
             return View();
         }
 
@@ -190,6 +218,7 @@ namespace TJS.VIMS.Controllers
         /// <returns></returns>
         public ActionResult TimeClockActivity(VolunteerInfo volunteer)
         {
+            // todo
             return View();
         }
 
@@ -200,6 +229,7 @@ namespace TJS.VIMS.Controllers
         /// <returns></returns>
         public ActionResult NoShows(VolunteerInfo volunteer)
         {
+            // todo
             return View();
         }
 
@@ -209,6 +239,7 @@ namespace TJS.VIMS.Controllers
         /// <returns></returns>
         public ActionResult VolunteersReport()
         {
+            // todo
             return View();
         }
 
