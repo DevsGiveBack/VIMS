@@ -361,12 +361,12 @@
     <Content Include="Views\Administration\VolunteerInformation.cshtml" />
     <Content Include="Views\Administration\VolunteerInformationConfirmation.cshtml" />
     <Content Include="Views\Administration\ConfirmationError.cshtml" />
+    <Content Include="Views\Administration\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Capture\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Location\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

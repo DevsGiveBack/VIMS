@@ -248,6 +248,12 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
+        public ActionResult ForgotPassword()
+        {
+            //todo
+            return View();
+        }
+
 
         /// <summary>
         /// 
