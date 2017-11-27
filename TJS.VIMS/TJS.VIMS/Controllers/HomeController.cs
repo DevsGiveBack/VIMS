@@ -122,5 +122,10 @@ namespace TJS.VIMS.Controllers
             return RedirectToAction("Location");
             //return View(location);
         }
+
+        public ActionResult Error()
+        {
+            return View("Error");
+        }
     }
 }

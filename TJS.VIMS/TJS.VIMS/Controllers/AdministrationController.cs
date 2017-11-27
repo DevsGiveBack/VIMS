@@ -113,12 +113,13 @@ namespace TJS.VIMS.Controllers
         [HttpGet]
         public ActionResult EditEmployee(long id)
         {
-            Employee e = null;
             using (VIMSDBContext context = new VIMSDBContext())
             {
-                e = context.Employees.Find(id);
+                Employee employee = context.Employees.Find(id);
+                if(employee != null)
+                    return View("EditEmployee", employee);
             }
-            return View("EditEmployee", e);
+            return View("Error");
         }
 
         [HttpPost]
@@ -180,8 +181,10 @@ namespace TJS.VIMS.Controllers
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 VolunteerInfo volunteer = context.VolunteerInfoes.Find(id);
-                return View("VolunteerInformation", volunteer);
+                if(volunteer != null)
+                    return View("VolunteerInformation", volunteer);
             }
+            return View("Error");
         }
 
         [HttpPost]
@@ -192,13 +195,15 @@ namespace TJS.VIMS.Controllers
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
                     VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.Id);
-                    context.Entry(info).CurrentValues.SetValues(volunteer);
-                    context.SaveChanges();
+                    if (info != null)
+                    {
+                        context.Entry(info).CurrentValues.SetValues(volunteer);
+                        context.SaveChanges();
+                        return View("VolunteerInformationConfirmation");
+                    }
                 }
             }
-            //else todo!
-            
-            return View("VolunteerInformationConfirmation");
+            return View("ConfirmationError");
         }
 
         /// <summary>

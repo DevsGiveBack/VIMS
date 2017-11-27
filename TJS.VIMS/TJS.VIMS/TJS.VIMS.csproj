@@ -360,6 +360,7 @@
     <Content Include="Views\Administration\UndoDeleteEmployeeConfirmation.cshtml" />
     <Content Include="Views\Administration\VolunteerInformation.cshtml" />
     <Content Include="Views\Administration\VolunteerInformationConfirmation.cshtml" />
+    <Content Include="Views\Administration\ConfirmationError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
