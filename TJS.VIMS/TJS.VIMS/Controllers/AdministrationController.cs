@@ -122,6 +122,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
+
         public ActionResult EditEmployee(Employee employee)
         {
             if (ModelState.IsValid)

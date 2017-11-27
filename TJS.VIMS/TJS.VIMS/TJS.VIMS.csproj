@@ -346,11 +346,9 @@
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Administration\AddOrganization.cshtml" />
     <Content Include="Views\Administration\EditOrganization.cshtml" />
-    <Content Include="Views\Administration\DeleteOrganization.cshtml" />
     <Content Include="Views\Administration\AddOrganization2.cshtml" />
     <Content Include="Views\Administration\CreateEmployee.cshtml" />
     <Content Include="Views\Administration\EditEmployee.cshtml" />
-    <Content Include="Views\Administration\DeleteEmployee.cshtml" />
     <Content Include="Views\Administration\TimeClockActivity.cshtml" />
     <Content Include="Views\Administration\NoShows.cshtml" />
     <Content Include="Views\Administration\TestView.cshtml" />
