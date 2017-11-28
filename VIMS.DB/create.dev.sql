@@ -1,6 +1,6 @@
 USE [VIMS_DEV]
 GO
-/****** Object:  Table [dbo].[Country]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[Country]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20,7 +20,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Employee]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[Employee]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -48,7 +48,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Group]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[Group]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -70,7 +70,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Location]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[Location]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -97,7 +97,23 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Organization]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[NoShows]    Script Date: 11/27/2017 6:48:17 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[NoShows](
+	[Id] [bigint] NULL,
+	[VolunteerId] [bigint] NULL,
+	[Date] [datetime] NULL,
+	[CreatedBy] [bigint] NULL,
+	[CreatedDt] [datetime] NULL,
+	[UpdatedBy] [bigint] NULL,
+	[UpdatedDt] [datetime] NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Organization]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -117,7 +133,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[State]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[State]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +153,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerClockInOutInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[VolunteerClockInOutInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -163,7 +179,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[VolunteerInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,7 +214,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerProfileInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[VolunteerProfileInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -226,7 +242,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerProfilePhotoInfo]    Script Date: 11/25/2017 3:59:22 PM ******/
+/****** Object:  Table [dbo].[VolunteerProfilePhotoInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -295,7 +311,6 @@ GO
 ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
 REFERENCES [dbo].[VolunteerInfo] ([Id])
 GO
-USE [master]
-GO
-ALTER DATABASE [VIMS_DEV] SET  READ_WRITE 
-GO
+
+/* seed data */
+INSERT INTO Employee VALUES('Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
