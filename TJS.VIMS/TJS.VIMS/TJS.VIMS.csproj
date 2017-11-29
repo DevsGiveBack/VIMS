@@ -361,6 +361,7 @@
     <Content Include="Views\Administration\ConfirmationError.cshtml" />
     <Content Include="Views\Administration\ForgotPassword.cshtml" />
     <Content Include="Views\Administration\EditEmployeeConfirmation.cshtml" />
+    <Content Include="Views\Administration\DeleteOrganizationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

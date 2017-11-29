@@ -22,20 +22,21 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateOrganization()
+        public ActionResult CreateOrganization(int employeeId)
         {
+            ViewBag.EmployeeId = employeeId;
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateOrganization(Organization organization)
+        public ActionResult CreateOrganization(Organization organization, int employeeId)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
                     organization.Active = true;
-                    organization.CreatedBy = 1;
+                    organization.CreatedBy = employeeId;
                     organization.CreatedDt = System.DateTime.Now;
                     context.Organizations.Add(organization);
                     context.SaveChanges();
@@ -81,10 +82,14 @@ namespace TJS.VIMS.Controllers
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
-                context.Organizations.Remove(organization);
-                context.SaveChanges();
+                if (organization != null)
+                {
+                    context.Organizations.Remove(organization);
+                    context.SaveChanges();
+                    return View("DeleteOrganizationConfirmation");
+                }
             }
-            return View();
+            return View("Error");
         }
 
         [HttpGet]
@@ -143,7 +148,7 @@ namespace TJS.VIMS.Controllers
 
         public ActionResult UndoEditEmployee(Employee employee)
         {
-            return CreateEmployee(employee);
+            return null; // todo
         }
 
         [HttpGet]

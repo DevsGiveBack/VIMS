@@ -6,7 +6,7 @@
 
 <h2>AddOrganization2</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateOrganization", "Administration", new { employeeId = ViewBag.EmployeeId }, FormMethod.Post, null)) 
 {
     @Html.AntiForgeryToken()
     

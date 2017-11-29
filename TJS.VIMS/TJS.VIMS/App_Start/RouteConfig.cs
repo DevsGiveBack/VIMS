@@ -43,13 +43,21 @@ namespace TJS.VIMS
                    name: "Login",
                    url: "Account/Login/{organizationId}",
                    defaults: new { controller = "Account", action = "Login" }
-           );
+            );
+
+            routes.MapRoute(
+                  name: "LoggedIn",
+                  url: "Administration/{action}/{employeeId}",
+                  defaults: new { controller = "Administration", action = "Start" }
+            );
 
             routes.MapRoute(
                     name: "Default",
                     url: "{controller}/{action}/{id}",
                     defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+           
         }
     }
 }
