@@ -343,7 +343,6 @@
     <Content Include="Views\Volunteer\DisplayAcknowledgePolicy.cshtml" />
     <Content Include="Views\Shared\_Photo.cshtml" />
     <Content Include="Views\TimeClock\TestView.cshtml" />
-    <Content Include="Views\Administration\EditOrganization.cshtml" />
     <Content Include="Views\Administration\CreateOrganization.cshtml" />
     <Content Include="Views\Administration\CreateEmployee.cshtml" />
     <Content Include="Views\Administration\EditEmployee.cshtml" />
@@ -362,6 +361,9 @@
     <Content Include="Views\Administration\ForgotPassword.cshtml" />
     <Content Include="Views\Administration\EditEmployeeConfirmation.cshtml" />
     <Content Include="Views\Administration\DeleteOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\UndoDeleteOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\EditOrganization.cshtml" />
+    <Content Include="Views\Administration\EditOrganizationConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

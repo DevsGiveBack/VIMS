@@ -47,8 +47,8 @@ namespace TJS.VIMS
 
             routes.MapRoute(
                   name: "LoggedIn",
-                  url: "Administration/{action}/{employeeId}",
-                  defaults: new { controller = "Administration", action = "Start" }
+                  url: "Administration/CreateOrganization/{employeeId}",
+                  defaults: new { controller = "Administration", action = "CreateOrganization" }
             );
 
             routes.MapRoute(

@@ -6,3 +6,9 @@
 
 <h2>CreateOrganizationConfirmation</h2>
 
+<div>
+    @Html.ActionLink("Undo", "UndoDeleteOrganization", new { id = Model.Id })<br />
+    @Html.ActionLink("Return to admin portal", "Start")<br />
+</div>
+
+

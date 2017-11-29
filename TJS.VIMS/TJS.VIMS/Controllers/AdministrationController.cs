@@ -52,28 +52,36 @@ namespace TJS.VIMS.Controllers
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
-                if (organization != null)
+                if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                     return View("EditOrganization", organization);
             }
             return View("Error");
         }
 
         [HttpPost]
-        public ActionResult EditOrganization(Employee organization)
+        public ActionResult EditOrganization(Organization organization)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    organization.UpdatedBy = 0;
+                    organization.UpdatedBy = 1; //  todo
                     organization.UpdatedDt = System.DateTime.Now;
                     Organization o = context.Organizations.Find(organization.Id);
-                    context.Entry(o).CurrentValues.SetValues(organization);
-                    context.SaveChanges();
+                    if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
+                    {
+                        context.Entry(o).CurrentValues.SetValues(organization);
+                        context.SaveChanges();
+                        return View("EditOrganizationConfirmation", organization);
+                    }
                 }
-                return View("EditOrganizationConfirmation", organization);
             }
             return View("Error");
+        }
+
+        public ActionResult UndoEditOrganization(Organization organization)
+        {
+            return null; // todo
         }
 
         [HttpGet]
@@ -82,11 +90,31 @@ namespace TJS.VIMS.Controllers
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
-                if (organization != null)
+                if (organization != null && (bool)organization.Active)
                 {
-                    context.Organizations.Remove(organization);
+                    organization.Active = false;
+                    organization.UpdatedBy = 1; // BKP todo
+                    organization.UpdatedDt = DateTime.Now;
                     context.SaveChanges();
                     return View("DeleteOrganizationConfirmation");
+                }
+            }
+            return View("Error");
+        }
+
+        [HttpGet]
+        public ActionResult UndoDeleteOrganization(long id)
+        {
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                Organization organization = context.Organizations.Find(id);
+                if (organization != null && !(bool)organization.Active)
+                {
+                    organization.Active = false;
+                    organization.UpdatedBy = 1; // BKP todo
+                    organization.UpdatedDt = DateTime.Now;
+                    context.SaveChanges();
+                    return View("UndoDeleteOrganizationConfirmation");
                 }
             }
             return View("Error");
