@@ -10,33 +10,27 @@ namespace TJS.VIMS.Controllers
 {
     public class AdministrationController : Controller
     {
-        // GET: Administration
-        public ActionResult Index()
-        {
-            return View("Start");
-        }
-
-        public ActionResult Start()
+        public ActionResult Start(long adminId)
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult CreateOrganization(int employeeId)
+        public ActionResult CreateOrganization(long adminId)
         {
-            ViewBag.EmployeeId = employeeId;
+            ViewBag.AdminId = adminId;
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateOrganization(Organization organization, int employeeId)
+        public ActionResult CreateOrganization(Organization organization, long adminId)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
                     organization.Active = true;
-                    organization.CreatedBy = employeeId;
+                    organization.CreatedBy = adminId;
                     organization.CreatedDt = System.DateTime.Now;
                     context.Organizations.Add(organization);
                     context.SaveChanges();
@@ -47,7 +41,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditOrganization(long id)
+        public ActionResult EditOrganization(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
@@ -85,7 +79,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteOrganization(long id)
+        public ActionResult DeleteOrganization(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
@@ -103,14 +97,14 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult UndoDeleteOrganization(long id)
+        public ActionResult UndoDeleteOrganization(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
                 if (organization != null && !(bool)organization.Active)
                 {
-                    organization.Active = false;
+                    organization.Active = true;
                     organization.UpdatedBy = 1; // BKP todo
                     organization.UpdatedDt = DateTime.Now;
                     context.SaveChanges();
@@ -121,8 +115,9 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateEmployee()
+        public ActionResult CreateEmployee(long adminId)
         {
+            ViewBag.AdminId = adminId;
             return View();
         }
 
@@ -145,7 +140,7 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditEmployee(long id)
+        public ActionResult EditEmployee(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
@@ -157,15 +152,15 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditEmployee(Employee employee)
+        public ActionResult EditEmployee(Employee employee, long adminId)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    employee.UpdatedBy = 0;
+                    employee.UpdatedBy = adminId;
                     employee.UpdatedDt = System.DateTime.Now;
-                    Employee e = context.Employees.Find(employee. Id);
+                    Employee e = context.Employees.Find(employee.Id);
                     context.Entry(e).CurrentValues.SetValues(employee);
                     context.SaveChanges();
                 }
@@ -180,15 +175,15 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteEmployee(long id)
+        public ActionResult DeleteEmployee(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Employee employee = context.Employees.Find(id);
-                if (employee != null)
+                if (employee != null && employee.Active != false)
                 {
                     employee.Active = false; // just set to not active
-                    employee.UpdatedBy = 0;  // todo
+                    employee.UpdatedBy = adminId;  
                     employee.UpdatedDt = System.DateTime.Now;
                     context.SaveChanges();
                     return View("DeleteEmployeeConfirmation", employee);
@@ -197,15 +192,15 @@ namespace TJS.VIMS.Controllers
             }
         }
 
-        public ActionResult UndoDeleteEmployee(long id)
+        public ActionResult UndoDeleteEmployee(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Employee employee = context.Employees.Find(id);
-                if (employee != null)
+                if (employee != null && employee.Active != true)
                 {
                     employee.Active = true; // just set to active
-                    employee.UpdatedBy = 0;  // todo
+                    employee.UpdatedBy = adminId;  
                     employee.UpdatedDt = System.DateTime.Now;
                     context.SaveChanges();
                     return View("UndoDeleteEmployeeConfirmation");
@@ -217,7 +212,7 @@ namespace TJS.VIMS.Controllers
         //todo...
 
         [HttpGet]
-        public ActionResult VolunteerInformation(long id)
+        public ActionResult VolunteerInformation(long adminId, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
