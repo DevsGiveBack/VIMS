@@ -47,13 +47,13 @@ namespace TJS.VIMS
 
             routes.MapRoute(
                   name: "Admin",
-                  url: "Administration/{action}/{adminId}/{id}",
+                  url: "Administration/{action}/{admin}/{id}",
                   defaults: new { controller = "Administration" } 
             );
 
             routes.MapRoute(
                 name: "Admin2",
-                url: "Administration/{action}/{adminId}",
+                url: "Administration/{action}/{admin}",
                 defaults: new { controller = "Administration" }
           );
 
