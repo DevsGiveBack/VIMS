@@ -75,7 +75,6 @@ namespace TJS.VIMS.Controllers
             return RedirectToAction("VolunteerLookUp", "VolunteerClockTime", new { locationId = locationId });
         }
         
-        //PhotoCaptured
         /// <summary>
         /// 
         /// </summary>

@@ -6,3 +6,16 @@
 
 <h2>EditOrganizationConfirmation</h2>
 
+<div>
+    
+    @using (Html.BeginForm("Lookup", "User"))
+    {
+        @Html.HiddenFor(x => x.OrganizationName)
+       
+        <input type="submit" value="Test" />
+    }
+    
+    @Html.ActionLink("Undo", "UndoEditOrganization", new { admin_id = ViewBag.AdminId})<br />
+    @Html.ActionLink("Return to admin portal", "Start")<br />
+</div>
+

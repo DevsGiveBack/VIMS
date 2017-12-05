@@ -1,5 +1,4 @@
-﻿@model TJS.VIMS.Models.Employee
-
+﻿
 @{
     ViewBag.Title = "DeleteEmployeeConfirmation";
 }
@@ -7,7 +6,7 @@
 <h2>DeleteEmployeeConfirmation</h2>
 
 <div>
-    @Html.ActionLink("Undo", "UndoDeleteEmployee", new { id = Model.Id })<br />
+    @Html.ActionLink("Undo", "UndoDeleteEmployee", new { admin_id = ViewBag.adminId, id = ViewBag.Id })<br />
     @Html.ActionLink("Return to admin portal", "Start")<br />
 </div>
 

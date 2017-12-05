@@ -45,15 +45,21 @@ namespace TJS.VIMS
                    defaults: new { controller = "Account", action = "Login" }
            );
 
+          //  routes.MapRoute(
+          //      name: "HACK",
+          //      url: "Administration/CreateEmployee/{admin_id}",
+          //      defaults: new { controller = "Administration", action = "CreateEmployee" }
+          //);
+
             routes.MapRoute(
                   name: "Admin",
-                  url: "Administration/{action}/{admin}/{id}",
+                  url: "Administration/{action}/{admin_id}/{id}",
                   defaults: new { controller = "Administration" } 
             );
 
             routes.MapRoute(
                 name: "Admin2",
-                url: "Administration/{action}/{admin}",
+                url: "Administration/{action}/{admin_id}",
                 defaults: new { controller = "Administration" }
           );
 

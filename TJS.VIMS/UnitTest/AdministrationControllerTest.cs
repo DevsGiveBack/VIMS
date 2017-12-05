@@ -4,11 +4,12 @@ using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
 using System.Collections.Generic;
 using System.Linq;
+using TJS.VIMS.Controllers;
 
 namespace UnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class AdministrationControllerTest
     {
         [TestMethod]
         public void TestMethod1()
@@ -21,15 +22,11 @@ namespace UnitTest
             }
         }
 
-        //[TestMethod]
-        //public void GetProfileInfo(int volunteer_id, int organization_id)
-        //{
-        //    using (VIMSDBContext context = new VIMSDBContext())
-        //    {
-        //        List<Country> list = context.VolunteerInfoes.Where()
-        //        Assert.IsNotNull(context);
-        //        Assert.IsNotNull(list);
-        //    }
-        //}
+        public void CreateDeleteUndoOrganization()
+        {
+            AdministrationController controller = new AdministrationController();
+            // todo
+        }
+
     }
 }

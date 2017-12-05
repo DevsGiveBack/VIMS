@@ -10,27 +10,32 @@ namespace TJS.VIMS.Controllers
 {
     public class AdministrationController : Controller
     {
-        public ActionResult Start(long adminId)
+        public ActionResult Start(long admin_id)
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="admin_id"></param>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult CreateOrganization(long admin)
+        public ActionResult CreateOrganization(long admin_id)
         {
-            ViewBag.AdminId = admin;
+            ViewBag.AdminId = admin_id;
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateOrganization(long admin, Organization organization)
+        public ActionResult CreateOrganization(long admin_id, Organization organization)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
                     organization.Active = true;
-                    organization.CreatedBy = admin;
+                    organization.CreatedBy = admin_id;
                     organization.CreatedDt = System.DateTime.Now;
                     context.Organizations.Add(organization);
                     context.SaveChanges();
@@ -41,25 +46,28 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet] 
-        public ActionResult EditOrganization(long admin, long id)
+        public ActionResult EditOrganization(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
                 if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
+                {
+                    ViewBag.AdminId = admin_id;
                     return View("EditOrganization", organization);
+                }
             }
             return View("Error");
         }
 
         [HttpPost]
-        public ActionResult EditOrganization(long admin, Organization organization)
+        public ActionResult EditOrganization(long admin_id, Organization organization)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    organization.UpdatedBy = admin; 
+                    organization.UpdatedBy = admin_id; 
                     organization.UpdatedDt = System.DateTime.Now;
                     Organization o = context.Organizations.Find(organization.Id);
                     if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
@@ -73,21 +81,35 @@ namespace TJS.VIMS.Controllers
             return View("Error");
         }
 
-        public ActionResult UndoEditOrganization(Organization organization)
+        public ActionResult UndoEditOrganization(long admin_id, Organization organization)
         {
-            return null; // todo
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    organization.Active = true;
+                    organization.UpdatedBy = admin_id;
+                    organization.UpdatedDt = System.DateTime.Now;
+                    context.Organizations.Add(organization);
+                    context.SaveChanges();
+                }
+                return View("UndoEditOrganizationConfirmation", organization);
+            }
+            return View("Error");
         }
 
         [HttpGet]
-        public ActionResult DeleteOrganization(long admin, long id)
+        public ActionResult DeleteOrganization(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
                 if (organization != null && (bool)organization.Active)
                 {
+                    ViewBag.AdminId = admin_id;
+                    ViewBag.Id = id;
                     organization.Active = false;
-                    organization.UpdatedBy = admin; 
+                    organization.UpdatedBy = admin_id;
                     organization.UpdatedDt = DateTime.Now;
                     context.SaveChanges();
                     return View("DeleteOrganizationConfirmation");
@@ -97,15 +119,17 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult UndoDeleteOrganization(long admin, long id)
+        public ActionResult UndoDeleteOrganization(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Organization organization = context.Organizations.Find(id);
                 if (organization != null && !(bool)organization.Active)
                 {
+                    ViewBag.AdminId = admin_id;
+                    ViewBag.Id = id;
                     organization.Active = true;
-                    organization.UpdatedBy = admin; 
+                    organization.UpdatedBy = admin_id;
                     organization.UpdatedDt = DateTime.Now;
                     context.SaveChanges();
                     return View("UndoDeleteOrganizationConfirmation");
@@ -113,16 +137,66 @@ namespace TJS.VIMS.Controllers
             }
             return View("Error");
         }
-
-        [HttpGet]
-        public ActionResult CreateEmployee(long admin)
+        
+        [HttpGet] 
+        public ActionResult CreateEmployee(long admin_id)
         {
-            ViewBag.AdminId = admin;
+            ViewBag.AdminId = admin_id;
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateEmployee(Employee employee)
+        public ActionResult CreateEmployee(long admin_id, Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    employee.Active = true;
+                    employee.CreatedBy = 0;
+                    employee.CreatedDt = System.DateTime.Now;
+                    context.Employees.Add(employee); 
+                    context.SaveChanges();
+                }
+                return View("CreateEmployeeConfirmation", employee);
+            }
+            return View("Error");
+        }
+
+        [HttpGet]
+        public ActionResult EditEmployee(long admin_id, long id)
+        {
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                Employee employee = context.Employees.Find(id);
+                if (employee != null)
+                {
+                    ViewBag.AdminId = admin_id;
+                    return View("EditEmployee", employee);
+                }
+            }
+            return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult EditEmployee(long admin_id, Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                using (VIMSDBContext context = new VIMSDBContext())
+                {
+                    employee.UpdatedBy = admin_id;
+                    employee.UpdatedDt = System.DateTime.Now;
+                    Employee e = context.Employees.Find(employee.Id);
+                    context.Entry(e).CurrentValues.SetValues(employee);
+                    context.SaveChanges();
+                }
+                return View("EditEmployeeConfirmation", employee);
+            }
+            return View("Error");
+        }
+
+        public ActionResult UndoEditEmployee(long admin_id, Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -134,56 +208,23 @@ namespace TJS.VIMS.Controllers
                     context.Employees.Add(employee);
                     context.SaveChanges();
                 }
-                return View("CreateEmployeeConfirmation", employee);
+                return View("UndoEditEmployeeConfirmation", employee);
             }
             return View("Error");
         }
 
         [HttpGet]
-        public ActionResult EditEmployee(long admin, long id)
-        {
-            using (VIMSDBContext context = new VIMSDBContext())
-            {
-                Employee employee = context.Employees.Find(id);
-                if(employee != null)
-                    return View("EditEmployee", employee);
-            }
-            return View("Error");
-        }
-
-        [HttpPost]
-        public ActionResult EditEmployee(long admin, Employee employee)
-        {
-            if (ModelState.IsValid)
-            {
-                using (VIMSDBContext context = new VIMSDBContext())
-                {
-                    employee.UpdatedBy = admin;
-                    employee.UpdatedDt = System.DateTime.Now;
-                    Employee e = context.Employees.Find(employee.Id);
-                    context.Entry(e).CurrentValues.SetValues(employee);
-                    context.SaveChanges();
-                }
-                return View("EditEmployeeConfirmation", employee);
-            }
-            return View("Error");
-        }
-
-        public ActionResult UndoEditEmployee(Employee employee)
-        {
-            return null; // todo
-        }
-
-        [HttpGet]
-        public ActionResult DeleteEmployee(long admin, long id)
+        public ActionResult DeleteEmployee(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Employee employee = context.Employees.Find(id);
                 if (employee != null && employee.Active != false)
                 {
+                    ViewBag.AdminId = admin_id;
+                    ViewBag.Id = id;
                     employee.Active = false; // just set to not active
-                    employee.UpdatedBy = admin;  
+                    employee.UpdatedBy = admin_id;  
                     employee.UpdatedDt = System.DateTime.Now;
                     context.SaveChanges();
                     return View("DeleteEmployeeConfirmation", employee);
@@ -192,7 +233,7 @@ namespace TJS.VIMS.Controllers
             }
         }
 
-        public ActionResult UndoDeleteEmployee(long admin, long id)
+        public ActionResult UndoDeleteEmployee(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
@@ -200,7 +241,7 @@ namespace TJS.VIMS.Controllers
                 if (employee != null && employee.Active != true)
                 {
                     employee.Active = true; // just set to active
-                    employee.UpdatedBy = admin;  
+                    employee.UpdatedBy = admin_id;  
                     employee.UpdatedDt = System.DateTime.Now;
                     context.SaveChanges();
                     return View("UndoDeleteEmployeeConfirmation");
@@ -212,7 +253,7 @@ namespace TJS.VIMS.Controllers
         //todo...
 
         [HttpGet]
-        public ActionResult VolunteerInformation(long admin, long id)
+        public ActionResult VolunteerInformation(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
@@ -289,8 +330,7 @@ namespace TJS.VIMS.Controllers
             //todo
             return View();
         }
-
-
+        
         /// <summary>
         /// 
         /// </summary>

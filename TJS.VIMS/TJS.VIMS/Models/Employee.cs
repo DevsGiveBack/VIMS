@@ -39,6 +39,7 @@ namespace TJS.VIMS.Models
         [StringLength(400)]
         public string Password { get; set; }
 
+        [Display(Name = "Admin")]
         public bool Admin { get; set; }
 
         public bool Active { get; set; }

@@ -6,7 +6,7 @@
 
 <h2>EditOrganization</h2>
 
-@using (Html.BeginForm(FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -36,5 +36,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Delete this orgnaization.", "DeleteOrganization", new { admin_id = ViewBag.AdminId, id = Model.Id })<br />
+    @Html.ActionLink("Close without saving.", "Start")<br />
 </div>

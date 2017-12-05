@@ -364,6 +364,8 @@
     <Content Include="Views\Administration\UndoDeleteOrganizationConfirmation.cshtml" />
     <Content Include="Views\Administration\EditOrganization.cshtml" />
     <Content Include="Views\Administration\EditOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\UndoEditOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
