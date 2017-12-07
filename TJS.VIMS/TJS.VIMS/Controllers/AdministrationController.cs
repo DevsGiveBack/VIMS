@@ -10,16 +10,13 @@ namespace TJS.VIMS.Controllers
 {
     public class AdministrationController : Controller
     {
+        [HttpGet]
         public ActionResult Start(long admin_id)
         {
+            ViewBag.AdminId = admin_id;
             return View();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="admin_id"></param>
-        /// <returns></returns>
         [HttpGet]
         public ActionResult CreateOrganization(long admin_id)
         {
@@ -34,13 +31,19 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    organization.Active = true;
-                    organization.CreatedBy = admin_id;
-                    organization.CreatedDt = System.DateTime.Now;
-                    context.Organizations.Add(organization);
-                    context.SaveChanges();
-                }
-                return View("CreateOrganizationConfirmation", organization);
+                    int count = context.Organizations.
+                        Where(m => m.OrganizationName == organization.OrganizationName).Count();
+                    if (count == 0)
+                    {
+                        organization.Active = true;
+                        organization.CreatedBy = admin_id;
+                        organization.CreatedDt = System.DateTime.Now;
+                        context.Organizations.Add(organization);
+                        context.SaveChanges();
+                        ViewBag.AdminId = admin_id;
+                        return View("CreateOrganizationConfirmation", organization);
+                    }
+                 }
             }
             return View("Error");
         }
@@ -67,20 +70,28 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    organization.UpdatedBy = admin_id; 
-                    organization.UpdatedDt = System.DateTime.Now;
-                    Organization o = context.Organizations.Find(organization.Id);
+                    Organization current_organization = context.Organizations.Find(organization.Id);
                     if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                     {
-                        context.Entry(o).CurrentValues.SetValues(organization);
-                        context.SaveChanges();
-                        return View("EditOrganizationConfirmation", organization);
+                        int count = context.Organizations.
+                            Where(m => m.OrganizationName == organization.OrganizationName && m.Id != organization.Id).
+                            Count();
+
+                        if (count == 0)
+                        {
+                            organization.UpdatedBy = admin_id;
+                            organization.UpdatedDt = System.DateTime.Now;
+                            context.Entry(current_organization).CurrentValues.SetValues(organization);
+                            context.SaveChanges();
+                            return View("EditOrganizationConfirmation", organization);
+                        }
                     }
                 }
             }
             return View("Error");
         }
 
+        //[HttpPost]
         public ActionResult UndoEditOrganization(long admin_id, Organization organization)
         {
             if (ModelState.IsValid)
@@ -152,13 +163,18 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    employee.Active = true;
-                    employee.CreatedBy = 0;
-                    employee.CreatedDt = System.DateTime.Now;
-                    context.Employees.Add(employee); 
-                    context.SaveChanges();
+                    int count = context.Employees.
+                        Where(m => m.UserName == employee.UserName).Count();
+                    if (count == 0)
+                    {
+                        employee.Active = true;
+                        employee.CreatedBy = 0;
+                        employee.CreatedDt = System.DateTime.Now;
+                        context.Employees.Add(employee);
+                        context.SaveChanges();
+                        return View("CreateEmployeeConfirmation", employee);
+                    }
                 }
-                return View("CreateEmployeeConfirmation", employee);
             }
             return View("Error");
         }
@@ -185,17 +201,28 @@ namespace TJS.VIMS.Controllers
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    employee.UpdatedBy = admin_id;
-                    employee.UpdatedDt = System.DateTime.Now;
-                    Employee e = context.Employees.Find(employee.Id);
-                    context.Entry(e).CurrentValues.SetValues(employee);
-                    context.SaveChanges();
+                    Employee current_employee = context.Employees.Find(employee.Id);
+                    if (employee != null && (bool)employee.Active) // BKP fix should not be nullable
+                    {
+                        int count = context.Employees.
+                            Where(m => m.UserName == employee.UserName && m.Id != employee.Id).
+                            Count();
+
+                        if (count == 0)
+                        {
+                            employee.UpdatedBy = admin_id;
+                            employee.UpdatedDt = System.DateTime.Now;
+                            context.Entry(current_employee).CurrentValues.SetValues(employee);
+                            context.SaveChanges();
+                            return View("EditemployeeConfirmation", employee);
+                        }
+                    }
                 }
-                return View("EditEmployeeConfirmation", employee);
             }
             return View("Error");
         }
 
+        //[HttpPost]
         public ActionResult UndoEditEmployee(long admin_id, Employee employee)
         {
             if (ModelState.IsValid)
@@ -233,6 +260,7 @@ namespace TJS.VIMS.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult UndoDeleteEmployee(long admin_id, long id)
         {
             using (VIMSDBContext context = new VIMSDBContext())
@@ -304,21 +332,12 @@ namespace TJS.VIMS.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="volunteer"></param>
-        /// <returns></returns>
         public ActionResult NoShows(VolunteerInfo volunteer)
         {
             // todo
             return View();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public ActionResult VolunteersReport()
         {
             // todo
@@ -331,12 +350,9 @@ namespace TJS.VIMS.Controllers
             return View();
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public ActionResult TestView()
         {
+            // todo
             return View();
         }
     }
