@@ -35,6 +35,7 @@ namespace TJS.VIMS.Controllers
                         Where(m => m.OrganizationName == organization.OrganizationName).Count();
                     if (count == 0)
                     {
+                        //BKP moved to view ?
                         //organization.Active = true;
                         //organization.CreatedBy = admin_id;
                         //organization.CreatedDt = System.DateTime.Now;
@@ -70,10 +71,9 @@ namespace TJS.VIMS.Controllers
              {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    //Organization current_organization = context.Organizations.AsNoTracking().First(m => m.Id == organization.Id);
                     Organization organization_current = context.Organizations.Find(organization.Id);
-                    Organization organization_old = organization_current.ShallowCopy();
-
+                    Organization organization_saved = organization_current.ShallowCopy();
+              
                     if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                     {
                         int count = context.Organizations.
@@ -84,15 +84,9 @@ namespace TJS.VIMS.Controllers
                         {
                             organization.UpdatedBy = admin_id;
                             organization.UpdatedDt = System.DateTime.Now;
-                            //Organization saved_org = organization_current;
-                            //context.Entry(saved_org).State = System.Data.Entity.EntityState.Detached;
                             context.Entry(organization_current).CurrentValues.SetValues(organization);
                             context.SaveChanges();
-
-                            //ViewBag.AdminId = admin_id;
-                            //ViewBag.Id = organization.Id;
-
-                           return RedirectToAction("EditOrganizationConfirmation", organization_old );
+                            return RedirectToAction("EditOrganizationConfirmation", organization_saved );
                         }
                     }
                 }
@@ -100,22 +94,20 @@ namespace TJS.VIMS.Controllers
             return View("Error");
         }
 
+        [HttpGet]
         public ActionResult EditOrganizationConfirmation(Organization organization)
         {
-            //ViewBag.AdminId = admin_id;
             return View("EditOrganizationConfirmation", organization);
         }
 
-            //[HttpPost]
+        [HttpPost]
         public ActionResult UndoEditOrganization(Organization organization)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    //testing!!!!
                     Organization current_organization = context.Organizations.Find(organization.Id);
-                    //organization.Id = 13;
                     if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                     {
                         int count = context.Organizations.
@@ -124,12 +116,8 @@ namespace TJS.VIMS.Controllers
 
                         if (count == 0)
                         {
-                            //organization.UpdatedBy = 2;
-                            //organization.UpdatedDt = System.DateTime.Now;
                             context.Entry(current_organization).CurrentValues.SetValues(organization);
                             context.SaveChanges();
-
-                            //ViewBag.AdminId = 0;
                             return View("UndoEditOrganizationConfirmation");
                         }
                     }
