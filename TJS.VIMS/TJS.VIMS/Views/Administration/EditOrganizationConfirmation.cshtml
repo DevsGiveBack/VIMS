@@ -8,11 +8,20 @@
 
 <div>
     
-    @using (Html.BeginForm("Lookup", "User"))
+    @using (Html.BeginForm("UndoEditOrganization", "Administration"))
     {
-        @Html.HiddenFor(x => x.OrganizationName)
-       
+        //@Model.Id = 9;
+
         <input type="submit" value="Test" />
+
+        //@Html.HiddenFor(m => m.Id, new { @value = 9 })
+
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(model => model.OrganizationName)
+        @Html.HiddenFor(model => model.Active)
+        @Html.HiddenFor(model => model.Active)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedDt)
     }
     
     @Html.ActionLink("Undo", "UndoEditOrganization", new { admin_id = ViewBag.AdminId})<br />

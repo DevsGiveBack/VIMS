@@ -27,6 +27,10 @@ namespace TJS.VIMS.Controllers
         // GET: Test
         public ActionResult Index()
         {
+            Models.MyTable2 table = new Models.MyTable2();
+
+
+
             return View();
         }
 
@@ -55,5 +59,7 @@ namespace TJS.VIMS.Controllers
             VolunteerViewModel vm = new VolunteerViewModel(context.Locations.ToList(), context.Organizations.ToList());
             
         }
+
+        
     }
 }

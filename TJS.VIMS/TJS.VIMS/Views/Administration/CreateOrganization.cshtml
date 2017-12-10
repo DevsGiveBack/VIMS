@@ -28,6 +28,10 @@
             </div>
         </div>
     </div>
+
+    @Html.HiddenFor(model => model.Active, new { @Value = true })
+    @Html.HiddenFor(model => model.CreatedBy, new { @Value = ViewBag.AdminId })
+    @Html.HiddenFor(model => model.CreatedDt, new { @Value = DateTime.Now })
 }
 
 <div>

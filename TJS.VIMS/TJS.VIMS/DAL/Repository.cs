@@ -35,7 +35,7 @@ namespace TJS.VIMS.DAL
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return entities.Where(predicate);
+             return entities.Where(predicate);
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)

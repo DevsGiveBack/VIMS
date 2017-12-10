@@ -191,7 +191,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="DAL\AdministrationRepository.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\MyTable2.cs" />
+    <Compile Include="Models\Organization.Partial.cs" />
     <Compile Include="Reports\Individual.cs" />
     <Compile Include="Reports\Reporting.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -366,12 +370,17 @@
     <Content Include="Views\Administration\EditOrganizationConfirmation.cshtml" />
     <Content Include="Views\Administration\UndoEditOrganizationConfirmation.cshtml" />
     <Content Include="Views\Administration\View.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Capture\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

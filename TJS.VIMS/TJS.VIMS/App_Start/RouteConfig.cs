@@ -45,11 +45,17 @@ namespace TJS.VIMS
                    defaults: new { controller = "Account", action = "Login" }
            );
 
-          //  routes.MapRoute(
-          //      name: "HACK",
-          //      url: "Administration/CreateEmployee/{admin_id}",
-          //      defaults: new { controller = "Administration", action = "CreateEmployee" }
-          //);
+            //  routes.MapRoute(
+            //      name: "HACK",
+            //      url: "Administration/CreateEmployee/{admin_id}",
+            //      defaults: new { controller = "Administration", action = "CreateEmployee" }
+            //);
+
+            routes.MapRoute(
+              name: "AdminTMP",
+              url: "Administration/EditOrganization/{admin_id}",
+              defaults: new { controller = "Administration", action = "EditEmployee" }
+            );
 
             routes.MapRoute(
                   name: "Admin",
@@ -61,7 +67,13 @@ namespace TJS.VIMS
                 name: "Admin2",
                 url: "Administration/{action}/{admin_id}",
                 defaults: new { controller = "Administration" }
-          );
+            );
+
+            routes.MapRoute(
+              name: "AdminTMP2",
+              url: "Administration/{action}",
+              defaults: new { controller = "Administration" }
+            );
 
             routes.MapRoute(
                     name: "Default",
