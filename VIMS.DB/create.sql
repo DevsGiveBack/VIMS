@@ -1,4 +1,4 @@
-USE [VIMS]
+USE [VIMS_DEV]
 GO
 /****** Object:  Table [dbo].[Country]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
@@ -316,3 +316,18 @@ GO
 
 /* seed data */
 INSERT INTO Employee VALUES('Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
+DECLARE @ORG_ID INT
+SET @ORG_ID = @@IDENTITY
+ 		   
+INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Plano',@ORG_ID,GETDATE())
+INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Frisco',@ORG_ID,GETDATE())
+INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Haltom City',@ORG_ID,GETDATE())
+
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('United States' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Uraguay' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Canada' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Mexico' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Russia' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('France' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Nepal' ,1 ,1 ,GETDATE())
+GO
