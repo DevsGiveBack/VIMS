@@ -8,6 +8,7 @@ GO
 CREATE TABLE [dbo].[Country](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[CountryName] [varchar](100) NOT NULL,
+	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -58,7 +59,6 @@ CREATE TABLE [dbo].[Group](
 	[NumberVolunteers] [smallint] NULL,
 	[Hours] [int] NULL,
 	[Date] [bigint] NULL,
-	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -106,7 +106,6 @@ CREATE TABLE [dbo].[NoShows](
 	[Id] [bigint] NULL,
 	[VolunteerId] [bigint] NULL,
 	[Date] [datetime] NULL,
-	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -169,7 +168,6 @@ CREATE TABLE [dbo].[VolunteerClockInOutInfo](
 	[ClockInProfilePhotoPath] [varchar](500) NULL,
 	[ClockOutProfilePhotoPath] [varchar](500) NULL,
 	[ClockInOutLocationId] [int] NULL,
-	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -313,9 +311,25 @@ GO
 ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
 REFERENCES [dbo].[VolunteerInfo] ([Id])
 GO
-
 /* seed data */
 INSERT INTO Employee VALUES('Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
+
+INSERT INTO [dbo].[Organization]
+           ([OrganizationName]
+           ,[Active]
+           ,[CreatedBy]
+           ,[CreatedDt]
+           ,[UpdatedBy]
+           ,[UpdatedDt])
+     VALUES
+           (
+		   'TestOrganization'
+           ,1
+           ,NULL
+           ,GETDATE()
+           ,NULL
+           ,GETDATE())
+
 DECLARE @ORG_ID INT
 SET @ORG_ID = @@IDENTITY
  		   
