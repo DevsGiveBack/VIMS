@@ -1,4 +1,4 @@
-USE [VIMS_DEV]
+USE [VIMS]
 GO
 /****** Object:  Table [dbo].[Country]    Script Date: 11/27/2017 6:48:17 AM ******/
 SET ANSI_NULLS ON
@@ -8,6 +8,7 @@ GO
 CREATE TABLE [dbo].[Country](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[CountryName] [varchar](100) NOT NULL,
+	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -142,6 +143,7 @@ GO
 CREATE TABLE [dbo].[State](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[StateName] [varchar](100) NOT NULL,
+	[Active] [bit] NULL,
 	[CountryId] [bigint] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
