@@ -11,16 +11,9 @@ namespace TJS.VIMS.Controllers
 {
     public class HomeController : Controller
     {
-        //private ILookUpRepository lookUpRepository;
-
         public HomeController()
         {
         }
-
-        //public HomeController(ILookUpRepository lookUpRepository)
-        //{
-        //    this.lookUpRepository = lookUpRepository;
-        //}
 
         public ActionResult Index(int? id)
         {
@@ -33,7 +26,6 @@ namespace TJS.VIMS.Controllers
         [Authorize]
         public ActionResult Location()
         {
-            //List<Location> lsLocation = lookUpRepository.GetLocations();
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 List<Location> locations = context.Locations.ToList<Location>();
@@ -71,13 +63,11 @@ namespace TJS.VIMS.Controllers
         {
             if (ModelState.IsValid) 
             {
-                //LocationRepository repo = new LocationRepository(new VIMSDBContext());
-                //repo.Add(model.Location);
-                //repo.Save();
-                //repo.Dispose();
-
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
+                    //todo
+                    model.Location.CreatedBy = 0;
+                    model.Location.CreatedDt = System.DateTime.Now;
                     context.Locations.Add(model.Location);
                     context.SaveChanges();
                 }
@@ -106,19 +96,15 @@ namespace TJS.VIMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                //LocationRepository repo = new LocationRepository(new VIMSDBContext());
-                //Location location = repo.Find(model.Location.LocationId);
-                //repo.Context.Entry(location).CurrentValues.SetValues(model.Location);
-                //repo.Save();
-
                 using (VIMSDBContext context = new VIMSDBContext())
-                { 
-                    Location location = context.Locations.Find(model.Location.LocationId);
+                {
+                    //todo
+                    //model.Location.UpdatedBy = "0";
+                    //model.Location.UpdatedDt = System.DateTime.Now;
+                    Location location = context.Locations.Find(model.Location.Id);
                     context.Entry(location).CurrentValues.SetValues(model.Location);
                     context.SaveChanges();
                 }
-
-                return RedirectToAction("Location");
             }
             return View(model.Location);
         }
@@ -126,11 +112,6 @@ namespace TJS.VIMS.Controllers
         [HttpPost]
         public ActionResult DeleteLocation(LocationViewModel model)
         {
-            //LocationRepository repo = new LocationRepository(new VIMSDBContext());
-            //Location location = repo.Find(model.SelectedLocationId);
-            //repo.Remove(location);
-            //repo.Save();
-
             using (VIMSDBContext context = new VIMSDBContext())
             {
                 Location location = context.Locations.Find(model.SelectedLocationId);
@@ -139,8 +120,12 @@ namespace TJS.VIMS.Controllers
             }
 
             return RedirectToAction("Location");
-            //todo create confirmation view!
-            //return View();
+            //return View(location);
+        }
+
+        public ActionResult Error()
+        {
+            return View("Error");
         }
     }
 }

@@ -15,12 +15,13 @@ namespace TJS.VIMS.Models
             VolunteerProfileInfoes = new HashSet<VolunteerProfileInfo>();
         }
 
-        public int OrganizationId { get; set; }
+        public long Id { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string OrganizationName { get; set; }
 
-        public bool? ActiveInd { get; set; }
+        public bool? Active { get; set; }
 
         public long? CreatedBy { get; set; }
 

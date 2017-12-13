@@ -1,0 +1,87 @@
+﻿@model IEnumerable<TJS.VIMS.Models.VolunteerClockInOutInfo>
+
+@{
+    ViewBag.Title = "TimeClockActivity";
+}
+
+<h2>TimeClockActivity</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VolunteerInfo.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VolunteerProfileInfo.CaseNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockInDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockOutDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockInProfilePhotoPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockOutProfilePhotoPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClockInOutLocationId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VolunteerInfo.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VolunteerProfileInfo.CaseNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClockInDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClockOutDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClockInProfilePhotoPath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClockOutProfilePhotoPath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClockInOutLocationId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VolunteerClockInOutId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VolunteerClockInOutId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VolunteerClockInOutId })
+        </td>
+    </tr>
+}
+
+</table>

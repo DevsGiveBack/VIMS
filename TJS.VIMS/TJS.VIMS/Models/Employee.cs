@@ -21,7 +21,7 @@ namespace TJS.VIMS.Models
             VolunteerProfilePhotoInfoes = new HashSet<VolunteerProfilePhotoInfo>();
         }
 
-        public long EmployeeId { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -39,18 +39,16 @@ namespace TJS.VIMS.Models
         [StringLength(400)]
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
+        [Display(Name = "Admin")]
+        public bool Admin { get; set; }
 
-        public bool ActiveInd { get; set; }
+        public bool Active { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
 
-        public DateTime CreatedDt { get; set; }
+        public DateTime? CreatedDt { get; set; }
 
-        [StringLength(50)]
-        public string UpdatedBy { get; set; }
+        public long? UpdatedBy { get; set; }
 
         public DateTime? UpdatedDt { get; set; }
 

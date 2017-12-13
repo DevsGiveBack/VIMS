@@ -28,7 +28,7 @@ namespace TJS.VIMS.DAL
         public Location GetLocationById(int locationId)
         {
             return context.Locations
-                .Where(x => x.LocationId == locationId).SingleOrDefault();
+                .Where(x => x.Id == locationId).SingleOrDefault();
         }
 
         public List<Organization> GetOrganizations()
@@ -40,7 +40,7 @@ namespace TJS.VIMS.DAL
         {
             return context
                 .Organizations
-                .Where(obj => obj.OrganizationId == organizationId).SingleOrDefault();
+                .Where(obj => obj.Id == organizationId).SingleOrDefault();
         }
 
         public List<Country> GetCountries()

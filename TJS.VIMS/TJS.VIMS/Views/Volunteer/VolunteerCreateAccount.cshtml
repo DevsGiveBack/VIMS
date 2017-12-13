@@ -7,7 +7,7 @@
 <h2>VolunteerCreateAccount2</h2>
 
 
-@using (Html.BeginForm("VolunteerCreateAccount", "VolunteerClockTime", new { locationId = ViewBag.LocationId } , FormMethod.Post, null))
+@using (Html.BeginForm("VolunteerCreateAccount", "Volunteer", new { locationId = ViewBag.LocationId } , FormMethod.Post, null))
 {
     @Html.AntiForgeryToken()
 
@@ -63,6 +63,20 @@
                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(m => m.Location.StateId, "State", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Location.StateId, Model.StateSelectList, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location.CountryId, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Location.CountryId, Model.CountrySelectList, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })

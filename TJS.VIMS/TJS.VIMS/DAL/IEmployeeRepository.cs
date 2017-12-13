@@ -7,7 +7,7 @@ using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
-    public interface IEmployeeRepository :IDisposable
+    public interface IEmployeeRepository : IDisposable
     {
         Employee GetEmployee(String userName, String password);
     }

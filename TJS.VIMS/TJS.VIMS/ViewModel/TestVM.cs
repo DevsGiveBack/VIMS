@@ -18,7 +18,7 @@ namespace TJS.VIMS.ViewModel
             {
                 var list = countries.Select(m => new SelectListItem
                 {
-                    Value = m.CountryId.ToString(),
+                    Value = m.Id.ToString(),
                     Text = m.CountryName
                 });
                 return list;

@@ -17,10 +17,9 @@ namespace TJS.VIMS.Models
             VolunteerProfilePhotoInfoes = new HashSet<VolunteerProfilePhotoInfo>();
         }
 
-        [Key]
-        public long VolunteerId { get; set; }
+        public long Id { get; set; }
 
-        public int? DefaultVolunteerProfileInfoId { get; set; }
+        public long? DefaultVolunteerProfileInfoId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -43,7 +42,9 @@ namespace TJS.VIMS.Models
         [StringLength(50)]
         public string City { get; set; }
 
-        public short? StateId { get; set; }
+        public long? StateId { get; set; }
+
+        public long? CountryId { get; set; }
 
         [StringLength(10)]
         public string ZipCode { get; set; }
@@ -64,14 +65,13 @@ namespace TJS.VIMS.Models
         [StringLength(12)]
         public string Emrgncy_Cntct_Phn { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string CreatedBy { get; set; }
+        public bool? Active { get; set; }
 
-        public DateTime CreatedDt { get; set; }
+        public long? CreatedBy { get; set; }
 
-        [StringLength(50)]
-        public string UpdatedBy { get; set; }
+        public DateTime? CreatedDt { get; set; }
+
+        public long? UpdatedBy { get; set; }
 
         public DateTime? UpdatedDt { get; set; }
 

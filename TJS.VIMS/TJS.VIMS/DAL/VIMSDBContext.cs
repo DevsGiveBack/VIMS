@@ -15,6 +15,7 @@ namespace TJS.VIMS.DAL
 
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<State> States { get; set; }
@@ -43,14 +44,6 @@ namespace TJS.VIMS.DAL
 
             modelBuilder.Entity<Employee>()
                 .Property(e => e.Password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.CreatedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.UpdatedBy)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Employee>()
@@ -168,14 +161,6 @@ namespace TJS.VIMS.DAL
                 .Property(e => e.Emrgncy_Cntct_Phn)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
-                .Property(e => e.CreatedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VolunteerInfo>()
-                .Property(e => e.UpdatedBy)
-                .IsUnicode(false);
-
             modelBuilder.Entity<VolunteerProfileInfo>()
                 .Property(e => e.CaseNumber)
                 .IsUnicode(false);
@@ -186,10 +171,6 @@ namespace TJS.VIMS.DAL
 
             modelBuilder.Entity<VolunteerProfileInfo>()
                 .Property(e => e.WorkInfo)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VolunteerProfileInfo>()
-                .Property(e => e.UpdatedBy)
                 .IsUnicode(false);
 
             modelBuilder.Entity<VolunteerProfilePhotoInfo>()

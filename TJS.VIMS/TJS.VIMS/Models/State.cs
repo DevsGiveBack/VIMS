@@ -16,18 +16,21 @@ namespace TJS.VIMS.Models
             VolunteerInfoes = new HashSet<VolunteerInfo>();
         }
 
-        public short StateId { get; set; }
+        public long Id { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string StateName { get; set; }
 
-        public short? CountryId { get; set; }
-
-        public bool? ActiveInd { get; set; }
+        public long? CountryId { get; set; }
 
         public long? CreatedBy { get; set; }
 
         public DateTime? CreatedDt { get; set; }
+
+        public long? UpdatedBy { get; set; }
+
+        public DateTime? UpdatedDt { get; set; }
 
         public virtual Country Country { get; set; }
 

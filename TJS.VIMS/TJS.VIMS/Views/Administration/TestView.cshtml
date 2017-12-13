@@ -1,0 +1,20 @@
+﻿@using TJS.VIMS.DAL;
+@using TJS.VIMS.Models;
+
+@{
+    ViewBag.Title = "TestView";
+}
+
+<h2>TestView</h2>
+
+@*@{ 
+    Employee e = null;
+    using (VIMSDBContext context = new VIMSDBContext())
+    {
+        e = context.Employees.Find(2);
+    }
+   
+}*@
+
+ @Html.ActionLink("Edit Employee", "EditEmployee", new { id = 2 })
+

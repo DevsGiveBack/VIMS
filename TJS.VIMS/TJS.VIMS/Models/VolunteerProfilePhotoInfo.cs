@@ -9,17 +9,22 @@ namespace TJS.VIMS.Models
     [Table("VolunteerProfilePhotoInfo")]
     public partial class VolunteerProfilePhotoInfo
     {
-        [Key]
-        public long VolunteerProfilePhotoId { get; set; }
+        public long Id { get; set; }
 
-        public long? VolunteerId { get; set; }
+        public long? VolunteerInfoId { get; set; }
 
         [StringLength(500)]
         public string VolunteerProfilePhotoPath { get; set; }
 
+        public bool? Active { get; set; }
+
         public long? CreatedBy { get; set; }
 
         public DateTime? CreatedDt { get; set; }
+
+        public long? UpdatedBy { get; set; }
+
+        public DateTime? UpdatedDt { get; set; }
 
         public virtual Employee Employee { get; set; }
 

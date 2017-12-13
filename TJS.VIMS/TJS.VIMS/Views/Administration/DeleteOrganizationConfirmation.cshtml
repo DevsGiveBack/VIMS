@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "DeleteOrganizationConfirmation";
+}
+
+<h2>DeleteOrganizationConfirmation</h2>
+
+<div>
+    @Html.ActionLink("Undo", "UndoDeleteOrganization", new { admin_id = ViewBag.AdminId, id = ViewBag.Id })<br />
+    @Html.ActionLink("Return to admin portal", "Start")<br />
+</div>
+
+
+ 

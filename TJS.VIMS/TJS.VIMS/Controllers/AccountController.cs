@@ -83,7 +83,7 @@ namespace TJS.VIMS.Controllers
                 return View(model);
             }
             var result = employeeRepository.GetEmployee(model.UserName, model.Password);
-            if (result != null && result.ActiveInd)
+            if (result != null && result.Active)
             {
                 model.InvalidLogin = String.Empty;   
                 return RedirectToAction("Location", "Home");

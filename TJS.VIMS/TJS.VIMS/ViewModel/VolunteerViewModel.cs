@@ -29,7 +29,7 @@ namespace TJS.VIMS.ViewModel
             {
                 var items = locations.Select(m => new SelectListItem 
                 {
-                    Value = m.LocationId.ToString(),
+                    Value = m.Id.ToString(),
                     Text = m.LocationName
                 });
                 return DefaultItem.Concat(items);
@@ -42,7 +42,7 @@ namespace TJS.VIMS.ViewModel
             {
                 var items = organizations.Select(m => new SelectListItem
                 {
-                    Value = m.OrganizationId.ToString(),
+                    Value = m.Id.ToString(),
                     Text = m.OrganizationName
                 });
                 return DefaultItem.Concat(items);

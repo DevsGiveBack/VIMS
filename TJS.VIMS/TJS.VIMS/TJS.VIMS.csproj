@@ -190,6 +190,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="DAL\AdministrationRepository.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\MyTable2.cs" />
+    <Compile Include="Models\Organization.Partial.cs" />
+    <Compile Include="Reports\Individual.cs" />
     <Compile Include="Reports\Reporting.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -225,6 +232,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reports\VolunteersAll.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Util\TJSConstants.cs" />
@@ -323,28 +331,56 @@
     <Content Include="Views\Shared\_HoursStatus.cshtml" />
     <Content Include="Views\Shared\_RecentHours.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerClockedInOut.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerCreateAccount.cshtml" />
+    <Content Include="Views\Volunteer\VolunteerCreateAccount.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerAllReadyClockedIn.cshtml" />
     <Content Include="Views\Shared\_LocationName.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerPhotoCapture.cshtml" />
-    <Content Include="Views\VolunteerClockTime\TestView.cshtml" />
     <Content Include="Views\Home\DeleteLocation.cshtml" />
     <Content Include="Views\Shared\_ClockInTimeout.cshtml" />
     <Content Include="Views\VolunteerClockTime\VolunteerPhotoCaptured.cshtml" />
     <Content Include="Views\Home\AddLocation.cshtml" />
     <Content Include="Views\Home\EditLocation.cshtml" />
     <Content Include="Views\Shared\_LocationForm.cshtml" />
-    <Content Include="Views\VolunteerClockTime\VolunteerEditAccount.cshtml" />
-    <Content Include="Views\VolunteerClockTime\EditVolunteerProfile.cshtml" />
+    <Content Include="Views\Volunteer\VolunteerEditAccount.cshtml" />
+    <Content Include="Views\Volunteer\EditVolunteerProfile.cshtml" />
     <Content Include="Views\Volunteer\DisplayAcknowledgePolicy.cshtml" />
+    <Content Include="Views\Shared\_Photo.cshtml" />
+    <Content Include="Views\TimeClock\TestView.cshtml" />
+    <Content Include="Views\Administration\CreateOrganization.cshtml" />
+    <Content Include="Views\Administration\CreateEmployee.cshtml" />
+    <Content Include="Views\Administration\EditEmployee.cshtml" />
+    <Content Include="Views\Administration\TimeClockActivity.cshtml" />
+    <Content Include="Views\Administration\NoShows.cshtml" />
+    <Content Include="Views\Administration\TestView.cshtml" />
+    <Content Include="Views\Administration\VolunteersReport.cshtml" />
+    <Content Include="Views\Administration\Start.cshtml" />
+    <Content Include="Views\Administration\CreateEmployeeConfirmation.cshtml" />
+    <Content Include="Views\Administration\DeleteEmployeeConfirmation.cshtml" />
+    <Content Include="Views\Administration\CreateOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\UndoDeleteEmployeeConfirmation.cshtml" />
+    <Content Include="Views\Administration\VolunteerInformation.cshtml" />
+    <Content Include="Views\Administration\VolunteerInformationConfirmation.cshtml" />
+    <Content Include="Views\Administration\ConfirmationError.cshtml" />
+    <Content Include="Views\Administration\ForgotPassword.cshtml" />
+    <Content Include="Views\Administration\EditEmployeeConfirmation.cshtml" />
+    <Content Include="Views\Administration\DeleteOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\UndoDeleteOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\EditOrganization.cshtml" />
+    <Content Include="Views\Administration\EditOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\UndoEditOrganizationConfirmation.cshtml" />
+    <Content Include="Views\Administration\View.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Capture\" />
     <Folder Include="Views\Default\" />
-    <Folder Include="Views\Location\" />
-    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -18,7 +18,7 @@ namespace TJS.VIMS.ViewModel
 
         public VolunteerLookUpViewModel() { }
 
-        public VolunteerLookUpViewModel(Location location) : this(location.LocationId, location.LocationName)
+        public VolunteerLookUpViewModel(Location location) : this((int)location.Id, location.LocationName)
         {
         }
 
