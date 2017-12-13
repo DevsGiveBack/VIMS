@@ -1,0 +1,14 @@
+1. Install Visaul Studio 2017 Commuinty Edition & SSMS
+2. Run SSMS
+3. Create new DB & name it VIMS
+4. Run script VIMS\VIMS.DB\create.sql
+5. Clone repo @ //todo
+6. Open project @ VIMS\TJS.VIMS\TJS.VIMS\TJS.VIMS.csproj
+7. Edit connection string (VIMSDBContext) in web.config file to point to you SQL Sever instance/DB (VIMS) 
+
+	*Example*
+	<add name="VIMSDBContext" connectionString="data source=MONSTER\SQLEXPRESS;initial catalog=VIMS;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
+
+	The only part that needs to change is "data source={SERVER_NAME}".
+
+8. Build & Debug
