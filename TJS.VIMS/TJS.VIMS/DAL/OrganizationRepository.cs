@@ -31,18 +31,18 @@ namespace TJS.VIMS.DAL
             return null;
         }
 
-        //public bool Create(Organization organization)
-        //{
-        //    // assert name does not exist
-        //    int count = context.Organizations.
-        //                Where(m => m.OrganizationName == organization.OrganizationName).Count();
-        //    if (count == 0)
-        //    {
-        //        context.Organizations.Add(organization);
-        //        context.SaveChanges();
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public bool Create(Organization organization)
+        {
+            // assert name does not exist
+            int count = context.Organizations.
+                        Where(m => m.OrganizationName == organization.OrganizationName).Count();
+            if (count == 0)
+            {
+                Add(organization);
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }

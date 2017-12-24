@@ -21,30 +21,19 @@ namespace TJS.VIMS.Controllers
         public ActionResult CreateOrganization(long admin_id)
         {
             ViewBag.AdminId = admin_id;
+            TempData["id"] = admin_id;
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]  
         public ActionResult CreateOrganization(long admin_id, Organization organization)
         {
             if (ModelState.IsValid)
             {
-                using (VIMSDBContext context = new VIMSDBContext())
-                {
-                    int count = context.Organizations.
-                        Where(m => m.OrganizationName == organization.OrganizationName).Count();
-                    if (count == 0)
-                    {
-                        //BKP moved to view ?
-                        //organization.Active = true;
-                        //organization.CreatedBy = admin_id;
-                        //organization.CreatedDt = System.DateTime.Now;
-                        context.Organizations.Add(organization);
-                        context.SaveChanges();
-                        ViewBag.AdminId = admin_id;
-                        return View("CreateOrganizationConfirmation", organization);
-                    }
-                 }
+                organization.CreatedBy = admin_id;
+                AdministrationRepository repo = new AdministrationRepository();
+                if (repo.CreateOrganization(organization))
+                    return View("CreateOrganizationConfirmation", organization);
             }
             return View("Error");
         }
@@ -129,21 +118,7 @@ namespace TJS.VIMS.Controllers
         [HttpGet]
         public ActionResult DeleteOrganization(long admin_id, long id)
         {
-            using (VIMSDBContext context = new VIMSDBContext())
-            {
-                Organization organization = context.Organizations.Find(id);
-                if (organization != null && (bool)organization.Active)
-                {
-                    organization.Active = false;
-                    organization.UpdatedBy = admin_id;
-                    organization.UpdatedDt = DateTime.Now;
-                    context.SaveChanges();
-
-                    ViewBag.AdminId = admin_id;
-                    ViewBag.Id = id;
-                    return View("DeleteOrganizationConfirmation");
-                }
-            }
+            
             return View("Error");
         }
 
