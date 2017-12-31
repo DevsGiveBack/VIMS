@@ -50,11 +50,13 @@ namespace TJS.VIMS.Models
         public string ZipCode { get; set; }
 
         [StringLength(12)]
+        //[Phone]
         public string PhoneNumber { get; set; }
 
         public short? PhoneNumberType { get; set; }
 
         [StringLength(75)]
+        //[EmailAddress]
         public string Email { get; set; }
 
         public DateTime? DOB { get; set; }
@@ -63,8 +65,9 @@ namespace TJS.VIMS.Models
         public string Emrgncy_Cntct_Name { get; set; }
 
         [StringLength(12)]
-        public string Emrgncy_Cntct_Phn { get; set; }
-
+        [Phone]
+        public string Emrgncy_Cntct_Phn  { get; set; }
+          
         public bool? Active { get; set; }
 
         public long? CreatedBy { get; set; }

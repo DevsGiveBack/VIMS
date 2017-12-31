@@ -6,7 +6,7 @@
 
 <h2>EditOrganization</h2>
 
-@using (Html.BeginForm("EditOrganization", "Administration", new { adminId = ViewBag.AdminId }, FormMethod.Post, null))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -30,12 +30,13 @@
             </div>
         </div>
     </div>
+
     @Html.HiddenFor(model => model.Active, new { @Value = Model.Active })
     @Html.HiddenFor(model => model.CreatedBy, new { @Value = Model.CreatedBy })
     @Html.HiddenFor(model => model.CreatedDt, new { @Value = Model.CreatedDt })
 }
 
 <div>
-    @Html.ActionLink("Delete this orgnaization.", "DeleteOrganization", new { admin_id = ViewBag.AdminId, id = Model.Id })<br />
+    @Html.ActionLink("Delete this orgnaization.", "DeleteOrganization", new { id = Model.Id })<br />
     @Html.ActionLink("Close without saving.", "Start")<br />
 </div>

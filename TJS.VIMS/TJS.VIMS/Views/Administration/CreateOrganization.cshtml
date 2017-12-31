@@ -4,9 +4,9 @@
     ViewBag.Title = "CreateOrganization";
 }
 
-<h2>AddOrganization2</h2>
+<h2>Create Organization</h2>
 
-@using (Html.BeginForm("CreateOrganization", "Administration", new { admin_id = ViewBag.AdminId }, FormMethod.Post, null)) 
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
@@ -28,10 +28,6 @@
             </div>
         </div>
     </div>
-
-    @Html.HiddenFor(model => model.Active, new { @Value = true })
-    @Html.HiddenFor(model => model.CreatedBy, new { @Value = ViewBag.AdminId })
-    @Html.HiddenFor(model => model.CreatedDt, new { @Value = DateTime.Now })
 }
 
 <div>

@@ -2,86 +2,158 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TJS.VIMS.DAL;
 using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
-    public class AdministrationRepository
+    public class AdministrationRepository : IDisposable
     {
+        private VIMSDBContext context = new VIMSDBContext();
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public Organization FindOrganization(long id)
+        {
+            return context.Organizations.Find(id);
+        }
+
+        public Employee FindEmployee(long id)
+        {
+            return context.Employees.Find(id);
+        }
+
+        public int Save()
+        {
+            return context.SaveChanges();
+        }
+
         public bool CreateEmployee(Employee employee)
         {
-            using (VIMSDBContext context = new VIMSDBContext())
-            {
-                int count = context.Employees.
+            int count = context.Employees.
                     Where(m => m.UserName == employee.UserName).Count();
-                if (count == 0)
-                {
-                    employee.Active = true;
-                    employee.CreatedDt = DateTime.Now;
-                    employee.UpdatedBy = null; // reset to null if not already
-                    employee.UpdatedDt = null; // reset to null if not already
-                    context.Employees.Add(employee);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
+            if (count == 0)
+            {
+                employee.Active = true;
+                employee.CreatedDt = DateTime.Now;
+                employee.UpdatedBy = null; // reset to null if not already
+                employee.UpdatedDt = null; // reset to null if not already
+                context.Employees.Add(employee);
+                //context.SaveChanges();
+                return true;
             }
+            return false;
         }
 
         public bool CreateOrganization(Organization organization)
         {
-            using (VIMSDBContext context = new VIMSDBContext())
+            int count = context.Organizations.
+                     Where(m => m.OrganizationName == organization.OrganizationName).Count();
+            if (count == 0)
             {
-                int count = context.Organizations.
-                    Where(m => m.OrganizationName == organization.OrganizationName).Count();
-                if (count == 0)
-                {
-                    organization.Active = true;
-                    organization.CreatedDt = DateTime.Now;
-                    organization.UpdatedBy = null; // reset to null if not already
-                    organization.UpdatedDt = null; // reset to null if not already
-                    context.Organizations.Add(organization);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
+                organization.Active = true;
+                organization.CreatedDt = DateTime.Now;
+                organization.UpdatedBy = null; // reset to null if not already
+                organization.UpdatedDt = null; // reset to null if not already
+                context.Organizations.Add(organization);
+                //context.SaveChanges();
+                return true;
             }
+            return false;
         }
 
         public bool DeleteEmployee(long id)
         {
-            throw new NotImplementedException();
+            Employee employee = FindEmployee(id);
+            if (employee != null && (bool)employee.Active)
+            {
+                employee.Active = false;
+                employee.UpdatedDt = DateTime.Now;
+                //context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public bool DeleteOrganization(long id)
         {
-            using (VIMSDBContext context = new VIMSDBContext())
+            Organization organization = FindOrganization(id);
+            if (organization != null && (bool)organization.Active)
             {
-                Organization organization = context.Organizations.Find(id);
-                if (organization != null && (bool)organization.Active)
-                {
-                    organization.Active = false;
-                    organization.UpdatedDt = DateTime.Now;
-                    context.SaveChanges();
-
-                    return true;
-                }
-                return false;
+                organization.Active = false;
+                organization.UpdatedDt = DateTime.Now;
+                //context.SaveChanges();
+                return true;
             }
+            return false;
         }
 
         public bool EditEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            using (VIMSDBContext context = new VIMSDBContext())
+            {
+                Employee current_employee = context.Employees.Find(employee.Id);
+                if (employee != null && (bool)employee.Active) // BKP fix should not be nullable
+                {
+                    int count = context.Employees.
+                        Where(m => m.UserName == employee.UserName && m.Id != employee.Id).
+                        Count();
+
+                    if (count == 0)
+                    {
+                        employee.UpdatedDt = System.DateTime.Now;
+                        context.Entry(current_employee).CurrentValues.SetValues(employee);
+                        context.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
-        public bool EditOrganization(Organization organization)
+        public bool UpdateOrganization(Organization organization)
+        {
+            Organization organization_current = FindOrganization(organization.Id);
+            if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
+            {
+                int count = context.Organizations.
+                    Where(m => m.OrganizationName == organization.OrganizationName && m.Id != organization.Id).
+                    Count();
+
+                if (count == 0)
+                {
+                    //organization.UpdatedBy = admin_id; // todo
+                    organization.UpdatedDt = System.DateTime.Now;
+                    context.Entry(organization_current).CurrentValues.SetValues(organization);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool UnEditOrganization(Organization organization)
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
-                Organization organization_current = context.Organizations.Find(organization.Id);
-                Organization organization_saved = organization_current.ShallowCopy();
-
+                Organization current_organization = context.Organizations.Find(organization.Id);
                 if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                 {
                     int count = context.Organizations.
@@ -90,9 +162,7 @@ namespace TJS.VIMS.DAL
 
                     if (count == 0)
                     {
-                        //organization.UpdatedBy = admin_id; // todo
-                        organization.UpdatedDt = System.DateTime.Now;
-                        context.Entry(organization_current).CurrentValues.SetValues(organization);
+                        context.Entry(current_organization).CurrentValues.SetValues(organization);
                         context.SaveChanges();
                         return true;
                     }
@@ -134,19 +204,5 @@ namespace TJS.VIMS.DAL
             }
             return false;
         }
-
-        //public bool UnDeleteEnitiy<T>(long admin_id, long enitity_id)
-        //{
-        //    using (VIMSDBContext context = new VIMSDBContext())
-        //    {
-        //        DbSet enitities = context.Set<T>();
-        //        if (organization != null && organization.Active != true)
-        //        { 
-        //            context.SaveChanges();
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
     }
 }
