@@ -11,12 +11,12 @@ namespace TJS.VIMS.Reports
         /// </summary>
         /// <param name="infos"></param>
         /// <returns>formated string ({0} hours {1} minutes)</returns>
-        public static TimeSpan GetHoursLogged(List<VolunteerClockInOutInfo> infos)
+        public static TimeSpan GetHoursLogged(List<VolunteerTimeClock> infos)
         {
             int minutes = 0;
             foreach (var i in infos)
             {
-                int punch = (int)Math.Ceiling((i.ClockOutDateTime.Value - i.ClockInDateTime.Value).TotalMinutes);
+                int punch = (int)Math.Ceiling((i.ClockOut.Value - i.ClockIn.Value).TotalMinutes);
                 if (punch >= 1)
                     minutes += punch;
             }

@@ -46,19 +46,19 @@ namespace TJS.VIMS.Controllers
         {
             ViewBag.LocationId = locationId;
             VIMSDBContext context = new VIMSDBContext();
-            VolunteerInfo info = context.VolunteerInfoes.Find(volunteerId);
+            Volunteer info = context.Volunteers.Find(volunteerId);
 
             return View(info);
         }
 
         [HttpPost]
-        public ActionResult VolunteerUpdateAccount(VolunteerInfo volunteer, int locationId)
+        public ActionResult VolunteerUpdateAccount(Volunteer volunteer, int locationId)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.Id);
+                    Volunteer info = context.Volunteers.Find(volunteer.Id);
                     context.Entry(info).CurrentValues.SetValues(volunteer);
                     context.SaveChanges();
                 }
@@ -77,17 +77,17 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult VolunteerCreateAccount(VolunteerInfo volunteer, int locationId)
+        public ActionResult VolunteerCreateAccount(Volunteer volunteer, int locationId)
         {
             VIMSDBContext context = new VIMSDBContext();
-            var v = context.VolunteerInfoes.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
+            var v = context.Volunteers.Where(m => m.UserName == volunteer.UserName).SingleOrDefault();
             if (v != null)
             {
                 ModelState.AddModelError("UserName", "User already exist.");
             }
             else
             {
-                context.VolunteerInfoes.Add(volunteer);
+                context.Volunteers.Add(volunteer);
                 volunteer.CreatedBy = 0; // todo
                 volunteer.CreatedDt = DateTime.Now;
                 volunteer.UpdatedBy = 0; // todo

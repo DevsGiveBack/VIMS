@@ -24,7 +24,7 @@ namespace TJS.VIMS.ViewModel
                 var items = locations.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
-                    Text = m.LocationName
+                    Text = m.Name
                 });
                 return DefaultItem.Concat(items);
             }            

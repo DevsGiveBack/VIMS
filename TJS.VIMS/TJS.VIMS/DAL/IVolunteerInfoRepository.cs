@@ -8,14 +8,14 @@ namespace TJS.VIMS.DAL
 {
     public interface IVolunteerInfoRepository :  IDisposable
     {
-        VolunteerInfo GetVolunteer(string userName);
-        VolunteerInfo GetVolunteerById(int Id);
-        VolunteerClockInOutInfo GetClockedInInfo(VolunteerInfo volunteer);
-        VolunteerProfilePhotoInfo GetLastPhotoInfo(VolunteerInfo volunteer);
-        VolunteerProfileInfo GetLastProfileInfo(long volunteerId);
-        VolunteerProfileInfo GetDefaultProfileInfo(long volunteerId);
-        List<VolunteerClockInOutInfo> GetVolunteersRecentClockInOutInfos(VolunteerInfo volunteer, int n);
-        List<VolunteerClockInOutInfo> GetVolunteersCompletedInOutInfos(VolunteerInfo volunteer);
+        Volunteer GetVolunteer(string userName);
+        Volunteer GetVolunteerById(int Id);
+        VolunteerTimeClock GetClockedInInfo(Volunteer volunteer);
+        VolunteerPhoto GetLastPhotoInfo(Volunteer volunteer);
+        VolunteerProfile GetLastProfileInfo(long volunteerId);
+        VolunteerProfile GetDefaultProfileInfo(long volunteerId);
+        List<VolunteerTimeClock> GetVolunteersRecentClockInOutInfos(Volunteer volunteer, int n);
+        List<VolunteerTimeClock> GetVolunteersCompletedInOutInfos(Volunteer volunteer);
         void Save();
     }
 }

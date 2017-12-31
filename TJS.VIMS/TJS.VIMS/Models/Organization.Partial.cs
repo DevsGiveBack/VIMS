@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     public partial class Organization
     {
@@ -16,7 +16,7 @@ namespace TJS.VIMS.Models
         {
             Organization organization = new Organization();
             organization.Id = Id;
-            organization.OrganizationName = OrganizationName;
+            organization.Name = Name;
             organization.Active = Active;
             organization.CreatedBy = CreatedBy;
             organization.CreatedDt = CreatedDt;

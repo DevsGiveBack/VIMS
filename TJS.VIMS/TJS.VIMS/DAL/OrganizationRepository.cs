@@ -21,7 +21,7 @@ namespace TJS.VIMS.DAL
 
             // assert name does not exist
             int count = context.Organizations.
-                        Where(m => m.OrganizationName == name).Count();
+                        Where(m => m.Name == name).Count();
             if (count == 0)
             {
                 context.Organizations.Add(organization);
@@ -35,7 +35,7 @@ namespace TJS.VIMS.DAL
         {
             // assert name does not exist
             int count = context.Organizations.
-                        Where(m => m.OrganizationName == organization.OrganizationName).Count();
+                        Where(m => m.Name == organization.Name).Count();
             if (count == 0)
             {
                 Add(organization);

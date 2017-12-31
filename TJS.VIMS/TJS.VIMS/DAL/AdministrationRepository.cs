@@ -65,7 +65,7 @@ namespace TJS.VIMS.DAL
         public bool CreateOrganization(Organization organization)
         {
             int count = context.Organizations.
-                     Where(m => m.OrganizationName == organization.OrganizationName).Count();
+                     Where(m => m.Name == organization.Name).Count();
             if (count == 0)
             {
                 organization.Active = true;
@@ -134,7 +134,7 @@ namespace TJS.VIMS.DAL
             if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
             {
                 int count = context.Organizations.
-                    Where(m => m.OrganizationName == organization.OrganizationName && m.Id != organization.Id).
+                    Where(m => m.Name == organization.Name && m.Id != organization.Id).
                     Count();
 
                 if (count == 0)
@@ -157,7 +157,7 @@ namespace TJS.VIMS.DAL
                 if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                 {
                     int count = context.Organizations.
-                        Where(m => m.OrganizationName == organization.OrganizationName && m.Id != organization.Id).
+                        Where(m => m.Name == organization.Name && m.Id != organization.Id).
                         Count();
 
                     if (count == 0)

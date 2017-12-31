@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -6,15 +6,15 @@ namespace TJS.VIMS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("VolunteerProfilePhotoInfo")]
-    public partial class VolunteerProfilePhotoInfo
+    [Table("VolunteerPhoto")]
+    public partial class VolunteerPhoto
     {
         public long Id { get; set; }
 
-        public long? VolunteerInfoId { get; set; }
+        public long? VolunteerId { get; set; }
 
         [StringLength(500)]
-        public string VolunteerProfilePhotoPath { get; set; }
+        public string Path { get; set; }
 
         public bool? Active { get; set; }
 
@@ -28,6 +28,6 @@ namespace TJS.VIMS.Models
 
         public virtual Employee Employee { get; set; }
 
-        public virtual VolunteerInfo VolunteerInfo { get; set; }
+        public virtual Volunteer Volunteer { get; set; }
     }
 }

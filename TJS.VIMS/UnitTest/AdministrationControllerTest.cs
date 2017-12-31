@@ -5,6 +5,7 @@ using TJS.VIMS.Models;
 using System.Collections.Generic;
 using System.Linq;
 using TJS.VIMS.Controllers;
+using TJS.VIMS;
 
 namespace UnitTest
 {

@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -12,14 +12,14 @@ namespace TJS.VIMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Organization()
         {
-            VolunteerProfileInfoes = new HashSet<VolunteerProfileInfo>();
+            VolunteerProfiles = new HashSet<VolunteerProfile>();
         }
 
         public long Id { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string OrganizationName { get; set; }
+        public string Name { get; set; }
 
         public bool? Active { get; set; }
 
@@ -36,6 +36,6 @@ namespace TJS.VIMS.Models
         public virtual Employee Employee1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerProfileInfo> VolunteerProfileInfoes { get; set; }
+        public virtual ICollection<VolunteerProfile> VolunteerProfiles { get; set; }
     }
 }

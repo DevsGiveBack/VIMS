@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +18,8 @@ namespace TJS.VIMS.Models
         public int? Hours { get; set; }
 
         public long? Date { get; set; }
+
+        public bool? Active { get; set; }
 
         public long? CreatedBy { get; set; }
 

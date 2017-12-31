@@ -1,11 +1,11 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    
+
     [Table("Location")]
     public partial class Location
     {
@@ -13,7 +13,7 @@ namespace TJS.VIMS.Models
 
         [Required]
         [StringLength(100)]
-        public string LocationName { get; set; }
+        public string Name { get; set; }
 
         public long? OrganizationId { get; set; }
 

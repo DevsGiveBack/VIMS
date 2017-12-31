@@ -38,7 +38,7 @@ namespace TJS.VIMS.ViewModel
                 var list = countries.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
-                    Text = m.CountryName
+                    Text = m.Name
                 });
                 return list;
             }
@@ -51,7 +51,7 @@ namespace TJS.VIMS.ViewModel
                 var list = states.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
-                    Text = m.StateName
+                    Text = m.Name
                 });
                 return list;
             }

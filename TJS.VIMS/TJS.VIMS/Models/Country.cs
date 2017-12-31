@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace TJS.VIMS.Models
 
         [Required]
         [StringLength(100)]
-        public string CountryName { get; set; }
+        public string Name { get; set; }
 
         public bool? Active { get; set; }
 

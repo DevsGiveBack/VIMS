@@ -41,7 +41,7 @@ namespace TJS.VIMS.Controllers
             Location location = lookUpRepository.GetLocationById(locationId);
             VolunteerLookUpViewModel vm = new VolunteerLookUpViewModel();
             vm.LocationId = (int)location.Id;
-            vm.LocationName = location.LocationName;
+            vm.LocationName = location.Name;
 
             return View(vm);
         }
@@ -60,7 +60,7 @@ namespace TJS.VIMS.Controllers
                 return RedirectToAction("Login", "AccountController");
             }
 
-            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(userName);
+            Volunteer volunteer = volunteerInfoRepository.GetVolunteer(userName);
                       
             if (volunteer != null && volunteer.Id > 0)
             {
@@ -84,14 +84,14 @@ namespace TJS.VIMS.Controllers
         //[HttpGet]
         public ActionResult VolunteerClockIn(int locationId, string userName)
         {
-            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteer(userName);
+            Volunteer volunteer = volunteerInfoRepository.GetVolunteer(userName);
             Location location = lookUpRepository.GetLocationById((int)locationId);
 
             if (volunteer != null && volunteer.Id > 0)
             {
-                VolunteerProfileInfo profile =
+                VolunteerProfile profile =
                    volunteerInfoRepository.GetLastProfileInfo(volunteer.Id);
-                VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
+                VolunteerTimeClock clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
 
                 //todo move to a view model?
                 ViewBag.isClockedIn = (clockInfo != null); // clocked in
@@ -103,10 +103,10 @@ namespace TJS.VIMS.Controllers
                 VolunteerClockInViewModel vm = new VolunteerClockInViewModel();
                 vm.Volunteer = volunteer;
                 vm.LocationId = (int)location.Id;
-                vm.LocationName = location.LocationName;
-                VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
+                vm.LocationName = location.Name;
+                VolunteerPhoto photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
                 if(photo != null)
-                    vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).VolunteerProfilePhotoPath;
+                    vm.DefaultPhotoPath = volunteerInfoRepository.GetLastPhotoInfo(volunteer).Path;
 
                 //dispose now, new context will be created in next request 
                 volunteerInfoRepository.Dispose();
@@ -126,37 +126,37 @@ namespace TJS.VIMS.Controllers
         //public ActionResult VolunteerClockedInOut(int locationId, string userName)
         public ActionResult VolunteerClockedInOut()
         {
-            VIMSDBContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
-            VolunteerInfo volunteer = (VolunteerInfo)TempData["VolunteerInfo"];
+            VIMSDBContext context = ((Repository<Volunteer>)volunteerInfoRepository).Context;
+            Volunteer volunteer = (Volunteer)TempData["VolunteerInfo"];
             Location location = ((Location)TempData["Location"]);
             
             context.Entry(volunteer).State = EntityState.Modified; // reload after request
 
-            VolunteerClockInOutInfo clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
-            VolunteerProfilePhotoInfo photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
-            VolunteerProfileInfo profile = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.Id);
+            VolunteerTimeClock clockInfo = volunteerInfoRepository.GetClockedInInfo(volunteer);
+            VolunteerPhoto photo = volunteerInfoRepository.GetLastPhotoInfo(volunteer);
+            VolunteerProfile profile = volunteerInfoRepository.GetDefaultProfileInfo(volunteer.Id);
             
             if (clockInfo != null)
             {
                 // was clocked in so clock out
-                clockInfo.ClockOutDateTime = DateTime.Now;
-                clockInfo.ClockOutProfilePhotoPath =
-                    photo != null ? photo.VolunteerProfilePhotoPath : null;
+                clockInfo.ClockOut = DateTime.Now;
+                clockInfo.ClockOutPhoto =
+                    photo != null ? photo.Path : null;
                 context.SaveChanges(); //BKP todo, merge with repo code
             }
             else
             {
                 // clock in 
-                VolunteerClockInOutInfo clockIn = new VolunteerClockInOutInfo();
-                clockIn.VolunteerProfileInfo = profile;
+                VolunteerTimeClock clockIn = new VolunteerTimeClock();
+                clockIn.VolunteerProfile = profile;
                 clockIn.LocationId = location.Id;
-                clockIn.ClockInDateTime = DateTime.Now;
-                clockIn.ClockInOutLocationId = ViewBag.LocationId;
-                clockIn.ClockInProfilePhotoPath =
-                    photo != null ? photo.VolunteerProfilePhotoPath : null;
+                clockIn.ClockIn = DateTime.Now;
+                clockIn.LocationId = ViewBag.LocationId;
+                clockIn.ClockInPhoto =
+                    photo != null ? photo.Path : null;
                 clockIn.CreatedBy = null; 
                 clockIn.CreatedDt = DateTime.Now;
-                volunteer.VolunteerClockInOutInfoes.Add(clockIn);
+                volunteer.VolunteerTimeClocks.Add(clockIn);
                 context.SaveChanges(); //BKP todo, merge with repo code
             }
                 
@@ -165,7 +165,7 @@ namespace TJS.VIMS.Controllers
             model.isClockedIn = (clockInfo == null); // now!, clocked in
             model.Volunteer = volunteer;
             model.LocationId = (int)location.Id;
-            model.LocationName = location.LocationName; 
+            model.LocationName = location.Name; 
             model.TimeLogged = VolunteerClockedInOutViewModel.GetHoursLogged(volunteerInfoRepository.GetVolunteersCompletedInOutInfos(volunteer));
             model.RecentClockInformation = volunteerInfoRepository.GetVolunteersRecentClockInOutInfos(volunteer, Util.TJSConstants.RECENT_LIST_LEN);
             model.CaseNumber = profile != null ? profile.CaseNumber : "NA";
@@ -186,9 +186,9 @@ namespace TJS.VIMS.Controllers
             VolunteerAllReadyClockedInViewModel model = new VolunteerAllReadyClockedInViewModel();
             Location location = lookUpRepository.GetLocationById(locationId);
             model.LocationId = locationId;
-            model.LocationName = location.LocationName;
+            model.LocationName = location.Name;
             model.UserId = userId;
-            model.OrganizationName = lookUpRepository.GetOrganizationById((int)location.OrganizationId).OrganizationName;
+            model.OrganizationName = lookUpRepository.GetOrganizationById((int)location.OrganizationId).Name;
 
             return View(model);
         }
@@ -204,18 +204,18 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult VolunteerEditProfile(VolunteerInfo volunteer, int locationId)
+        public ActionResult VolunteerEditProfile(Volunteer volunteer, int locationId)
         {
             ViewBag.LocationId = locationId;
             var locations = lookUpRepository.GetLocations();
             var organizations = lookUpRepository.GetOrganizations();
             VolunteerViewModel model = new VolunteerViewModel(locations, organizations);
-            model.VolunteerInfo = volunteer;
+            model.Volunteer = volunteer;
             return View("EditVolunteerProfile", model);
         }
 
         [HttpPost]
-        public ActionResult VolunteerEditProfile(VolunteerInfo volunteer, VolunteerProfileInfo profile, int locationId)
+        public ActionResult VolunteerEditProfile(Volunteer volunteer, VolunteerProfile profile, int locationId)
         {
            return View();
         }
@@ -239,13 +239,13 @@ namespace TJS.VIMS.Controllers
             var path = Server.MapPath("~/Capture/" + name);
             System.IO.File.WriteAllBytes(path, Util.Utility.HexToBytes(dump));
 
-            DbContext context = ((Repository<VolunteerInfo>)volunteerInfoRepository).Context;
-            VolunteerInfo volunteer = volunteerInfoRepository.GetVolunteerById(userId);
-            VolunteerProfilePhotoInfo photo = new VolunteerProfilePhotoInfo();
-            photo.VolunteerProfilePhotoPath = name;
+            DbContext context = ((Repository<Volunteer>)volunteerInfoRepository).Context;
+            Volunteer volunteer = volunteerInfoRepository.GetVolunteerById(userId);
+            VolunteerPhoto photo = new VolunteerPhoto();
+            photo.Path = name;
             photo.CreatedDt = DateTime.Now;
 
-            volunteer.VolunteerProfilePhotoInfoes.Add(photo);
+            volunteer.VolunteerPhotoes.Add(photo);
             context.SaveChanges(); //BKP todo, merge with repo code
         }
     }

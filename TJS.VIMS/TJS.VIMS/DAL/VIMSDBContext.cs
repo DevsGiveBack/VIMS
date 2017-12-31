@@ -1,10 +1,9 @@
-namespace TJS.VIMS.DAL
+namespace TJS.VIMS
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using TJS.VIMS.Models;
 
     public partial class VIMSDBContext : DbContext
     {
@@ -19,15 +18,15 @@ namespace TJS.VIMS.DAL
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
-        public virtual DbSet<VolunteerInfo> VolunteerInfoes { get; set; }
-        public virtual DbSet<VolunteerProfileInfo> VolunteerProfileInfoes { get; set; }
-        public virtual DbSet<VolunteerProfilePhotoInfo> VolunteerProfilePhotoInfoes { get; set; }
+        public virtual DbSet<Volunteer> Volunteers { get; set; }
+        public virtual DbSet<VolunteerPhoto> VolunteerPhotoes { get; set; }
+        public virtual DbSet<VolunteerProfile> VolunteerProfiles { get; set; }
+        public virtual DbSet<VolunteerTimeClock> VolunteerTimeClocks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Country>()
-                .Property(e => e.CountryName)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Employee>()
@@ -72,17 +71,17 @@ namespace TJS.VIMS.DAL
                 .HasForeignKey(e => e.CreatedBy);
 
             modelBuilder.Entity<Employee>()
-                .HasMany(e => e.VolunteerProfileInfoes)
+                .HasMany(e => e.VolunteerPhotoes)
                 .WithOptional(e => e.Employee)
                 .HasForeignKey(e => e.CreatedBy);
 
             modelBuilder.Entity<Employee>()
-                .HasMany(e => e.VolunteerProfilePhotoInfoes)
+                .HasMany(e => e.VolunteerProfiles)
                 .WithOptional(e => e.Employee)
                 .HasForeignKey(e => e.CreatedBy);
 
             modelBuilder.Entity<Location>()
-                .Property(e => e.LocationName)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Location>()
@@ -102,79 +101,79 @@ namespace TJS.VIMS.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<Organization>()
-                .Property(e => e.OrganizationName)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<State>()
-                .Property(e => e.StateName)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerClockInOutInfo>()
-                .Property(e => e.ClockInProfilePhotoPath)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VolunteerClockInOutInfo>()
-                .Property(e => e.ClockOutProfilePhotoPath)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.FirstName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.LastName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.UserName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Address1)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Address2)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.City)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.ZipCode)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.PhoneNumber)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Emrgncy_Cntct_Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerInfo>()
+            modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Emrgncy_Cntct_Phn)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerProfileInfo>()
+            modelBuilder.Entity<VolunteerPhoto>()
+                .Property(e => e.Path)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VolunteerProfile>()
                 .Property(e => e.CaseNumber)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerProfileInfo>()
+            modelBuilder.Entity<VolunteerProfile>()
                 .Property(e => e.Skill)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerProfileInfo>()
+            modelBuilder.Entity<VolunteerProfile>()
                 .Property(e => e.WorkInfo)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<VolunteerProfilePhotoInfo>()
-                .Property(e => e.VolunteerProfilePhotoPath)
+            modelBuilder.Entity<VolunteerTimeClock>()
+                .Property(e => e.ClockInPhoto)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VolunteerTimeClock>()
+                .Property(e => e.ClockOutPhoto)
                 .IsUnicode(false);
         }
     }

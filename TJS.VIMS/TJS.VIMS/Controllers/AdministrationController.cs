@@ -97,7 +97,7 @@ namespace TJS.VIMS.Controllers
                     if (organization != null && (bool)organization.Active) // BKP fix should not be nullable
                     {
                         int count = context.Organizations.
-                            Where(m => m.OrganizationName == organization.OrganizationName && m.Id != organization.Id).
+                            Where(m => m.Name == organization.Name && m.Id != organization.Id).
                             Count();
 
                         if (count == 0)
@@ -272,7 +272,7 @@ namespace TJS.VIMS.Controllers
         {
             using (VIMSDBContext context = new VIMSDBContext())
             {
-                VolunteerInfo volunteer = context.VolunteerInfoes.Find(id);
+                Volunteer volunteer = context.Volunteers.Find(id);
                 if(volunteer != null)
                     return View("VolunteerInformation", volunteer);
             }
@@ -280,13 +280,13 @@ namespace TJS.VIMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult VolunteerInformation(VolunteerInfo volunteer)
+        public ActionResult VolunteerInformation(Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
                 using (VIMSDBContext context = new VIMSDBContext())
                 {
-                    VolunteerInfo info = context.VolunteerInfoes.Find(volunteer.Id);
+                    Volunteer info = context.Volunteers.Find(volunteer.Id);
                     if (info != null)
                     {
                         context.Entry(info).CurrentValues.SetValues(volunteer);
@@ -313,13 +313,13 @@ namespace TJS.VIMS.Controllers
         /// </summary>
         /// <param name="volunteer"></param>
         /// <returns></returns>
-        public ActionResult TimeClockActivity(VolunteerInfo volunteer)
+        public ActionResult TimeClockActivity(Volunteer volunteer)
         {
             // todo
             return View();
         }
 
-        public ActionResult NoShows(VolunteerInfo volunteer)
+        public ActionResult NoShows(Volunteer volunteer)
         {
             // todo
             return View();
