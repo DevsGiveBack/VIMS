@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,10 @@ namespace TJS.VIMS
 {
     public partial class Organization
     {
-       public Organization Copy()
+        //[Display(Name = "Test")]
+        //public string Name { get; set; }
+
+        public Organization Copy()
        {
             return (Organization)this.MemberwiseClone();
        }

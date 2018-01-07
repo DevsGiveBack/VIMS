@@ -225,7 +225,7 @@ namespace TJS.VIMS.Controllers
         /// </summary>
         /// <param name="userId">user id</param>
         [HttpPost]
-        public void Capture(int userId)
+        public ActionResult Capture(int userId)
         {
             var stream = Request.InputStream;
             string dump = string.Empty;
@@ -247,6 +247,8 @@ namespace TJS.VIMS.Controllers
 
             volunteer.VolunteerPhotoes.Add(photo);
             context.SaveChanges(); //BKP todo, merge with repo code
+
+            return RedirectToAction("VolunteerClockIn");
         }
     }
 }

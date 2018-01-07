@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {

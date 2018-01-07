@@ -41,7 +41,10 @@ namespace TJS.VIMS.Controllers
             {
                 using (AdministrationRepository repo = new AdministrationRepository())
                 {
-                    //organization.CreatedBy = (long)TempData["admin_id"];
+                    string asp_id = User.Identity.GetUserId();
+                    Employee e = repo.GetEmployeeByAspId(asp_id);
+
+                    organization.CreatedBy = e.Id;
                     bool success = repo.CreateOrganization(organization);
                     repo.Save();
                     if (success) return View("CreateOrganizationConfirmation");

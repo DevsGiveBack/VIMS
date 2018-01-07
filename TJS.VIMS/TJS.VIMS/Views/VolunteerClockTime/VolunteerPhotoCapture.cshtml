@@ -9,10 +9,16 @@
 {
     @Html.AntiForgeryToken()
 
+
     <div class="center">
         <div id="Camera"></div>
         <input type="button" value="Capture" onclick="webcam.capture();" />
     </div>
+    
+    @*<div>
+        <h3>Camera</h3>
+        <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+    </div>*@
 
     <div class="center">
         <input type="submit" value="Accept" />
@@ -34,9 +40,9 @@
                     UploadPic();
                 },
                 onCapture: function () {
-                    //if(webcam.getCameraList().length != 0)
+                   
                     webcam.save("@Url.Content("~/VolunteerClockTime/Capture")/@ViewBag.VolunteerId");
-                    //location.href = "@Url.Action("VolunteerPhotoCaptured", "VolunteerClockTime")";
+                    
                 },
                 debug: function () { },
                 onLoad: function () { }

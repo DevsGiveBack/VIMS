@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TJS.VIMS.DAL;
-using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
@@ -43,6 +41,11 @@ namespace TJS.VIMS.DAL
         public int Save()
         {
             return context.SaveChanges();
+        }
+
+        public Employee GetEmployeeByAspId(string asp_id)
+        {
+            return context.Employees.Where(e => e.AspNetUsers_Id == asp_id).SingleOrDefault();
         }
 
         public bool CreateEmployee(Employee employee)

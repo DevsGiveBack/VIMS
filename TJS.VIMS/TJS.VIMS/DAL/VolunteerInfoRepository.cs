@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {
@@ -105,7 +104,7 @@ namespace TJS.VIMS.DAL
         public List<VolunteerTimeClock> GetVolunteersRecentClockInOutInfos(Volunteer volunteer, int n)
         {
             return context.VolunteerTimeClocks
-                .Where(m => m.Id == volunteer.Id && m.ClockOut != null)
+                .Where(m => m.VolunteerId == volunteer.Id && m.ClockOut != null)
                 .OrderByDescending(m => m.CreatedDt)
                 .Take(n)
                 .ToList();
@@ -114,7 +113,7 @@ namespace TJS.VIMS.DAL
         public List<VolunteerTimeClock> GetVolunteersCompletedInOutInfos(Volunteer volunteer)
         {
             return context.VolunteerTimeClocks
-                .Where(m => m.Id == volunteer.Id && m.ClockOut != null)
+                .Where(m => m.VolunteerId == volunteer.Id && m.ClockOut != null)
                 .OrderByDescending(m => m.CreatedDt)
                 .ToList();
         }
