@@ -18,7 +18,7 @@ namespace TJS.VIMS.ViewModel
         /// <summary>
         /// the volunteer info
         /// </summary>
-        public VolunteerInfo Volunteer { get; set; }
+        public Volunteer Volunteer { get; set; }
 
         /// <summary>
         /// case number of volunteer
@@ -38,7 +38,7 @@ namespace TJS.VIMS.ViewModel
         /// <summary>
         /// gets recent clock info
         /// </summary>
-        public List<VolunteerClockInOutInfo> RecentClockInformation { get; set; }
+        public List<VolunteerTimeClock> RecentClockInformation { get; set; }
 
         /// <summary>
         /// remaining time
@@ -66,7 +66,7 @@ namespace TJS.VIMS.ViewModel
         /// </summary>
         /// <param name="infos"></param>
         /// <returns>formated string ({0} hours {1} minutes)</returns>
-        public static TimeSpan GetHoursLogged(List<VolunteerClockInOutInfo> infos)
+        public static TimeSpan GetHoursLogged(List<VolunteerTimeClock> infos)
         {
             return TJS.VIMS.Reports.Reporting.GetHoursLogged(infos);
         }

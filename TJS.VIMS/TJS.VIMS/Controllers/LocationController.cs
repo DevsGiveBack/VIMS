@@ -23,7 +23,7 @@ namespace TJS.VIMS.Controllers
             {
                 LocationRepository repo = new LocationRepository(new VIMSDBContext());
                 Location location = repo.Find((int)model.Location.Id);
-                location.LocationName = model.Location.LocationName;
+                location.Name = model.Location.Name;
 
                 repo.Context.Entry(location).State = System.Data.Entity.EntityState.Modified;
                 repo.Save();

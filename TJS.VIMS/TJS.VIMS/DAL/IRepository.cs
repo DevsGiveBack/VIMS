@@ -17,5 +17,7 @@ namespace TJS.VIMS.DAL
 
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
+
+        //void SaveChanges();
     }
 }

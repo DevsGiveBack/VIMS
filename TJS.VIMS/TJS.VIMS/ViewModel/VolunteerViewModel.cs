@@ -10,15 +10,15 @@ namespace TJS.VIMS.ViewModel
         private List<Location> locations { get; set; }
         private List<Organization> organizations { get; set; }
 
-        public VolunteerInfo VolunteerInfo { get; set; }
-        public VolunteerProfileInfo VolunteerProfile { get; set; }
+        public Volunteer Volunteer { get; set; }
+        public VolunteerProfile VolunteerProfile { get; set; }
         public int LocationSelectedId { get; set; }
         public int OrganizationSelectedId { get; set; }
 
         public VolunteerViewModel(List<Location> locations, List<Organization> organizations) 
         {
-            VolunteerInfo = new VolunteerInfo(); 
-            VolunteerProfile = new VolunteerProfileInfo();
+            Volunteer = new Volunteer(); 
+            VolunteerProfile = new VolunteerProfile();
             this.locations = locations;
             this.organizations = organizations;
         }
@@ -30,7 +30,7 @@ namespace TJS.VIMS.ViewModel
                 var items = locations.Select(m => new SelectListItem 
                 {
                     Value = m.Id.ToString(),
-                    Text = m.LocationName
+                    Text = m.Name
                 });
                 return DefaultItem.Concat(items);
             }
@@ -43,7 +43,7 @@ namespace TJS.VIMS.ViewModel
                 var items = organizations.Select(m => new SelectListItem
                 {
                     Value = m.Id.ToString(),
-                    Text = m.OrganizationName
+                    Text = m.Name
                 });
                 return DefaultItem.Concat(items);
             }

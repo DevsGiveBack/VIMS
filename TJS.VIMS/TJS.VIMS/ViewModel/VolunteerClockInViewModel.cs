@@ -11,7 +11,7 @@ namespace TJS.VIMS.ViewModel
         /// <summary>
         /// the volunteer info
         /// </summary>
-        public VolunteerInfo Volunteer { get; set; }
+        public Volunteer Volunteer { get; set; }
         public string DefaultPhotoPath { get; set; }
     }
 }

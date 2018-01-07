@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -6,18 +6,18 @@ namespace TJS.VIMS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("VolunteerProfileInfo")]
-    public partial class VolunteerProfileInfo
+    [Table("VolunteerProfile")]
+    public partial class VolunteerProfile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public VolunteerProfileInfo()
+        public VolunteerProfile()
         {
-            VolunteerClockInOutInfoes = new HashSet<VolunteerClockInOutInfo>();
+            VolunteerTimeClocks = new HashSet<VolunteerTimeClock>();
         }
 
         public long Id { get; set; }
 
-        public long? VolunteerInfoId { get; set; }
+        public long? VolunteerId { get; set; }
 
         public long? OrganizationId { get; set; }
 
@@ -52,9 +52,9 @@ namespace TJS.VIMS.Models
 
         public virtual Organization Organization { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
+        public virtual Volunteer Volunteer { get; set; }
 
-        public virtual VolunteerInfo VolunteerInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VolunteerTimeClock> VolunteerTimeClocks { get; set; }
     }
 }

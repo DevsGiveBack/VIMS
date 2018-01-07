@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TJS.VIMS.Models;
 
 namespace TJS.VIMS.DAL
 {

@@ -1,13 +1,14 @@
-USE [VIMS_DEV]
+USE [VIMS]
 GO
-/****** Object:  Table [dbo].[Country]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[Country]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Country](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[CountryName] [varchar](100) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
 	[UpdatedBy] [bigint] NULL,
@@ -19,13 +20,14 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Employee]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[Employee]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Employee](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[AspNetUsers_Id] [nvarchar](128) NULL,
 	[FirstName] [varchar](50) NOT NULL,
 	[LastName] [varchar](50) NOT NULL,
 	[UserName] [varchar](50) NOT NULL,
@@ -47,7 +49,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Group]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[Group]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -70,14 +72,14 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Location]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[Location]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Location](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[LocationName] [varchar](100) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
 	[OrganizationId] [bigint] NULL,
 	[Address1] [varchar](50) NULL,
 	[Address2] [varchar](50) NULL,
@@ -97,7 +99,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[NoShows]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[NoShows]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -114,14 +116,14 @@ CREATE TABLE [dbo].[NoShows](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Organization]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[Organization]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Organization](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[OrganizationName] [varchar](100) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -134,14 +136,15 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[State]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[State]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[State](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[StateName] [varchar](100) NOT NULL,
+	[Name] [varchar](100) NOT NULL,
+	[Active] [bit] NULL,
 	[CountryId] [bigint] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -154,39 +157,12 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerClockInOutInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[Volunteer]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[VolunteerClockInOutInfo](
-	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[VolunteerInfoId] [bigint] NULL,
-	[VolunteerProfileInfoId] [bigint] NULL,
-	[LocationId] [bigint] NULL,
-	[ClockInDateTime] [datetime] NULL,
-	[ClockOutDateTime] [datetime] NULL,
-	[ClockInProfilePhotoPath] [varchar](500) NULL,
-	[ClockOutProfilePhotoPath] [varchar](500) NULL,
-	[ClockInOutLocationId] [int] NULL,
-	[Active] [bit] NULL,
-	[CreatedBy] [bigint] NULL,
-	[CreatedDt] [datetime] NULL,
-	[UpdatedBy] [bigint] NULL,
-	[UpdatedDt] [datetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-/****** Object:  Table [dbo].[VolunteerInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[VolunteerInfo](
+CREATE TABLE [dbo].[Volunteer](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[DefaultVolunteerProfileInfoId] [bigint] NULL,
 	[FirstName] [varchar](50) NOT NULL,
@@ -216,14 +192,35 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerProfileInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[VolunteerPhoto]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[VolunteerProfileInfo](
+CREATE TABLE [dbo].[VolunteerPhoto](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[VolunteerInfoId] [bigint] NULL,
+	[VolunteerId] [bigint] NULL,
+	[Path] [varchar](500) NULL,
+	[Active] [bit] NULL,
+	[CreatedBy] [bigint] NULL,
+	[CreatedDt] [datetime] NULL,
+	[UpdatedBy] [bigint] NULL,
+	[UpdatedDt] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[VolunteerProfile]    Script Date: 12/31/2017 8:20:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VolunteerProfile](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[VolunteerId] [bigint] NULL,
 	[OrganizationId] [bigint] NULL,
 	[CaseNumber] [varchar](50) NULL,
 	[Volunteer_Hours_Needed] [smallint] NULL,
@@ -244,15 +241,20 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VolunteerProfilePhotoInfo]    Script Date: 11/27/2017 6:48:17 AM ******/
+/****** Object:  Table [dbo].[VolunteerTimeClock]    Script Date: 12/31/2017 8:20:02 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[VolunteerProfilePhotoInfo](
+CREATE TABLE [dbo].[VolunteerTimeClock](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[VolunteerInfoId] [bigint] NULL,
-	[VolunteerProfilePhotoPath] [varchar](500) NULL,
+	[LocationId] [bigint] NULL,
+	[VolunteerId] [bigint] NULL,
+	[VolunteerProfileId] [bigint] NULL,
+	[ClockIn] [datetime] NULL,
+	[ClockOut] [datetime] NULL,
+	[ClockInPhoto] [varchar](500) NULL,
+	[ClockOutPhoto] [varchar](500) NULL,
 	[Active] [bit] NULL,
 	[CreatedBy] [bigint] NULL,
 	[CreatedDt] [datetime] NULL,
@@ -289,45 +291,45 @@ GO
 ALTER TABLE [dbo].[State]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
 REFERENCES [dbo].[Employee] ([Id])
 GO
-ALTER TABLE [dbo].[VolunteerClockInOutInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerProfileInfoId])
-REFERENCES [dbo].[VolunteerProfileInfo] ([Id])
-GO
-ALTER TABLE [dbo].[VolunteerClockInOutInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
-REFERENCES [dbo].[VolunteerInfo] ([Id])
-GO
-ALTER TABLE [dbo].[VolunteerInfo]  WITH CHECK ADD FOREIGN KEY([StateId])
+ALTER TABLE [dbo].[Volunteer]  WITH CHECK ADD FOREIGN KEY([StateId])
 REFERENCES [dbo].[State] ([Id])
 GO
-ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+ALTER TABLE [dbo].[VolunteerPhoto]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
 REFERENCES [dbo].[Employee] ([Id])
 GO
-ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([OrganizationId])
+ALTER TABLE [dbo].[VolunteerPhoto]  WITH CHECK ADD FOREIGN KEY([VolunteerId])
+REFERENCES [dbo].[Volunteer] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfile]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
+REFERENCES [dbo].[Employee] ([Id])
+GO
+ALTER TABLE [dbo].[VolunteerProfile]  WITH CHECK ADD FOREIGN KEY([OrganizationId])
 REFERENCES [dbo].[Organization] ([Id])
 GO
-ALTER TABLE [dbo].[VolunteerProfileInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
-REFERENCES [dbo].[VolunteerInfo] ([Id])
+ALTER TABLE [dbo].[VolunteerProfile]  WITH CHECK ADD FOREIGN KEY([VolunteerId])
+REFERENCES [dbo].[Volunteer] ([Id])
 GO
-ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([CreatedBy])
-REFERENCES [dbo].[Employee] ([Id])
+ALTER TABLE [dbo].[VolunteerTimeClock]  WITH CHECK ADD FOREIGN KEY([VolunteerProfileId])
+REFERENCES [dbo].[VolunteerProfile] ([Id])
 GO
-ALTER TABLE [dbo].[VolunteerProfilePhotoInfo]  WITH CHECK ADD FOREIGN KEY([VolunteerInfoId])
-REFERENCES [dbo].[VolunteerInfo] ([Id])
+ALTER TABLE [dbo].[VolunteerTimeClock]  WITH CHECK ADD FOREIGN KEY([VolunteerId])
+REFERENCES [dbo].[Volunteer] ([Id])
 GO
 
 /* seed data */
-INSERT INTO Employee VALUES('Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
+INSERT INTO Employee VALUES(1,'Admin','Admin','AdminUser','Test@123',1,1,0,GETDATE(),null,null)
 DECLARE @ORG_ID INT
 SET @ORG_ID = @@IDENTITY
  		   
-INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Plano',@ORG_ID,GETDATE())
-INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Frisco',@ORG_ID,GETDATE())
-INSERT INTO Location (LocationName, OrganizationId, CreatedDt) VALUES('Haltom City',@ORG_ID,GETDATE())
+INSERT INTO Location ([Name], OrganizationId, CreatedDt) VALUES('Plano',@ORG_ID,GETDATE())
+INSERT INTO Location ([Name], OrganizationId, CreatedDt) VALUES('Frisco',@ORG_ID,GETDATE())
+INSERT INTO Location ([Name], OrganizationId, CreatedDt) VALUES('Haltom City',@ORG_ID,GETDATE())
 
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('United States' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Uraguay' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Canada' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Mexico' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Russia' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('France' ,1 ,1 ,GETDATE())
-INSERT INTO [dbo].[Country] ([CountryName] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Nepal' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('United States' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Uraguay' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Canada' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Mexico' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Russia' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('France' ,1 ,1 ,GETDATE())
+INSERT INTO [dbo].[Country] ([Name] ,[Active] ,[CreatedBy] ,[CreatedDt]) VALUES('Nepal' ,1 ,1 ,GETDATE())
 GO

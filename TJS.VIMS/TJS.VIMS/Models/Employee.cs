@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -17,11 +17,14 @@ namespace TJS.VIMS.Models
             Organizations = new HashSet<Organization>();
             Organizations1 = new HashSet<Organization>();
             States = new HashSet<State>();
-            VolunteerProfileInfoes = new HashSet<VolunteerProfileInfo>();
-            VolunteerProfilePhotoInfoes = new HashSet<VolunteerProfilePhotoInfo>();
+            VolunteerPhotoes = new HashSet<VolunteerPhoto>();
+            VolunteerProfiles = new HashSet<VolunteerProfile>();
         }
 
         public long Id { get; set; }
+
+        [StringLength(128)]
+        public string AspNetUsers_Id { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -39,7 +42,6 @@ namespace TJS.VIMS.Models
         [StringLength(400)]
         public string Password { get; set; }
 
-        [Display(Name = "Admin")]
         public bool Admin { get; set; }
 
         public bool Active { get; set; }
@@ -68,9 +70,9 @@ namespace TJS.VIMS.Models
         public virtual ICollection<State> States { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerProfileInfo> VolunteerProfileInfoes { get; set; }
+        public virtual ICollection<VolunteerPhoto> VolunteerPhotoes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerProfilePhotoInfo> VolunteerProfilePhotoInfoes { get; set; }
+        public virtual ICollection<VolunteerProfile> VolunteerProfiles { get; set; }
     }
 }

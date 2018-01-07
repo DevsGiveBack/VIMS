@@ -192,10 +192,15 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="DAL\AdministrationRepository.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="DAL\VIMSDBContext.cs" />
     <Compile Include="Models\MyTable2.cs" />
     <Compile Include="Models\Organization.Partial.cs" />
+    <Compile Include="Models\Organization.cs" />
     <Compile Include="Reports\Individual.cs" />
     <Compile Include="Reports\Reporting.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -209,7 +214,6 @@
     <Compile Include="DAL\IOrganizationRepository.cs" />
     <Compile Include="DAL\LocationRepository.cs" />
     <Compile Include="DAL\OrganizationRepository.cs" />
-    <Compile Include="Models\Country.cs" />
     <Compile Include="DAL\EmployeeRepository.cs" />
     <Compile Include="DAL\IEmployeeRepository.cs" />
     <Compile Include="DAL\ILookUpRepository.cs" />
@@ -220,13 +224,10 @@
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\VolunteerInfoRepository.cs" />
-    <Compile Include="Models\Employee.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Organization.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -250,11 +251,10 @@
     <Compile Include="ViewModel\VolunteerClockedInOutViewModel.cs" />
     <Compile Include="ViewModel\VolunteerClockInViewModel.cs" />
     <Compile Include="ViewModel\VolunteerViewModel.cs" />
-    <Compile Include="DAL\VIMSDBContext.cs" />
-    <Compile Include="Models\VolunteerClockInOutInfo.cs" />
-    <Compile Include="Models\VolunteerInfo.cs" />
-    <Compile Include="Models\VolunteerProfileInfo.cs" />
-    <Compile Include="Models\VolunteerProfilePhotoInfo.cs" />
+    <Compile Include="Models\Volunteer.cs" />
+    <Compile Include="Models\VolunteerPhoto.cs" />
+    <Compile Include="Models\VolunteerProfile.cs" />
+    <Compile Include="Models\VolunteerTimeClock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

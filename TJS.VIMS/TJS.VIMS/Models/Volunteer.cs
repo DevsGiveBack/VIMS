@@ -1,4 +1,4 @@
-namespace TJS.VIMS.Models
+namespace TJS.VIMS
 {
     using System;
     using System.Collections.Generic;
@@ -6,15 +6,15 @@ namespace TJS.VIMS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("VolunteerInfo")]
-    public partial class VolunteerInfo
+    [Table("Volunteer")]
+    public partial class Volunteer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public VolunteerInfo()
+        public Volunteer()
         {
-            VolunteerClockInOutInfoes = new HashSet<VolunteerClockInOutInfo>();
-            VolunteerProfileInfoes = new HashSet<VolunteerProfileInfo>();
-            VolunteerProfilePhotoInfoes = new HashSet<VolunteerProfilePhotoInfo>();
+            VolunteerPhotoes = new HashSet<VolunteerPhoto>();
+            VolunteerProfiles = new HashSet<VolunteerProfile>();
+            VolunteerTimeClocks = new HashSet<VolunteerTimeClock>();
         }
 
         public long Id { get; set; }
@@ -78,12 +78,12 @@ namespace TJS.VIMS.Models
         public virtual State State { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerClockInOutInfo> VolunteerClockInOutInfoes { get; set; }
+        public virtual ICollection<VolunteerPhoto> VolunteerPhotoes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerProfileInfo> VolunteerProfileInfoes { get; set; }
+        public virtual ICollection<VolunteerProfile> VolunteerProfiles { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VolunteerProfilePhotoInfo> VolunteerProfilePhotoInfoes { get; set; }
+        public virtual ICollection<VolunteerTimeClock> VolunteerTimeClocks { get; set; }
     }
 }

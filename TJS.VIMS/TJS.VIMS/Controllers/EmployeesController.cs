@@ -51,6 +51,9 @@ namespace TJS.VIMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                employee.Active = true;
+                //todo employee.CreatedBy = 0;
+                employee.CreatedDt = DateTime.Now;
                 db.Employees.Add(employee);
                 db.SaveChanges();
                 return RedirectToAction("Index");

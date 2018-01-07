@@ -27,13 +27,16 @@ namespace TJS.VIMS
 
 
             // In Startup iam creating first Admin Role and creating a default Admin User 
-            if (!roleManager.RoleExists("Employee"))
+            if (!roleManager.RoleExists("Employee") && !roleManager.RoleExists("Administrator"))
             {
+                //create roles
+                var role1 = new IdentityRole();
+                role1.Name = "Employee";
+                roleManager.Create(role1);
 
-                // first we create Admin rool
-                var role = new IdentityRole();
-                role.Name = "Employee";
-                roleManager.Create(role);
+                var role2 = new IdentityRole();
+                role2.Name = "Administrator";
+                roleManager.Create(role2);
 
                 //Here we create a Admin super user who will maintain the website				
 
@@ -49,15 +52,15 @@ namespace TJS.VIMS
                 if (chkUser.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Employee");
-
+                    var result2 = UserManager.AddToRole(user.Id, "Administrator");
                 }
             }
 
             //// creating Creating Manager role 
-            //if (!roleManager.RoleExists("Manager"))
+            //if (!roleManager.RoleExists("Administrator"))
             //{
             //    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-            //    role.Name = "Manager";
+            //    role.Name = "Administrator";
             //    roleManager.Create(role);
 
             //}
