@@ -1,7 +1,7 @@
 # VIMS (Volunteer Information Management System)
 
-* http://dfwnonprofitgeeks.org/
-* http://dfwnonprofitgeeks.org/projects/
+* http://devsgiveback.org/
+* http://devsgiveback.org/projects/
 
 ### Trello boards here
 
